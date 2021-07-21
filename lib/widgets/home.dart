@@ -91,7 +91,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     homeList.add(_getWidget(HomeBean("Animated(动画)",
         "lib/widgets/animated.dart", AnimateWidgetDemo())));
     homeList.add(_getWidget(HomeBean("绘制组件",
-        "lib/widgets/animated.dart", CanvasDemo())));
+        "lib/widgets/canvas_demo.dart", CanvasDemo())));
     homeList.add(_getWidget(HomeBean("日期组件",
         "lib/widgets/animated.dart", CalendarDemo())));
 

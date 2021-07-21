@@ -14,17 +14,17 @@ import 'common/theme_common.dart';
 
 class App {
   static init() {
-    // FlutterBugly.postCatchedException(() {
+    FlutterBugly.postCatchedException(() {
     //
-    // });
-    WidgetsFlutterBinding.ensureInitialized();
-    // Global.instance.init().then((value) => SpUtil.init().then((value) {
-    //   runApp(Status.init(MyApp()));
-    // }));
-
-    SpUtil.init().then((value) {
-      runApp(Status.init(MyApp()));
     });
+    WidgetsFlutterBinding.ensureInitialized();
+    Global.instance.init().then((value) => SpUtil.init().then((value) {
+      runApp(Status.init(MyApp()));
+    }));
+    //
+    // SpUtil.init().then((value) {
+    //   runApp(Status.init(MyApp()));
+    // });
 
     initApp();
     // catchException<String>(() {
@@ -32,7 +32,7 @@ class App {
     // });
   }
   static void initApp() {
-    // Bugly.init();
+    Bugly.init();
   }
 
   /// 异常捕获处理
