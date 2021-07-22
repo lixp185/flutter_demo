@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:yht_meeting/common/syntax_highlighter.dart';
+import 'package:flutter_demo/common/syntax_highlighter.dart';
 
 class CodePage extends StatefulWidget {
   final demoFilePath;
@@ -12,14 +12,14 @@ class CodePage extends StatefulWidget {
 }
 
 class _CodePageState extends State<CodePage> {
-  String _markdownCodeString;
+  String? _markdownCodeString;
   var style = SyntaxHighlighterStyle.darkThemeStyle();
 
   @override
   void didChangeDependencies() {
     getExampleCode(
             context, '${widget.demoFilePath}', DefaultAssetBundle.of(context))
-        .then<void>((String code) {
+        .then<void>((String? code) {
       if (mounted) {
         setState(() {
           _markdownCodeString = code ?? 'Example code not found';
@@ -33,14 +33,14 @@ class _CodePageState extends State<CodePage> {
   Widget build(BuildContext context) {
     Widget mdCode;
     try {
-      DartSyntaxHighlighter(style).format(_markdownCodeString);
+      DartSyntaxHighlighter(style).format(_markdownCodeString ?? "");
       mdCode = Padding(
         padding: const EdgeInsets.all(8.0),
         child: RichText(
           text: TextSpan(
             style: const TextStyle(fontSize: 12.0),
             children: <TextSpan>[
-              DartSyntaxHighlighter(style).format(_markdownCodeString),
+              DartSyntaxHighlighter(style).format(_markdownCodeString ?? ""),
             ],
           ),
         ),
@@ -73,18 +73,18 @@ class _CodePageState extends State<CodePage> {
   }
 }
 
-Map<String, String> _exampleCode;
-String _code;
+Map<String, String>? _exampleCode;
+String? _code;
 
 Future<String> getExampleCode(
     context, String filePath, AssetBundle bundle) async {
   if (_exampleCode == null) await _parseExampleCode(context, filePath, bundle);
-  return _code;
+  return _code ?? "";
 }
 
 Future<void> _parseExampleCode(
     context, String filePath, AssetBundle bundle) async {
-  String code;
+  String? code;
   try {
     code = await bundle.loadString(filePath);
   } catch (err) {

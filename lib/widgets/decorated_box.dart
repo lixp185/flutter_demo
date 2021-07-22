@@ -25,7 +25,7 @@ class _DecoratedBoxState extends State<DecoratedBoxDemo> {
                     gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [Colors.blue, Colors.blue[200]]),
+                        colors: [Colors.blue, Colors.blue[200]!]),
                     borderRadius: BorderRadius.circular(4.0),
                     boxShadow: [
                       BoxShadow(

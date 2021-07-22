@@ -14,9 +14,7 @@ class TabBarState extends State<TabBarWidgetDemo> {
   Widget build(BuildContext context) {
 
     return Container(
-      child: TabBar(
 
-      ),
     );
   }
 }

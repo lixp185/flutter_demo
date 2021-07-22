@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:yht_meeting/widgets/data/share_provider.dart';
+import 'package:flutter_demo/widgets/data/share_provider.dart';
 
 class ChangeNotifierProvider<T extends ChangeNotifier> extends StatefulWidget {
-  final T data;
+  final T? data;
   final Widget child;
 
-  const ChangeNotifierProvider({Key key, this.data, this.child})
+  const ChangeNotifierProvider({Key? key, this.data, required this.child})
       : super(key: key);
 
-  static T of<T>(BuildContext context) {
+  static T? of<T>(BuildContext context) {
     final provider =
         context.dependOnInheritedWidgetOfExactType<ShareProvider<T>>();
-    return provider.data;
+    return provider?.data;
   }
 
   @override
@@ -31,21 +31,21 @@ class _ChangeNotifierProviderState<T extends ChangeNotifier>
   void didUpdateWidget(
       covariant ChangeNotifierProvider<T> oldWidget) {
     if (oldWidget.data != widget.data) {
-      oldWidget.data.removeListener(update);
-      widget.data.addListener(update);
+      oldWidget.data?.removeListener(update);
+      widget.data?.addListener(update);
     }
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void initState() {
-    widget.data.addListener(update);
+    widget.data?.addListener(update);
     super.initState();
   }
 
   @override
   void dispose() {
-    widget.data.removeListener(update);
+    widget.data?.removeListener(update);
     super.dispose();
   }
 

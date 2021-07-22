@@ -1,11 +1,6 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 import 'app.dart';
-import 'models/yht_res.dart';
+
 
 void main() {
  App.init();

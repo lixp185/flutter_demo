@@ -21,7 +21,7 @@ class _SizeBoxDemoState extends State<SizeBoxDemo> {
                 child: DecoratedBox(
                   child: Align(
                     alignment: Alignment.center,
-                    child: Text("ConstrainedBox"),
+                    child: Text("ConstrainedBox 限制最小高度"),
                   ),
                   decoration: BoxDecoration(color: Colors.blue),
                 ),
@@ -34,21 +34,21 @@ class _SizeBoxDemoState extends State<SizeBoxDemo> {
                 color: Colors.red,
                 child: Align(
                   alignment: Alignment.center,
-                  child: Text("SizedBox"),
+                  child: Text("SizedBox 限制固定宽高"),
                 ),
               ),
             ),
-            ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 100, maxHeight: 50),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: 60, maxHeight: 100),
-              child: Container(
-                color: Colors.blue,
-                child: Center(
-                  child: Text("xxx"),
+              ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 100, maxHeight: 50),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: 70, maxHeight: 100),
+                  child: Container(
+                    color: Colors.blue,
+                    child: Center(
+                      child: Text("限制最大宽高"),
+                    ),
+                  ),
                 ),
-              ),
-              ),
             )
           ],
         ));

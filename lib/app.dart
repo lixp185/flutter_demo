@@ -3,24 +3,25 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:provider/provider.dart';
-import 'package:yht_meeting/models/app_theme.dart';
-import 'package:yht_meeting/utils/bugly.dart';
-import 'package:yht_meeting/utils/sp_util.dart';
-import 'package:yht_meeting/utils/status.dart';
-import 'package:yht_meeting/widgets/home.dart';
+import 'package:flutter_demo/models/app_theme.dart';
+import 'package:flutter_demo/utils/bugly.dart';
+import 'package:flutter_demo/utils/sp_util.dart';
+import 'package:flutter_demo/utils/status.dart';
+import 'package:flutter_demo/widgets/home.dart';
 
 import 'common/global.dart';
 import 'common/theme_common.dart';
+import 'widgets/main_page.dart';
 
 class App {
   static init() {
     FlutterBugly.postCatchedException(() {
-    //
+      //
     });
     WidgetsFlutterBinding.ensureInitialized();
     Global.instance.init().then((value) => SpUtil.init().then((value) {
-      runApp(Status.init(MyApp()));
-    }));
+          runApp(Status.init(MyApp()));
+        }));
     //
     // SpUtil.init().then((value) {
     //   runApp(Status.init(MyApp()));
@@ -31,6 +32,7 @@ class App {
     //   return "";
     // });
   }
+
   static void initApp() {
     Bugly.init();
   }
@@ -96,7 +98,7 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           theme: appTheme.themeDate,
           darkTheme: ThemeCommon.darkTheme,
-          home: HomeWidget(title: '仪会通'),
+          home: MainPage(),
           debugShowCheckedModeBanner: false,
         );
       },

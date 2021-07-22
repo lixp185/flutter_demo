@@ -8,6 +8,10 @@ class ContainerDemo extends StatefulWidget {
 class _ContainerDemoState extends State<ContainerDemo> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      padding: EdgeInsets.all(20),
+      color: Colors.blue,
+      child: Text("最常用的组件 包裹布局"),
+    );
   }
 }

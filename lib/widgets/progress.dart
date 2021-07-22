@@ -14,7 +14,10 @@ class ProgressState extends State<ProgressWidgetDemo> {
       margin: EdgeInsets.all(10),
       child: Column(
         children: [
-          Text("LinearProgressIndicator or CircularProgressIndicator"),
+          Container(
+            margin: EdgeInsets.all(20),
+            child: Text("LinearProgressIndicator"),
+          ),
           Container(
             margin: EdgeInsets.all(20),
             child: LinearProgressIndicator(
@@ -31,33 +34,34 @@ class ProgressState extends State<ProgressWidgetDemo> {
               value: 0.4,
             ),
           ),
-         
-        Row(
-          children: [
-            Container(
-              margin: EdgeInsets.all(20),
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation(Colors.blue),
-                backgroundColor: Colors.blue[200],
+          Text("CircularProgressIndicator"),
+          Row(
+            children: [
+              Container(
+                margin: EdgeInsets.all(20),
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation(Colors.blue),
+                  backgroundColor: Colors.blue[200],
+                ),
               ),
-            ),
-            Container(
-              width: 20,
-              height: 20,
-              margin: EdgeInsets.all(20),
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation(Colors.blue),
-                backgroundColor: Colors.red[200],
-                value: 0.4,
+              Container(
+                width: 20,
+                height: 20,
+                margin: EdgeInsets.all(20),
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation(Colors.blue),
+                  backgroundColor: Colors.red[200],
+                  value: 0.4,
+                ),
               ),
-            ),
-          ],
-        )
+            ],
+          )
         ],
       ),
     );
   }
 }
+
 ///LinearProgressIndicator 属性
 /// value	当前进度，0 ~ 1
 /// backgroundColor	进度条背景色

@@ -53,7 +53,7 @@ class _CheckBoxState extends State<CheckBoxWidgetDemo> {
                   activeColor: Colors.blue,
                   onChanged: (value) {
                     setState(() {
-                      _checkboxSelected = value;
+                      _checkboxSelected = value ?? false;
                     });
                   }),
               Text(_checkboxSelected ? "Checkbox 选中" : "Checkbox 未选中")
@@ -110,11 +110,11 @@ class _CheckBoxState extends State<CheckBoxWidgetDemo> {
             visualDensity: VisualDensity(
                 horizontal: VisualDensity.minimumDensity,
                 vertical: VisualDensity.minimumDensity),
-            value: fmRadioBean.isSelect ?? false,
+            value: fmRadioBean.isSelect,
             activeColor: Colors.blue,
             onChanged: (value) {
               setState(() {
-                if (value) {
+                if (value == true) {
                   fmRadioBean.isSelect = true;
                   _checkText.add(fmRadioBean.text);
                 } else {
@@ -136,6 +136,7 @@ class FMRadioBean {
 
   FMRadioBean(this.index, this.text, this.isSelect);
 }
+
 /// Radio 属性
 /// value	@required 此单选按钮表示的值
 /// groupValue	@required 选中

@@ -9,8 +9,8 @@ class WqQp extends StatefulWidget {
   final double qzSize; //棋子大小
 
   const WqQp(
-      {Key key,
-      this.offsetList,
+      {Key? key,
+      required this.offsetList,
       this.width = 360,
       this.height = 360,
       this.qpWg = 18,
@@ -35,7 +35,7 @@ class _WqQpState extends State<WqQp> {
 // 棋子
 class Qz extends CustomPainter {
   final List<Offset> offsetList;
-  final double qzSize; //棋子大小
+  final double? qzSize; //棋子大小
 
   Qz(this.offsetList, {this.qzSize});
 
@@ -54,7 +54,7 @@ class Qz extends CustomPainter {
         //     BlendMode.exclusion)
         // ..maskFilter = MaskFilter.blur(BlurStyle.inner,3)
         ..style = PaintingStyle.fill;
-      canvas.drawCircle(offsetList[i], qzSize, paint);
+      canvas.drawCircle(offsetList[i], qzSize ?? 8, paint);
     }
   }
 

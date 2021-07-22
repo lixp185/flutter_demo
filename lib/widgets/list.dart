@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_demo/widgets/my_easy_refresh.dart';
 
 class ListViewWidgetDemo extends StatefulWidget {
   @override
@@ -9,15 +12,48 @@ class ListViewWidgetDemo extends StatefulWidget {
 }
 
 class ListViewState extends State<ListViewWidgetDemo> {
+  final lis = [];
+  final lisAdd = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  @override
+  void initState() {
+    super.initState();
+    for (int i = 0; i < 20; i++) {
+      lis.add(i);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.vertical,
-        itemCount: 56,
-        itemBuilder: (context, index) {
-          return _listWidget(index);
-        });
+    return MyEasyRefresh(
+        onRefresh: () async {
+          Future.delayed(Duration(milliseconds: 1000), () {
+          setState(() {
+            lis.clear();
+            lis.addAll(lisAdd);
+            lis.addAll(lisAdd);
+            MyEasyRefresh.controller.finishRefresh();
+            MyEasyRefresh.controller.resetLoadState();
+          });
+
+          });
+        },
+        onLoad: () async {
+          Future.delayed(Duration(milliseconds: 1000), () {
+            setState(() {
+              lis.addAll(lisAdd);
+              MyEasyRefresh.controller.finishLoad();
+            });
+
+          });
+        },
+        child: ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: lis.length,
+            itemBuilder: (context, index) {
+              return _listWidget(index);
+            }));
   }
 
   Widget _listWidget(int index) {
@@ -27,7 +63,7 @@ class ListViewState extends State<ListViewWidgetDemo> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: 100,
+              width: 100,
               height: 50,
               alignment: Alignment.center,
               // constraints: BoxConstraints.tightFor(width: 150, height: 50),
@@ -48,7 +84,6 @@ class ListViewState extends State<ListViewWidgetDemo> {
     return widget;
   }
 }
-
 
 /// listView 常用 属性
 
@@ -72,5 +107,3 @@ class ListViewState extends State<ListViewWidgetDemo> {
 /// bool addAutomaticKeepAlives = true,
 /// 是否将item包裹在RepaintBoundary组件中
 /// bool addRepaintBoundaries = true,
-
-

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:yht_meeting/utils/sp_util.dart';
+import 'package:flutter_demo/utils/sp_util.dart';
 
 // app主题状态
 class AppTheme extends ChangeNotifier {
@@ -20,7 +20,7 @@ class AppTheme extends ChangeNotifier {
   ];
 
   MaterialColor _mThemeColor;
-  static MaterialColor _mThemeColor2;
+  static MaterialColor? _mThemeColor2;
 
   bool isDark = false;
 
@@ -63,7 +63,7 @@ class AppTheme extends ChangeNotifier {
 
   // 获取默认主题
   static MaterialColor getDefaultTheme() {
-    return materialColors[SpUtil.getThemeColorIndex()];
+    return materialColors[SpUtil.getThemeColorIndex()??0];
   }
 
   // 修改主题颜色

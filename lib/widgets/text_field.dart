@@ -9,6 +9,7 @@ class TextFieldWidgetDemo extends StatefulWidget {
 
 class _TextFieldState extends State<TextFieldWidgetDemo> {
   GlobalKey _formKey = new GlobalKey<FormState>();
+  TextEditingController _phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +72,7 @@ class _TextFieldState extends State<TextFieldWidgetDemo> {
                     TextFormField(
                       autofocus: true,
                       cursorWidth: 1,
-                      controller: TextEditingController(),
+                      controller: _phoneController,
                       style: TextStyle(fontSize: 14),
                       textAlign: TextAlign.left,
                       autocorrect: true,
@@ -86,7 +87,7 @@ class _TextFieldState extends State<TextFieldWidgetDemo> {
                       textInputAction: TextInputAction.search,
                       keyboardType: TextInputType.phone,
                       validator: (phone) {
-                        return phone.length == 11 ? null : "请输入11位手机号码";
+                        return phone?.length == 11 ? null : "请输入11位手机号码";
                       },
                     ),
                     TextFormField(
@@ -107,7 +108,9 @@ class _TextFieldState extends State<TextFieldWidgetDemo> {
                       textInputAction: TextInputAction.search,
                       keyboardType: TextInputType.text,
                       validator: (psd) {
-                        return psd.length >= 6 ? null : "密码至少6位数";
+                        return psd != null && psd.length >= 6
+                            ? null
+                            : "密码至少6位数";
                       },
                     ),
                     ElevatedButton(
@@ -115,11 +118,11 @@ class _TextFieldState extends State<TextFieldWidgetDemo> {
                           if ((_formKey.currentState as FormState).validate()) {
                             // 验证通过
                           } else {
+                            print("验证不通过---${_phoneController.value.text}");
                             // 验证不通过
-                            print("验证不通过");
                           }
                         },
-                        child: Text("提交"))
+                        child: Text("提交")),
                   ],
                 )),
           ],

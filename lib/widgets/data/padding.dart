@@ -14,21 +14,33 @@ class _PaddingDemoState extends State<PaddingDemo> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: Text("text1"),
+            Container(
+              color: Colors.blue,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Text("上下内边距"),
+              ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: Text("text1"),
+            Container(
+              margin: EdgeInsets.all(10),
+              color: Colors.blue,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Text("左右内边距"),
+              ),
             ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Text("text1"),
-            )
+            Container(
+                margin: EdgeInsets.all(10),
+                color: Colors.blue,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: Text("下内边距"),
+                ))
           ],
         ),
       ),
     );
   }
 }
+
+/// 内边距

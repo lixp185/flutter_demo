@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:yht_meeting/widgets/qp_widget.dart';
+import 'package:flutter_demo/widgets/qp_widget.dart';
 
 /// 绘制组件
 class CanvasDemo extends StatefulWidget {
@@ -9,7 +9,7 @@ class CanvasDemo extends StatefulWidget {
 }
 
 class _CanvasState extends State<CanvasDemo> {
-  var qoSize = QpSize.thirteen;
+  var qoSize = QpSize.nineteen;
 
   @override
   Widget build(BuildContext context) {
@@ -24,31 +24,6 @@ class _CanvasState extends State<CanvasDemo> {
               height: MediaQuery.of(context).size.width / 1.2,
               qpSize: qoSize,
             ),
-            Row(
-              children: [
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        qoSize = QpSize.nine;
-                      });
-                    },
-                    child: Text("9路")),
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        qoSize = QpSize.thirteen;
-                      });
-                    },
-                    child: Text("13路")),
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        qoSize = QpSize.nineteen;
-                      });
-                    },
-                    child: Text("19路"))
-              ],
-            )
           ],
         ));
   }

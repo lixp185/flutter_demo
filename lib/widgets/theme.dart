@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yht_meeting/models/app_theme.dart';
-import 'package:yht_meeting/utils/status.dart';
+import 'package:flutter_demo/models/app_theme.dart';
+import 'package:flutter_demo/utils/status.dart';
 
 class ThemeWidgetDemo extends StatefulWidget {
   @override

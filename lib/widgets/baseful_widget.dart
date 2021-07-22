@@ -44,7 +44,7 @@ import 'code_page.dart';
     return Future.value(b);
   }
 
-  Widget _buildAppBar() {
+  AppBar? _buildAppBar() {
     return AppBar(
       title: Text(widget.title),
       centerTitle: true,

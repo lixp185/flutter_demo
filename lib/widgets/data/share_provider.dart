@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ShareProvider<T> extends InheritedWidget  {
-  final T data;
+  final T? data;
 
-  ShareProvider(this.data, Widget child) : super(child: child);
+  ShareProvider(this.data, Widget child) : super(child: child) ;
 
   @override
   bool updateShouldNotify(covariant ShareProvider<T> oldWidget) {

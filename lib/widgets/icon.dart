@@ -17,7 +17,7 @@ class _IconState extends State<IconWidgetDemo> {
   @override
   void initState() {
     super.initState();
-    _storageDir = getExternalStorageDirectory().then((value) => value.path);
+    _storageDir = getExternalStorageDirectory().then((value) => value?.path);
   }
 
   @override

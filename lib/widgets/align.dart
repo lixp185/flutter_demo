@@ -8,7 +8,7 @@ class AlignDemo extends StatelessWidget {
       height: 120,
       color: Colors.blue[200],
       child: Align(
-        alignment: FractionalOffset(0.5, 0.5),
+        alignment: FractionalOffset(1.2, 0.5),
         child:Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -20,3 +20,6 @@ class AlignDemo extends StatelessWidget {
     );
   }
 }
+/// 位置的设定 0-1 为父控件比例
+///
+///

@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:yht_meeting/common/theme_common.dart';
 
 class Item {
-  Item({this.price, this.count});
+  Item({required this.price, required this.count});
 
   double price;
   int count;

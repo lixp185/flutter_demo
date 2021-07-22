@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:yht_meeting/common/theme_common.dart';
+import 'package:flutter_demo/common/theme_common.dart';
 
 import 'car_item.dart';
 
@@ -9,18 +9,19 @@ class CarModel extends ChangeNotifier {
   //购物车商品
   final List<Item> _items = [];
 
-   ThemeData themeData = ThemeCommon.lightTheme;
+  ThemeData themeData = ThemeCommon.lightTheme;
 
   // 禁止改变购物车里的商品信息
   UnmodifiableListView<Item> get items => UnmodifiableListView(_items);
 
   double get totaPrice {
-    return _items.fold(0, (value, item) => value + item.count * item.price);
+    return _items.fold(
+        0, (value, item) => value + item.count * item.price);
   }
 
   ThemeData get getTheme => themeData;
 
-  void setTheme(ThemeData themeData){
+  void setTheme(ThemeData themeData) {
     this.themeData = themeData;
     notifyListeners();
   }

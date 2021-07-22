@@ -9,7 +9,7 @@ class QpWidget extends StatefulWidget {
   final double width; //棋盘宽
   final double height; //棋盘高
   const QpWidget(
-      {Key key, this.qpSize = QpSize.nineteen, this.width, this.height})
+      {Key? key, this.qpSize = QpSize.nineteen, required this.width, required this.height})
       : super(key: key);
 
   @override
@@ -23,7 +23,7 @@ enum QpSize {
 }
 
 class _QpWidgetState extends State<QpWidget> {
-  Offset offset; // 坐标系
+  late Offset offset; // 坐标系
   List<Offset> offsetList = [];
 
   // 横轴坐标
@@ -72,13 +72,11 @@ class _QpWidgetState extends State<QpWidget> {
     "19",
   ];
 
-  int qpWg; //棋盘网络路
-  double qzSize; //棋子大小
+  late int qpWg; //棋盘网络路
+  late double qzSize; //棋子大小
   @override
   void initState() {
-    //
     super.initState();
-
     if (widget.qpSize == QpSize.nine) {
       // 9路
       qpWg = 8;

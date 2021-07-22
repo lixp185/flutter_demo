@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TextWidgetDemo extends StatefulWidget {
   @override
@@ -57,10 +59,26 @@ class _TextWidgetState extends State<TextWidgetDemo> {
                   decoration: TextDecoration.lineThrough,
                 ))
           ])),
+          Text.rich(TextSpan(children: [
+            TextSpan(text: "github:"),
+            TextSpan(
+                text: "https://github.com/lixp185/flutter_demo",
+                recognizer: TapGestureRecognizer()..onTap = () {
+                  _launchURL("https://github.com/lixp185/flutter_demo");
+                },
+                style: TextStyle(
+                  color: Colors.blue,
+                  decoration: TextDecoration.underline,
+                ))
+          ])),
         ],
       ),
     );
   }
+
+  void _launchURL(String _url) async => await canLaunch(_url)
+      ? await launch(_url)
+      : throw 'Could not launch $_url';
 }
 
 /// 常用text属性
