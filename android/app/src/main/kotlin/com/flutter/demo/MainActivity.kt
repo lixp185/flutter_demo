@@ -1,4 +1,4 @@
-package com.instrument.yht_meeting
+package com.flutter.demo
 
 import io.flutter.embedding.android.FlutterActivity
 

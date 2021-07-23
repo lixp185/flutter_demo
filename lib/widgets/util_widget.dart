@@ -4,6 +4,7 @@ import 'package:flutter_demo/utils/sliver_to_widget.dart';
 import 'package:flutter_demo/widgets/util_page/open_image.dart';
 
 import 'baseful_widget.dart';
+import 'util_page/my_toast.dart';
 
 /// 工具、其他组件
 class UtilWidget extends StatefulWidget {
@@ -21,6 +22,10 @@ class _UtilWidgetState extends State<UtilWidget>
 
     utilList.add(_getWidget(
         HomeBean("图片选择器", "lib/widgets/open_image.dart", OpenImage())));
+    // utilList.add(_getWidget(
+    //     HomeBean("吐司工具", "lib/widgets/my_toast.dart", MyToast())));
+    utilList
+        .add(_getWidget(HomeBean("时间工具", "lib/widgets/time.dart", MyToast())));
   }
 
   @override
