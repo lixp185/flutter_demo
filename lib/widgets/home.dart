@@ -11,7 +11,7 @@ import 'calendar.dart';
 import 'canvas_demo.dart';
 import 'check.dart';
 import 'container.dart';
-import 'data/padding.dart';
+import 'padding.dart';
 import 'decorated_box.dart';
 import 'dialog.dart';
 import 'gesture_detector.dart';
@@ -75,8 +75,8 @@ class _HomeWidgetState extends State<HomeWidget>
         HomeBean("边距控制(Padding)", "lib/widgets/padding.dart", PaddingDemo())));
     homeList.add(_getWidget(
         HomeBean("尺寸限制类容器", "lib/widgets/size_box.dart", SizeBoxDemo())));
-    homeList.add(_getWidget(HomeBean(
-        "装饰(DecoratedBox)", "lib/widgets/decorated_box.dart", DecoratedBoxDemo())));
+    homeList.add(_getWidget(HomeBean("装饰(DecoratedBox)",
+        "lib/widgets/decorated_box.dart", DecoratedBoxDemo())));
     homeList.add(_getWidget(HomeBean(
         "Transform(变换)", "lib/widgets/transform.dart", TransformDemo())));
     homeList.add(_getWidget(HomeBean(
