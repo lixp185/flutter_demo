@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_demo/utils/toast_util.dart';
 
+/// toast 演示
 class MyToast extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -10,13 +11,15 @@ class MyToast extends StatelessWidget {
         children: [
           ElevatedButton(
               onPressed: () {
-                Fluttertoast.showToast(msg: "我是一个普通吐司",gravity: ToastGravity.CENTER);
+                ToastUtil.toast(context, msg: "我是一个普通toast");
               },
               child: Text("普通吐司")),
-
           ElevatedButton(
               onPressed: () {
-                Fluttertoast.showToast(msg: "我是一个错误吐司",gravity: ToastGravity.CENTER,backgroundColor: Colors.red,);
+                ToastUtil.showError(
+                  context,
+                  "我是一个错误toast"
+                );
               },
               child: Text("错误吐司"))
         ],
