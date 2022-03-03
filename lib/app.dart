@@ -7,7 +7,6 @@ import 'package:flutter_demo/models/app_theme.dart';
 import 'package:flutter_demo/utils/bugly.dart';
 import 'package:flutter_demo/utils/sp_util.dart';
 import 'package:flutter_demo/utils/status.dart';
-import 'package:flutter_demo/widgets/home.dart';
 
 import 'common/global.dart';
 import 'common/theme_common.dart';

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ToastUtil {
   static OverlayEntry? _overlayEntry; // toast靠它加到屏幕上
@@ -20,7 +21,7 @@ class ToastUtil {
     BuildContext context, {
     String? img,
     required String msg,
-    int showTime = 2000,
+    int showTime = 2000, // 显示时长 ms
     Color bgColor = Colors.black54,
     Color textColor = Colors.white,
     double textSize = 14.0,
@@ -113,36 +114,17 @@ class ToastUtil {
     return backResult;
   }
 
-  static showError(BuildContext context, String msg) {
-    toast(context,
-        msg: msg,
-        img: "images/error.png",
-        textColor: Colors.white,
-        bgColor: Colors.redAccent);
+  static show(String msg) {
+    Fluttertoast.showToast(
+        msg: "$msg",
+        backgroundColor: Colors.black54,
+        gravity: ToastGravity.CENTER);
   }
 
-// static showToast(
-//   String msg, {
-//   Toast? toastLength,
-//   int timeInSecForIosWeb = 1,
-//   double? fontSize,
-//   ToastGravity? gravity,
-//   Color? backgroundColor,
-//   Color? textColor,
-//   bool webShowClose = false,
-//   webBgColor: "linear-gradient(to right, #00b09b, #96c93d)",
-//   webPosition: "right",
-// }) {
-//   Fluttertoast.showToast(
-//       msg: msg,
-//       fontSize: fontSize,
-//       gravity: gravity,
-//       backgroundColor: backgroundColor,
-//       webShowClose: webShowClose,
-//       webBgColor: webBgColor,
-//       webPosition: webPosition,
-//       timeInSecForIosWeb: timeInSecForIosWeb,
-//       toastLength: toastLength,
-//       textColor: textColor);
-// }
+  static showError(String msg) {
+    Fluttertoast.showToast(
+        msg: "error: $msg",
+        backgroundColor: Colors.red,
+        gravity: ToastGravity.CENTER);
+  }
 }

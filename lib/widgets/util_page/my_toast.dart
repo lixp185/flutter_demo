@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/utils/toast_util.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 /// toast 演示
 class MyToast extends StatelessWidget {
@@ -11,15 +12,12 @@ class MyToast extends StatelessWidget {
         children: [
           ElevatedButton(
               onPressed: () {
-                ToastUtil.toast(context, msg: "我是一个普通toast");
+                ToastUtil.show("我是一个普通toast");
               },
               child: Text("普通吐司")),
           ElevatedButton(
               onPressed: () {
-                ToastUtil.showError(
-                  context,
-                  "我是一个错误toast"
-                );
+                ToastUtil.showError("我是一个错误toast");
               },
               child: Text("错误吐司"))
         ],

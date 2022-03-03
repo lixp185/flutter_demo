@@ -30,7 +30,7 @@ class _AnimateWidgetDemoState extends State<AnimateWidgetDemo>
     cure = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     // 在2s之内从0变到100采用cure的运动轨迹变化
     // Tween定义数据的起始和终点
-    animation = Tween(begin: 0.0, end: 1.0).animate(cure)
+    animation = Tween(begin: 0.0, end: 1.0).animate(_controller)
       ..addStatusListener((status) {
         // dismissed	动画在起始点停止
         // forward	动画正在正向执行
@@ -43,9 +43,11 @@ class _AnimateWidgetDemoState extends State<AnimateWidgetDemo>
         }
       });
 
-    animation2 =
-        Tween(begin: Offset(0.0, 0.0), end: Offset(1.0, 0.0)).animate(cure);
+    animation2 = Tween<Offset>(begin: Offset(0.0, 0.0), end: Offset(1.0, 0.0))
+        .animate(cure);
     animation3 = Tween(begin: 0.0, end: 1.0).animate(cure);
+
+    // pi 3.14
     animation4 = Tween(begin: 0.0, end: pi * 2).animate(cure);
 
     // 启动动画
