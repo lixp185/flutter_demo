@@ -36,22 +36,7 @@ class _DolphinState extends State<Dolphin> {
     return Column(
       children: [
         Row(
-          children: [
-            // TextButton(
-            //     onPressed: () {
-            //       setState(() {
-            //         if (canvasType == 1)
-            //           canvasType = -1;
-            //         else
-            //           canvasType = 1;
-            //       });
-            //     },
-            //     child: Text(
-            //       "画直线",
-            //       style: TextStyle(
-            //           color: canvasType == 1 ? Colors.blue : Colors.black87),
-            //     ))
-          ],
+          children: [],
         ),
         Expanded(
             child: Container(
@@ -62,9 +47,11 @@ class _DolphinState extends State<Dolphin> {
                         _DolphinPainter(widget.touchController, widget.image),
                   ),
                   onPanDown: (d) {
+                    // 按压
                     judgeZone(d.localPosition);
                   },
                   onPanUpdate: (d) {
+                    // 移动
                     if (widget.touchController.selectIndex != -1) {
                       widget.touchController.updatePoint(
                           widget.touchController.selectIndex, d.localPosition);
@@ -79,17 +66,18 @@ class _DolphinState extends State<Dolphin> {
   bool judgeCircleArea(Offset src, Offset dst, double r) =>
       (src - dst).distance <= r;
 
-  //判断哪个点被选中
-  void judgeZone(Offset src, {bool update = false}) {
+  ///手指按下触发
+  void judgeZone(Offset src) {
+    /// 循环所有的点
     for (int i = 0; i < widget.touchController.points.length; i++) {
-      if (judgeCircleArea(src, widget.touchController.points[i], 15)) {
+      // 判断手指按的位置有没有点
+      if (judgeCircleArea(src, widget.touchController.points[i], 20)) {
+        // 有点 不添加更新选中的点
         widget.touchController.selectIndex = i;
-        if (update) {
-          widget.touchController.updatePoint(i, src);
-        }
         return;
       }
     }
+    // 无点 添加新的点 并将选中的点清空
     widget.touchController.addPoint(src);
     widget.touchController.selectIndex = -1;
   }
@@ -103,58 +91,56 @@ class _DolphinPainter extends CustomPainter {
   _DolphinPainter(this.touchController, this.image)
       : super(repaint: touchController);
 
-  List<Offset>? pos;
-  List<Offset>? pos2;
+  List<Offset>? pos; //
 
   @override
   void paint(Canvas canvas, Size size) {
+    // 画布原点平移到屏幕中央
     canvas.translate(size.width / 2, size.height / 2);
     coordinate.paintT(canvas, size);
+
+    // ，因为手势识别的原点是左上角,所以这里将存储的点相对的原点进行偏移到跟画布一致
     pos = touchController.points
         .map((e) => e.translate(-size.width / 2, -size.height / 2))
         .toList();
 
-    //单独的鳍
-    // pos2 =
-    // canvas.translate(20,0);
-    var paint = Paint();
-    var paint2 = Paint()
+    var paint = Paint()
       ..strokeWidth = 2
-      ..color = Colors.black87
+      ..color = Colors.purple
       ..style = PaintingStyle.stroke
       ..isAntiAlias = true;
 
     // canvas.drawImage(image, Offset(-image.width / 2, -image.height / 2), paint);
 
-    paint
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 4
-      ..isAntiAlias = true
-      ..color = Colors.purple;
+    // 如果点小于4个 那么就只绘制点
     if (pos != null && pos!.length >= 4) {
-      // 绘制贝塞尔曲线
       var path = Path();
       // 绘制起点首个贝塞尔曲线
       path.moveTo(pos![0].dx, (pos![0].dy));
+      // 绘制贝塞尔曲线
       path.cubicTo(pos![1].dx, pos![1].dy, pos![2].dx, pos![2].dy, pos![3].dx,
           pos![3].dy);
       _drawHelpLine(canvas, size, paint, 0);
-      canvas.drawPath(path, paint..color = Colors.white);
-      canvas.drawPath(path, paint2);
+      canvas.drawPath(path, paint..color = Colors.purple);
       // 绘制第2个以后的曲线 以上个终点为下一个的起点
       for (int i = 1; i < (pos!.length - 1) ~/ 3; i++) {
         // 这里把绘制之前的颜色覆盖
         canvas.drawPath(path, paint..color = Colors.white);
         // 绘制辅助线
         _drawHelpLine(canvas, size, paint, i);
-        path.cubicTo(pos![i * 3 + 1].dx, pos![i * 3 + 1].dy, pos![i * 3 + 2].dx,
-            pos![i * 3 + 2].dy, pos![i * 3 + 3].dx, pos![i * 3 + 3].dy);
+        path.cubicTo(
+          pos![i * 3 + 1].dx,
+          pos![i * 3 + 1].dy,
+          pos![i * 3 + 2].dx,
+          pos![i * 3 + 2].dy,
+          pos![i * 3 + 3].dx,
+          pos![i * 3 + 3].dy,
+        );
 
         if (i == 8) {
           path.close();
         }
         canvas.drawPath(path, paint..color = Colors.purple);
-        canvas.drawPath(path, paint2);
       }
 
       // 绘制辅助点
