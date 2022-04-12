@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/widgets/paint2_demo.dart';
+import 'package:flutter_demo/widgets/paint_demo.dart';
 
 /// 动画
 class AnimateWidgetDemo extends StatefulWidget {
@@ -30,7 +32,7 @@ class _AnimateWidgetDemoState extends State<AnimateWidgetDemo>
     cure = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     // 在2s之内从0变到100采用cure的运动轨迹变化
     // Tween定义数据的起始和终点
-    animation = Tween(begin: 0.0, end: 1.0).animate(cure)
+    animation = Tween(begin: 0.0, end: 1.0).animate(_controller)
       ..addStatusListener((status) {
         // dismissed	动画在起始点停止
         // forward	动画正在正向执行
@@ -43,9 +45,11 @@ class _AnimateWidgetDemoState extends State<AnimateWidgetDemo>
         }
       });
 
-    animation2 =
-        Tween(begin: Offset(0.0, 0.0), end: Offset(1.0, 0.0)).animate(cure);
+    animation2 = Tween<Offset>(begin: Offset(0.0, 0.0), end: Offset(1.0, 0.0))
+        .animate(cure);
     animation3 = Tween(begin: 0.0, end: 1.0).animate(cure);
+
+    // pi 3.14
     animation4 = Tween(begin: 0.0, end: pi * 2).animate(cure);
 
     // 启动动画
@@ -61,51 +65,59 @@ class _AnimateWidgetDemoState extends State<AnimateWidgetDemo>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        // 平移
-        Text("平移"),
-        SlideTransitionLogo(
-          child: FlutterLogo(),
-          animation: animation2,
-        ),
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        PaintDemo(),
+        Column(
           children: [
-            Text("旋转"),
-            RotationTransitionLogo(
+            // 平移
+            Text("平移"),
+            SlideTransitionLogo(
               child: FlutterLogo(),
-              animation: animation3,
+              animation: animation2,
             ),
-            Text("渐变"),
-            FadeTransition(
-              opacity: animation3,
-              child: Container(
-                width: 100,
-                height: 100,
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("旋转"),
+                RotationTransitionLogo(
+                  child: FlutterLogo(),
+                  animation: animation3,
+                ),
+                Text("渐变"),
+                FadeTransition(
+                  opacity: animation3,
+                  child: Container(
+                    width: 100,
+                    height: 100,
+                    child: FlutterLogo(),
+                  ),
+                ),
+              ],
+            ),
+            Text("3d旋转动画(变换组件实现)"),
+            ZAnimatedLogo(animation: animation4, child: FlutterLogo()),
+            Text("组合动画"),
+            ZhAnimatedLogo(
+              animation: animation2,
+              animation2: animation3,
+              child: RotationTransitionLogo(
                 child: FlutterLogo(),
+                animation: animation3,
               ),
             ),
+
+
+
+            Text("缩放"),
+            AnimatedLogo(
+              // 缩放
+              child: FlutterLogo(),
+              animation: animation,
+            ),
           ],
-        ),
-        Text("3d旋转动画(变换组件实现)"),
-        ZAnimatedLogo(animation: animation4, child: FlutterLogo()),
-        Text("组合动画"),
-        ZhAnimatedLogo(
-          animation: animation2,
-          animation2: animation3,
-          child: RotationTransitionLogo(
-            child: FlutterLogo(),
-            animation: animation3,
-          ),
-        ),
-        Text("缩放"),
-        AnimatedLogo(
-          // 缩放
-          child: FlutterLogo(),
-          animation: animation,
-        ),
+        )
       ],
     );
   }
