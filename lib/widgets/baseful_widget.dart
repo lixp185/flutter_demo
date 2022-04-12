@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 
 import 'code_page.dart';
 
- class BaseStatefulWidget extends StatefulWidget {
-
+class BaseStatefulWidget extends StatefulWidget {
   final Widget widget;
   final String title;
   final String codePath;
-  BaseStatefulWidget(this.widget, this.title, this.codePath);
+  final VoidCallback? onClick;
+
+  BaseStatefulWidget(this.widget, this.title, this.codePath, {this.onClick});
+
   @override
   State<StatefulWidget> createState() {
     return BaseWidgetState();
   }
 }
- class BaseWidgetState extends State<BaseStatefulWidget> {
+
+class BaseWidgetState extends State<BaseStatefulWidget> {
   @override
   void initState() {
     super.initState();
@@ -21,7 +24,6 @@ import 'code_page.dart';
 
   @override
   Widget build(BuildContext context) {
-
     return _buildWidgetDefault();
   }
 
@@ -50,12 +52,16 @@ import 'code_page.dart';
       centerTitle: true,
       actions: [
         IconButton(
-            icon: Icon(Icons.code),
+            icon: Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return CodePage(widget.codePath);
-              }));
-            })
+              if (widget.onClick == null) {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return CodePage(widget.codePath);
+                }));
+              } else {
+                widget.onClick?.call();
+              }
+            }),
       ],
     );
   }

@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/widgets/paint2_demo.dart';
+import 'package:flutter_demo/widgets/paint_demo.dart';
 
 /// 动画
 class AnimateWidgetDemo extends StatefulWidget {
@@ -63,51 +65,59 @@ class _AnimateWidgetDemoState extends State<AnimateWidgetDemo>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        // 平移
-        Text("平移"),
-        SlideTransitionLogo(
-          child: FlutterLogo(),
-          animation: animation2,
-        ),
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        PaintDemo(),
+        Column(
           children: [
-            Text("旋转"),
-            RotationTransitionLogo(
+            // 平移
+            Text("平移"),
+            SlideTransitionLogo(
               child: FlutterLogo(),
-              animation: animation3,
+              animation: animation2,
             ),
-            Text("渐变"),
-            FadeTransition(
-              opacity: animation3,
-              child: Container(
-                width: 100,
-                height: 100,
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("旋转"),
+                RotationTransitionLogo(
+                  child: FlutterLogo(),
+                  animation: animation3,
+                ),
+                Text("渐变"),
+                FadeTransition(
+                  opacity: animation3,
+                  child: Container(
+                    width: 100,
+                    height: 100,
+                    child: FlutterLogo(),
+                  ),
+                ),
+              ],
+            ),
+            Text("3d旋转动画(变换组件实现)"),
+            ZAnimatedLogo(animation: animation4, child: FlutterLogo()),
+            Text("组合动画"),
+            ZhAnimatedLogo(
+              animation: animation2,
+              animation2: animation3,
+              child: RotationTransitionLogo(
                 child: FlutterLogo(),
+                animation: animation3,
               ),
             ),
+
+
+
+            Text("缩放"),
+            AnimatedLogo(
+              // 缩放
+              child: FlutterLogo(),
+              animation: animation,
+            ),
           ],
-        ),
-        Text("3d旋转动画(变换组件实现)"),
-        ZAnimatedLogo(animation: animation4, child: FlutterLogo()),
-        Text("组合动画"),
-        ZhAnimatedLogo(
-          animation: animation2,
-          animation2: animation3,
-          child: RotationTransitionLogo(
-            child: FlutterLogo(),
-            animation: animation3,
-          ),
-        ),
-        Text("缩放"),
-        AnimatedLogo(
-          // 缩放
-          child: FlutterLogo(),
-          animation: animation,
-        ),
+        )
       ],
     );
   }

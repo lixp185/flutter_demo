@@ -10,6 +10,14 @@ class TextWidgetDemo extends StatefulWidget {
 }
 
 class _TextWidgetState extends State<TextWidgetDemo> {
+
+  @override
+  void initState() {
+    super.initState();
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -1,13 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_demo/models/home_bean.dart';
 import 'package:flutter_demo/utils/sliver_to_widget.dart';
-
+import 'package:flutter_demo/widgets/canvas/touch_controller.dart';
+import 'dart:ui' as ui;
 import 'align.dart';
 import 'animated.dart';
+import 'animated2.dart';
 import 'baseful_widget.dart';
 import 'button.dart';
 import 'calendar.dart';
+import 'canvas/dolphin.dart';
 import 'canvas_demo.dart';
 import 'check.dart';
 import 'container.dart';
@@ -18,14 +21,19 @@ import 'gesture_detector.dart';
 import 'icon.dart';
 import 'list.dart';
 import 'listener.dart';
+import 'paint2_demo.dart';
+import 'paint_demo.dart';
 import 'progress.dart';
+import 'scroll_navigation.dart';
 import 'size_box.dart';
 import 'stack.dart';
+import 'test.dart';
 import 'text.dart';
 import 'text_field.dart';
 import 'theme.dart';
 import 'transform.dart';
 import 'wrap.dart';
+import 'package:image/image.dart' as image;
 
 class HomeWidget extends StatefulWidget {
   @override
@@ -93,10 +101,59 @@ class _HomeWidgetState extends State<HomeWidget>
         "绘制组件 棋盘(Canvas)", "lib/widgets/canvas_demo.dart", CanvasDemo())));
     homeList.add(_getWidget(
         HomeBean("日期组件", "lib/widgets/calendar.dart", CalendarDemo())));
+
+    loadImageInAssets('images/lbxx.png')?.then((value) {
+      loadImageFromAssets('images/lbxx.png').then((value2) {
+        setState(() {
+          homeList.add(_getWidget(HomeBean(
+              "绘制（妙笔生花）",
+              "lib/widgets/paint_demo.dart",
+              PaintDemo(
+                image: value,
+                image22: value2,
+              ))));
+        });
+      });
+    });
+    homeList.add(_getWidget(
+        HomeBean("自定义绘制动画", "lib/widgets/paint2_demo.dart", Animated2Demo())));
+    homeList.add(_getWidget(HomeBean(
+        "自定义导航条", "lib/widgets/scroll_navigation.dart", ScrollNavigation())));
+
+    var touchController = TouchController();
+    loadImageInAssets('images/ht.png')?.then((value) {
+      setState(() {
+        homeList.add(_getWidget(
+            HomeBean(
+                "贝塞尔",
+                "lib/widgets/scroll_navigation.dart",
+                Dolphin(
+                  touchController: touchController,
+                  image: value,
+                )), onRightClick: () {
+          touchController.removeLast();
+        }));
+      });
+    });
+
     super.initState();
   }
 
-  Widget _getWidget(HomeBean homeBean) {
+  Future<ui.Image>? loadImageInAssets(String assetsName) async {
+    return decodeImageFromList(
+        (await rootBundle.load(assetsName)).buffer.asUint8List());
+  }
+
+  Future<image.Image?> loadImageFromAssets(String path) async {
+    ByteData data = await rootBundle.load(path);
+    List<int> bytes =
+        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    return image.decodeImage(bytes);
+  }
+
+  ui.Image? _image;
+
+  Widget _getWidget(HomeBean homeBean, {VoidCallback? onRightClick}) {
     if (homeBean.type == null) {
       return Container(
           padding: EdgeInsets.all(2),
@@ -104,7 +161,8 @@ class _HomeWidgetState extends State<HomeWidget>
           child: ElevatedButton(
             child: Text(homeBean.title),
             onPressed: () {
-              _startAty(homeBean.page!, homeBean.title, homeBean.path!);
+              _startAty(homeBean.page!, homeBean.title, homeBean.path!,
+                  onRightClick: onRightClick);
             },
           ));
     } else if (homeBean.type == 1) {
@@ -146,13 +204,19 @@ class _HomeWidgetState extends State<HomeWidget>
             )));
   }
 
-  void _startAty(Widget widget, String title, String path) {
+  void _startAty(Widget widget, String title, String path,
+      {VoidCallback? onRightClick}) {
     Navigator.push(
         context,
         MaterialPageRoute(
             fullscreenDialog: true,
             builder: (BuildContext c) {
-              return BaseStatefulWidget(widget, title, path);
+              return BaseStatefulWidget(
+                widget,
+                title,
+                path,
+                onClick: onRightClick,
+              );
             }));
   }
 }
