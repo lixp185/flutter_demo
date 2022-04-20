@@ -36,6 +36,7 @@ class _ButtonState extends State<ButtonWidgetDemo> {
                       EdgeInsets.only(top: 0, bottom: 0, left: 0, right: 0)),
                   minimumSize: MaterialStateProperty.all(Size(0, 0)) // 按钮本身最小尺寸
                   ),
+
               onPressed: () {},
               child: Text(
                 "ElevatedButton去边距",

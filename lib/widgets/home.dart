@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_demo/models/home_bean.dart';
 import 'package:flutter_demo/utils/sliver_to_widget.dart';
 import 'package:flutter_demo/widgets/canvas/touch_controller.dart';
+import 'package:flutter_demo/widgets/zan.dart';
 import 'dart:ui' as ui;
 import 'align.dart';
 import 'animated.dart';
@@ -14,6 +15,7 @@ import 'canvas/dolphin.dart';
 import 'canvas_demo.dart';
 import 'check.dart';
 import 'container.dart';
+import 'hero_demo.dart';
 import 'padding.dart';
 import 'decorated_box.dart';
 import 'dialog.dart';
@@ -27,6 +29,7 @@ import 'progress.dart';
 import 'scroll_navigation.dart';
 import 'size_box.dart';
 import 'stack.dart';
+import 'tab_bar_demo.dart';
 import 'test.dart';
 import 'text.dart';
 import 'text_field.dart';
@@ -101,6 +104,10 @@ class _HomeWidgetState extends State<HomeWidget>
         "绘制组件 棋盘(Canvas)", "lib/widgets/canvas_demo.dart", CanvasDemo())));
     homeList.add(_getWidget(
         HomeBean("日期组件", "lib/widgets/calendar.dart", CalendarDemo())));
+    homeList.add(_getWidget(
+        HomeBean("Hero动画", "lib/widgets/hero_demo.dart", HeroDemo())));
+    homeList.add(_getWidget(
+        HomeBean("TabBar", "lib/widgets/hero_demo.dart", TabBarDemo())));
 
     loadImageInAssets('images/lbxx.png')?.then((value) {
       loadImageFromAssets('images/lbxx.png').then((value2) {
@@ -116,7 +123,11 @@ class _HomeWidgetState extends State<HomeWidget>
       });
     });
     homeList.add(_getWidget(
-        HomeBean("自定义绘制动画", "lib/widgets/paint2_demo.dart", Animated2Demo())));
+        HomeBean("吃豆人loading", "lib/widgets/paint2_demo.dart", Animated2Demo()
+        )));
+    homeList.add(_getWidget(
+        HomeBean("点赞", "lib/widgets/paint2_demo.dart", ZanDemo()
+        )));
     homeList.add(_getWidget(HomeBean(
         "自定义导航条", "lib/widgets/scroll_navigation.dart", ScrollNavigation())));
 

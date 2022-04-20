@@ -52,7 +52,7 @@ class BaseWidgetState extends State<BaseStatefulWidget> {
       centerTitle: true,
       actions: [
         IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: Icon(Icons.close),
             onPressed: () {
               if (widget.onClick == null) {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {

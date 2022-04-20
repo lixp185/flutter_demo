@@ -14,7 +14,7 @@ class _CalendarState extends State<CalendarDemo> {
           initialDate: DateTime.now(),
           //初始化选中日期
           firstDate: DateTime(2000),
-          lastDate: DateTime(2022),
+          lastDate: DateTime(2023),
           initialCalendarMode: DatePickerMode.day,
           onDateChanged: (dateTime) {
 

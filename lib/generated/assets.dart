@@ -4,6 +4,7 @@ class Assets {
 
   static const String canvasCurbox = 'lib/widgets/canvas/curbox.dart';
   static const String canvasDolphin = 'lib/widgets/canvas/dolphin.dart';
+  static const String canvasShouYou = 'lib/widgets/canvas/shou_you.dart';
   static const String canvasTouchController = 'lib/widgets/canvas/touch_controller.dart';
   static const String commonGlobal = 'lib/common/global.dart';
   static const String commonSyntaxHighlighter = 'lib/common/syntax_highlighter.dart';
@@ -24,6 +25,7 @@ class Assets {
   static const String modelsQzBean = 'lib/models/qz_bean.dart';
   static const String statesChangeNotifier = 'lib/states/change_notifier.dart';
   static const String utilPageMyToast = 'lib/widgets/util_page/my_toast.dart';
+  static const String utilPageNumDemo = 'lib/widgets/util_page/num_demo.dart';
   static const String utilPageOpenImage = 'lib/widgets/util_page/open_image.dart';
   static const String utilsBugly = 'lib/utils/bugly.dart';
   static const String utilsCallBack = 'lib/utils/call_back.dart';
@@ -31,6 +33,9 @@ class Assets {
   static const String utilsSpUtil = 'lib/utils/sp_util.dart';
   static const String utilsStatus = 'lib/utils/status.dart';
   static const String utilsToastUtil = 'lib/utils/toast_util.dart';
+  static const String viewMyTab = 'lib/utils/view/my_tab.dart';
+  static const String viewMyTabBar = 'lib/utils/view/my_tab_bar.dart';
+  static const String viewMyTabIndicator = 'lib/utils/view/my_tab_indicator.dart';
   static const String widgetsAlign = 'lib/widgets/align.dart';
   static const String widgetsAnimated = 'lib/widgets/animated.dart';
   static const String widgetsAnimated2 = 'lib/widgets/animated2.dart';
@@ -49,6 +54,7 @@ class Assets {
   static const String widgetsDialog = 'lib/widgets/dialog.dart';
   static const String widgetsGalleryExampleItem = 'lib/widgets/gallery_example_item.dart';
   static const String widgetsGestureDetector = 'lib/widgets/gesture_detector.dart';
+  static const String widgetsHeroDemo = 'lib/widgets/hero_demo.dart';
   static const String widgetsHome = 'lib/widgets/home.dart';
   static const String widgetsIcon = 'lib/widgets/icon.dart';
   static const String widgetsList = 'lib/widgets/list.dart';
@@ -66,6 +72,7 @@ class Assets {
   static const String widgetsStack = 'lib/widgets/stack.dart';
   static const String widgetsStore = 'lib/widgets/store.dart';
   static const String widgetsTabBar = 'lib/widgets/tab_bar.dart';
+  static const String widgetsTabBarDemo = 'lib/widgets/tab_bar_demo.dart';
   static const String widgetsTest = 'lib/widgets/test.dart';
   static const String widgetsText = 'lib/widgets/text.dart';
   static const String widgetsTextField = 'lib/widgets/text_field.dart';
@@ -74,5 +81,6 @@ class Assets {
   static const String widgetsUtilWidget = 'lib/widgets/util_widget.dart';
   static const String widgetsWqQp = 'lib/widgets/wq_qp.dart';
   static const String widgetsWrap = 'lib/widgets/wrap.dart';
+  static const String widgetsZan = 'lib/widgets/zan.dart';
 
 }

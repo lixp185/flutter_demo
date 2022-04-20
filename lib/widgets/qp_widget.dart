@@ -9,7 +9,10 @@ class QpWidget extends StatefulWidget {
   final double width; //棋盘宽
   final double height; //棋盘高
   const QpWidget(
-      {Key? key, this.qpSize = QpSize.nineteen, required this.width, required this.height})
+      {Key? key,
+      this.qpSize = QpSize.nineteen,
+      required this.width,
+      required this.height})
       : super(key: key);
 
   @override
@@ -23,7 +26,7 @@ enum QpSize {
 }
 
 class _QpWidgetState extends State<QpWidget> {
-  late Offset offset; // 坐标系
+  Offset? offset; // 坐标系
   List<Offset> offsetList = [];
 
   // 横轴坐标
@@ -137,16 +140,21 @@ class _QpWidgetState extends State<QpWidget> {
                       qpWg: qpWg,
                       qzSize: qzSize,
                       offsetList: offsetList,
+                      offset: offset,
                     ),
                     onPanDown: (e) {
                       var dx = e.localPosition.dx;
                       var dy = e.localPosition.dy;
-                      var eW = widget.width / qpWg; // 横轴坐标
-                      var eH = widget.height / qpWg; // 纵轴坐标
+                      print("点击：dx= $dx dy= $dy");
+
+                      var eW = widget.width / qpWg; // 横轴坐标小格边长
+                      var eH = widget.height / qpWg; // 纵轴坐标小格边长
+                      print("边长：dx= $eW dy= $eW");
                       if (dx < eW) {
                         //点击横轴小于最小横轴坐标
                         dx = 0;
                       } else {
+                        // 判断x轴手势坐标
                         if (dx % eW < eW / 2) {
                           dx = dx - dx % eW;
                         } else {
@@ -156,6 +164,7 @@ class _QpWidgetState extends State<QpWidget> {
                       if (dy < eH) {
                         dy = 0;
                       } else {
+                        // 判断y轴手势坐标
                         if (dy % eW < eH / 2) {
                           dy = dy - dy % eH;
                         } else {
@@ -170,11 +179,9 @@ class _QpWidgetState extends State<QpWidget> {
                           return;
                         }
                       }
-                      offset = Offset(dx, dy);
-                      print("坐标值：dx= $dx dy= $dy");
                       setState(() {
-                        //更新棋子 五子棋需要判断胜负
-                        offsetList.add(offset);
+                        offset = Offset(dx, dy);
+                        print("坐标值：dx= $dx dy= $dy");
                       });
                     },
                   ),
@@ -199,15 +206,38 @@ class _QpWidgetState extends State<QpWidget> {
                     itemCount: zmList.length,
                   ),
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      if (offsetList.length > 0) {
-                        setState(() {
-                          offsetList.removeLast();
-                        });
-                      }
-                    },
-                    child: Text("悔一手"))
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          if (offsetList.length > 0) {
+                            setState(() {
+                              offset = null;
+                              offsetList.removeLast();
+                            });
+                          }
+                        },
+                        child: Text("悔棋")),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          if (offset != null) {
+                            var dx = offset!.dx;
+                            var dy = offset!.dy;
+                            setState(() {
+                              offsetList.add(Offset(dx, dy));
+                              offset = null;
+                              //更新棋子 五子棋需要判断胜负
+                            });
+                          }
+                          // 判断胜负 判断当前点周围点是否有棋
+                        },
+                        child: Text("确认"))
+                  ],
+                )
               ],
             ),
             left: 10,

@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:ui';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/widgets/coordinate.dart';
 import 'package:image/image.dart' as image2;
@@ -18,6 +19,15 @@ class PaintDemo extends StatefulWidget {
 
 class _PaintDemoState extends State<PaintDemo> {
   ValueNotifier<Offset> _offset = ValueNotifier(Offset.zero);
+
+  @override
+  void initState() {
+    double d = -0.22222;
+
+    super.initState();
+    print("${2.isNegative}");
+    print("0.2 ${d.isNegative}");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +66,11 @@ class _PaintDemoState extends State<PaintDemo> {
     // var thta = rad - pi / 2; //旋转坐标系90度
     // var d = sqrt(dx * dx + dy * dy);
     // if (d > bgR) {
-    //   dx = bgR * cos(thta);
-    //   dy = -bgR * sin(thta);
+    //   dx = bgR * cos(thta);// 求边长
+    //   dy = -bgR * sin(thta);// 求边长
     // }
 
     _offset.value = Offset(dx, dy);
-
-    print("dx $dx dy$dy");
   }
 }
 
@@ -113,31 +121,54 @@ class PaperPainter extends CustomPainter {
     // _drawPath(canvas, size);
     // _drawColor(canvas, size);
     // _drawCDR(canvas, size);
-    _drawShouShi(canvas, size);
+    // _drawShouShi(canvas, size);
     // _drawSyr(canvas, size);
     // _drawHt(canvas, size);
+    // _drawXiaoA(canvas, size);
+    _drawZan(canvas, size);
   }
 
   void _drawShouShi(Canvas canvas, Size size) {
+    var offsetTranslate =
+        offset.value.translate(-size.width / 2, -size.height / 2);
+
+    var dx = offsetTranslate.dx;
+    var dy = offsetTranslate.dy;
+    if (dx > 0) {
+      var s = sqrt(dx * dx + dy * dy);
+      var a = atan2(dx, dy);
+      print("qqq  $a");
+
+      dx = s + cos(a);
+      dy = s + sin(a);
+      offsetTranslate = Offset(dx, dy);
+    }
+
     canvas.drawCircle(
         Offset.zero,
         60,
         _paint
           ..style = PaintingStyle.fill
           ..color = Colors.blue.withOpacity(0.2));
-
-    canvas.drawCircle(
-        offset.value.translate(-size.width / 2, -size.height / 2),
-        20,
-        _paint
-          ..style = PaintingStyle.fill
-          ..color = Colors.blue.withOpacity(0.6));
-
-
     _paint.color = color;
     _paint.style = PaintingStyle.stroke;
-    canvas.drawLine(Offset.zero,
-        offset.value.translate(-size.width / 2, -size.height / 2), _paint);
+    if (offset.value == Offset.zero) {
+      canvas.drawCircle(
+          offset.value,
+          20,
+          _paint
+            ..style = PaintingStyle.fill
+            ..color = Colors.blue.withOpacity(0.6));
+      canvas.drawLine(Offset.zero, offset.value, _paint);
+    } else {
+      canvas.drawCircle(
+          offsetTranslate,
+          20,
+          _paint
+            ..style = PaintingStyle.fill
+            ..color = Colors.blue.withOpacity(0.6));
+      canvas.drawLine(Offset.zero, offsetTranslate, _paint);
+    }
 
     // canvas.drawCircle(
     //     Offset.zero,
@@ -904,6 +935,52 @@ class PaperPainter extends CustomPainter {
     canvas.restore();
     path.relativeQuadraticBezierTo(-30, 10, -20, 40);
     canvas.drawPath(path, paint);
+  }
+
+  void _drawXiaoA(Canvas canvas, Size size) {
+    Paint paint = Paint();
+    paint
+      ..style = PaintingStyle.fill
+      ..color = Colors.green.shade800;
+
+    canvas.drawRect(
+        Rect.fromCenter(center: Offset(0, 0), width: 4, height: 20), paint);
+    canvas.drawRect(
+        Rect.fromCenter(center: Offset(4, 4), width: 4, height: 20), paint);
+    canvas.drawRect(
+        Rect.fromCenter(center: Offset(6, 6), width: 4, height: 20), paint);
+    canvas.drawRect(
+        Rect.fromCenter(center: Offset(8, 8), width: 4, height: 20), paint);
+    canvas.drawRect(
+        Rect.fromCenter(center: Offset(10, 10), width: 4, height: 20), paint);
+    canvas.drawRect(
+        Rect.fromCenter(center: Offset(12, 12), width: 4, height: 20), paint);
+    canvas.drawRect(
+        Rect.fromCenter(center: Offset(14, 14), width: 4, height: 20), paint);
+    canvas.drawRect(
+        Rect.fromCenter(center: Offset(16, 20), width: 4, height: 20), paint);
+  }
+
+  void _drawZan(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = Colors.red
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 6
+      ..strokeJoin = StrokeJoin.round
+      ..strokeCap = StrokeCap.round;
+    Path path = Path();
+    canvas.drawLine(Offset(0, -20), Offset(0, 20), paint);
+
+    path.moveTo(10, -20);
+    path.relativeQuadraticBezierTo(10, -4, 14, -30);
+    path.relativeQuadraticBezierTo(20, 5, 6, 30);
+    path.relativeQuadraticBezierTo(10, 0, 30, 0);
+    path.relativeQuadraticBezierTo(-5, 20, -10, 40);
+    path.relativeQuadraticBezierTo(-5, 0, -40, 0);
+    path.close();
+    canvas.drawPath(path, paint);
+
+
   }
 }
 

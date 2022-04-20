@@ -37,6 +37,7 @@ dependencies:
   # listView 滚动指定item
   scrollable_positioned_list: ^0.2.3
   lpinyin: ^2.0.3
+  flutter_lints: ^1.0.4
 dev_dependencies:
   flutter_test:
     sdk: flutter

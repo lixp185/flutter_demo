@@ -13,8 +13,8 @@ class _BigImageState extends State<BigImage> {
   bool verticalGallery = false;
   final imageList = [
     "https://images.unsplash.com/photo-1477346611705-65d1883cee1e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-    // "https://images.unsplash.com/photo-1498550744921-75f79806b8a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
-    // "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+    "https://images.unsplash.com/photo-1498550744921-75f79806b8a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
+    "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
   ];
 
   @override
@@ -28,7 +28,7 @@ class _BigImageState extends State<BigImage> {
                 height: 100,
                 margin: EdgeInsets.all(5),
                 child: _getImage(
-                  imageList[0],
+                  imageList[2],
                 )),
             onTap: () {
               open(context, 0);
@@ -53,8 +53,11 @@ class _BigImageState extends State<BigImage> {
         builder: (context) =>
             GalleryPhotoViewWrapper(
               galleryItems: galleryItems,
+              loadingBuilder: (context,e) {
+                return Text("加载中");
+              },
               backgroundDecoration: const BoxDecoration(
-                color: Colors.blueGrey,
+                color: Colors.redAccent,
               ),
               initialIndex: index,
               scrollDirection: verticalGallery ? Axis.vertical : Axis
@@ -134,7 +137,8 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> {
                   decoration: null,
                 ),
               ),
-            )
+            ),
+
           ],
         ),
       ),

@@ -9,7 +9,7 @@ class CanvasDemo extends StatefulWidget {
 }
 
 class _CanvasState extends State<CanvasDemo> {
-  var qoSize = QpSize.nineteen;
+  var qoSize = QpSize.thirteen;
 
   @override
   Widget build(BuildContext context) {
