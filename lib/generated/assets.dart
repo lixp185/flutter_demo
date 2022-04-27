@@ -2,10 +2,17 @@
 class Assets {
   Assets._();
 
+  static const String canvasBw = 'lib/widgets/canvas/bw.dart';
   static const String canvasCurbox = 'lib/widgets/canvas/curbox.dart';
   static const String canvasDolphin = 'lib/widgets/canvas/dolphin.dart';
+  static const String canvasFanBook = 'lib/widgets/canvas/fan_book.dart';
+  static const String canvasGesturesUnlock = 'lib/widgets/canvas/gestures_unlock.dart';
+  static const String canvasOvalLoading = 'lib/widgets/canvas/oval_loading.dart';
   static const String canvasShouYou = 'lib/widgets/canvas/shou_you.dart';
+  static const String canvasTolyWaveLoading = 'lib/widgets/canvas/toly_wave_loading.dart';
   static const String canvasTouchController = 'lib/widgets/canvas/touch_controller.dart';
+  static const String canvasUnlockController = 'lib/widgets/canvas/unlock_controller.dart';
+  static const String canvasXinSui = 'lib/widgets/canvas/xin_sui.dart';
   static const String commonGlobal = 'lib/common/global.dart';
   static const String commonSyntaxHighlighter = 'lib/common/syntax_highlighter.dart';
   static const String commonThemeCommon = 'lib/common/theme_common.dart';
@@ -22,6 +29,7 @@ class Assets {
   static const String modelsCarModel = 'lib/models/car_model.dart';
   static const String modelsHomeBean = 'lib/models/home_bean.dart';
   static const String modelsNameBean = 'lib/models/name_bean.dart';
+  static const String modelsNewsListBean = 'lib/models/news_list_bean.dart';
   static const String modelsQzBean = 'lib/models/qz_bean.dart';
   static const String statesChangeNotifier = 'lib/states/change_notifier.dart';
   static const String utilPageMyToast = 'lib/widgets/util_page/my_toast.dart';

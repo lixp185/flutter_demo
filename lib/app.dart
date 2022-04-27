@@ -90,7 +90,6 @@ class App {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print("build app");
     return Consumer<AppTheme>(
       builder: (context, appTheme, _) {
         return MaterialApp(

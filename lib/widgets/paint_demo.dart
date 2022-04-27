@@ -2,7 +2,6 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/widgets/coordinate.dart';
 import 'package:image/image.dart' as image2;
@@ -43,8 +42,8 @@ class _PaintDemoState extends State<PaintDemo> {
                 PaperPainter(widget.image, widget.image22, offset: _offset),
           ),
           // 移动
-          onPanUpdate: parser,
-          onPanEnd: reset,
+          // onPanUpdate: parser,
+          // onPanEnd: reset,
         ));
   }
 
@@ -58,18 +57,6 @@ class _PaintDemoState extends State<PaintDemo> {
     double dy = 0.0;
     dx = offset.dx;
     dy = offset.dy;
-    // var rad = atan2(dx, dy);
-    // if (dx < 0) {
-    //   rad += 2 * pi;
-    // }
-    // var bgR = 80 / 2 - 10;
-    // var thta = rad - pi / 2; //旋转坐标系90度
-    // var d = sqrt(dx * dx + dy * dy);
-    // if (d > bgR) {
-    //   dx = bgR * cos(thta);// 求边长
-    //   dy = -bgR * sin(thta);// 求边长
-    // }
-
     _offset.value = Offset(dx, dy);
   }
 }
@@ -125,22 +112,23 @@ class PaperPainter extends CustomPainter {
     // _drawSyr(canvas, size);
     // _drawHt(canvas, size);
     // _drawXiaoA(canvas, size);
-    _drawZan(canvas, size);
+    // _drawZan(canvas, size);
+    // _drawPath2(canvas, size);
+    _drawLt(canvas, size);
   }
 
   void _drawShouShi(Canvas canvas, Size size) {
     var offsetTranslate =
         offset.value.translate(-size.width / 2, -size.height / 2);
 
-    var dx = offsetTranslate.dx;
-    var dy = offsetTranslate.dy;
-    if (dx > 0) {
-      var s = sqrt(dx * dx + dy * dy);
-      var a = atan2(dx, dy);
-      print("qqq  $a");
-
-      dx = s + cos(a);
-      dy = s + sin(a);
+    print("dx ${offsetTranslate.dx} dy${offsetTranslate.dy}");
+    var ata = atan2(offsetTranslate.dx, offsetTranslate.dy);
+    var thta = ata - pi / 2; //旋转坐标系90度
+    var d = sqrt(offsetTranslate.dx * offsetTranslate.dx +
+        offsetTranslate.dy * offsetTranslate.dy);
+    if (d > 60) {
+      var dx = 60 * cos(thta); // 求边长
+      var dy = -60 * sin(thta); // 求边长
       offsetTranslate = Offset(dx, dy);
     }
 
@@ -159,6 +147,7 @@ class PaperPainter extends CustomPainter {
           _paint
             ..style = PaintingStyle.fill
             ..color = Colors.blue.withOpacity(0.6));
+
       canvas.drawLine(Offset.zero, offset.value, _paint);
     } else {
       canvas.drawCircle(
@@ -167,6 +156,7 @@ class PaperPainter extends CustomPainter {
           _paint
             ..style = PaintingStyle.fill
             ..color = Colors.blue.withOpacity(0.6));
+
       canvas.drawLine(Offset.zero, offsetTranslate, _paint);
     }
 
@@ -765,20 +755,20 @@ class PaperPainter extends CustomPainter {
     // canvas.drawPath(path, _paint);
 
     /// 定点圆弧
-    Paint paint = Paint()
-      ..color = Colors.purpleAccent
-      ..strokeWidth = 2
-      ..style = PaintingStyle.fill;
-
-    path.lineTo(0, -20);
-    path.arcToPoint(Offset(20, 0),
-        radius: Radius.circular(20), largeArc: true, clockwise: true);
-    path.close();
-    var bounds = path.getBounds();
-    canvas.save();
-    canvas.translate(-bounds.width / 2, bounds.height / 2);
-    canvas.drawPath(path, paint);
-    canvas.restore();
+    // Paint paint = Paint()
+    //   ..color = Colors.purpleAccent
+    //   ..strokeWidth = 2
+    //   ..style = PaintingStyle.fill;
+    //
+    // path.lineTo(0, -20);
+    // path.arcToPoint(Offset(20, 0),
+    //     radius: Radius.circular(20), largeArc: true, clockwise: true);
+    // path.close();
+    // var bounds = path.getBounds();
+    // canvas.save();
+    // canvas.translate(-bounds.width / 2, bounds.height / 2);
+    // canvas.drawPath(path, paint);
+    // canvas.restore();
 
     // path.reset();
     // canvas.translate(0, -160);
@@ -850,25 +840,27 @@ class PaperPainter extends CustomPainter {
 
     /// 路径联合
 
-    // var pathOval = Path()
-    //   ..addOval(Rect.fromCenter(center: Offset(0, 0), width: 60, height: 60));
-    // path
-    //   ..relativeMoveTo(0, 10)
-    //   ..relativeLineTo(-30, 120)..relativeLineTo(30, -30)..relativeLineTo(
-    //     30, 30)
-    //   ..close()
-    //   ..addPath(pathOval, Offset.zero);
-    // // canvas.drawPath(Path.combine(PathOperation.union, path, pathOval),
-    // //     _paint..style = PaintingStyle.fill);
-    // canvas.drawPath(path, _paint..color = Colors.green);
-    // var pms = path.computeMetrics();
-    // pms.forEach((pm) {
-    //   var tangent = pm.getTangentForOffset(pm.length * 0.5);
-    //   print(
-    //       "---position:-${tangent?.position}----angle:-${tangent
-    //           ?.angle}----vector:-${tangent?.vector}----");
-    //   canvas.drawCircle(tangent!.position, 5, _paint..color = Colors.red);
-    // });
+    var pathOval = Path()
+      ..addOval(Rect.fromCenter(center: Offset(0, 0), width: 60, height: 60));
+    path
+      ..relativeMoveTo(0, 10)
+      ..relativeLineTo(-30, 120)
+      ..relativeLineTo(30, -30)
+      ..relativeLineTo(30, 30)
+      ..close()
+      ..addPath(pathOval, Offset.zero);
+    // canvas.drawPath(Path.combine(PathOperation.union, path, pathOval),
+    //     _paint..style = PaintingStyle.fill);
+    canvas.drawPath(path, _paint..color = Colors.green);
+    var pms = path.computeMetrics();
+
+    pms.forEach((pm) {
+      var tangent = pm.getTangentForOffset(pm.length * 1);
+      print(
+          "---position:-${tangent?.position}----angle:-${tangent?.angle}----vector:-${tangent?.vector}----");
+
+      canvas.drawCircle(tangent!.position, 5, _paint..color = Colors.red);
+    });
   }
 
   late Animation<double> animation;
@@ -979,8 +971,77 @@ class PaperPainter extends CustomPainter {
     path.relativeQuadraticBezierTo(-5, 0, -40, 0);
     path.close();
     canvas.drawPath(path, paint);
+  }
+
+  List<Offset> points = [];
+  final double step = 60;
+  final double min = -160;
+  final double max = 160;
+
+  void initPoints() {
+    for (double x = min; x < max; x += step) {
+      points.add(Offset(x, f(x)));
+    }
+
+    points.add(Offset(max, f(max)));
+
+    // points.add(Offset(max, f(max)));
+  }
+
+  double f(double x) {
+    double y = -x * x / 200 + 100;
+    return y;
+  }
+
+  void _drawPath2(Canvas canvas, Size size) {
+    initPoints();
+    Offset p1 = points[0];
+    Path path = Path()..moveTo(p1.dx, p1.dy);
+
+    for (var i = 1; i < points.length - 1; i++) {
+      // 终点
+      double xc = (points[i].dx + points[i + 1].dx) / 2;
+      double yc = (points[i].dy + points[i + 1].dy) / 2;
+
+      Offset p2 = points[i];
+      path.quadraticBezierTo(p2.dx, p2.dy, xc, yc);
+    }
+
+    var computeMetrics = path.computeMetrics();
+    computeMetrics.forEach((element) {
+      var tangentForOffset = element.getTangentForOffset(element.length * 0.5);
+      canvas.drawCircle(tangentForOffset!.position, 5, _paint);
+    });
+
+    canvas.drawPath(path, _paint);
+  }
+
+  void _drawLt(Canvas canvas, Size size) {
+    Path path = Path();
+
+    path.lineTo(-40, 120);
+    path.moveTo(0, 0);
+    path.lineTo(40, 120);
+
+    path.quadraticBezierTo(0, 140, -40, 120);
+
+    canvas.rotate(pi);
 
 
+    canvas.drawPath(
+        path,
+        _paint
+          ..style = PaintingStyle.fill
+          ..color = Colors.black
+          ..shader = ui.Gradient.radial(
+              Offset(-40, 120), 140, [Colors.white, Colors.black87]));
+
+    // canvas.drawArc(
+    //     Rect.fromCenter(center: Offset(0, 60), width: 80, height: 120),
+    //     0,
+    //     pi,
+    //     false,
+    //     _paint);
   }
 }
 

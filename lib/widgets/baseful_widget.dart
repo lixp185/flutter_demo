@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'code_page.dart';
 
 class BaseStatefulWidget extends StatefulWidget {
   final Widget widget;
@@ -31,6 +30,7 @@ class BaseWidgetState extends State<BaseStatefulWidget> {
     ///使用appbar，也可直接只有 body 在 body 里自定义状态栏、标题栏
     return WillPopScope(
         child: Scaffold(
+
           appBar: _buildAppBar(),
           body: _buildBody(),
         ),
@@ -39,29 +39,28 @@ class BaseWidgetState extends State<BaseStatefulWidget> {
 
   Future<bool> _requestPop() {
     bool b = true;
-    // if (KeyboardManager.isShowKeyboard) {
-    //   KeyboardManager.hideKeyboard();
-    //   b = false;
-    // }
+
     return Future.value(b);
   }
 
   AppBar? _buildAppBar() {
     return AppBar(
+
+
       title: Text(widget.title),
       centerTitle: true,
       actions: [
-        IconButton(
-            icon: Icon(Icons.close),
-            onPressed: () {
-              if (widget.onClick == null) {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return CodePage(widget.codePath);
-                }));
-              } else {
-                widget.onClick?.call();
-              }
-            }),
+        // IconButton(
+        //     icon: Icon(Icons.c),
+        //     onPressed: () {
+        //       if (widget.onClick == null) {
+        //         Navigator.push(context, MaterialPageRoute(builder: (context) {
+        //           return CodePage(widget.codePath);
+        //         }));
+        //       } else {
+        //         widget.onClick?.call();
+        //       }
+        //     }),
       ],
     );
   }

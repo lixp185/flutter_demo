@@ -3,6 +3,7 @@ import 'package:flutter_demo/models/app_theme.dart';
 import 'package:flutter_demo/utils/status.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'home.dart';
+import 'list.dart';
 import 'util_widget.dart';
 
 class MainPage extends StatefulWidget {
@@ -17,6 +18,7 @@ class _MainPageState extends State<MainPage> {
   late final PageController _pageController;
   late final List _pages;
 
+   GlobalKey globalKey = GlobalKey();
   //底部导航数据
   final _bottomNavigationList = [
     BottomNavigationBarItem(icon: Icon(Icons.home), label: "基础"),
@@ -27,10 +29,17 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     _pages = [
+      // ListViewWidgetDemo(),
       HomeWidget(),
       UtilWidget(),
     ];
     _pageController = PageController();
+
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+
+      print("bottom Height:${
+          globalKey.currentContext?.size?.height}");
+    });
   }
 
   @override
@@ -55,6 +64,7 @@ class _MainPageState extends State<MainPage> {
             },
           ),
           bottomNavigationBar: BottomNavigationBar(
+            key: globalKey,
             items: _bottomNavigationList,
             onTap: (index) {
               if (index != _bottomCurrentIndex) {

@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class CheckBoxWidgetDemo extends StatefulWidget {
@@ -10,7 +11,7 @@ class CheckBoxWidgetDemo extends StatefulWidget {
 class _CheckBoxState extends State<CheckBoxWidgetDemo> {
   bool _switchSelected = false; //维护单选开关状态
   bool _checkboxSelected = true; //维护复选框状态
-  var groupValue = 0;
+  late FMRadioBean groupValue;
 
   var _dataList = [];
 
@@ -24,6 +25,8 @@ class _CheckBoxState extends State<CheckBoxWidgetDemo> {
     _dataList.add(FMRadioBean(2, "选项2", false));
     _dataList.add(FMRadioBean(3, "选项3", false));
     _dataList.add(FMRadioBean(4, "选项4", false));
+
+    groupValue = _dataList[0];
   }
 
   @override
@@ -36,7 +39,14 @@ class _CheckBoxState extends State<CheckBoxWidgetDemo> {
           Row(
             children: [
               Switch(
-                  activeColor: Colors.blue,
+                  // activeColor: Colors.blue,
+                  activeTrackColor: Colors.red,
+                  inactiveTrackColor: Colors.green,
+                  // inactiveThumbColor: Colors.yellow,
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  dragStartBehavior: DragStartBehavior.start,
+                  activeThumbImage: AssetImage("images/lbxx.png"),
+                  inactiveThumbImage: AssetImage("images/lbxx.png"),
                   value: _switchSelected,
                   onChanged: (value) {
                     setState(() {
@@ -85,16 +95,25 @@ class _CheckBoxState extends State<CheckBoxWidgetDemo> {
   Row _radioCheckBox(FMRadioBean fmRadioBean) {
     return Row(
       children: [
-        Radio(
+        Radio<FMRadioBean>(
             visualDensity: VisualDensity(
                 horizontal: VisualDensity.minimumDensity,
                 vertical: VisualDensity.minimumDensity),
-            value: fmRadioBean.index,
-            activeColor: Colors.red,
+            value: fmRadioBean,
+            // activeColor: Colors.red,
+            fillColor: MaterialStateProperty.resolveWith((state) {
+              if (state.contains(MaterialState.selected)) {
+                return Colors.red;
+              } else {
+                return Colors.blue;
+              }
+            }),
+            focusColor: Colors.orange,
             groupValue: groupValue,
+            toggleable: false,
             onChanged: (value) {
               setState(() {
-                groupValue = fmRadioBean.index;
+                groupValue = fmRadioBean;
                 radioText = fmRadioBean.text;
               });
             }),
@@ -112,6 +131,11 @@ class _CheckBoxState extends State<CheckBoxWidgetDemo> {
                 vertical: VisualDensity.minimumDensity),
             value: fmRadioBean.isSelect,
             activeColor: Colors.blue,
+            checkColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(6))
+            ),
+            side: BorderSide(color: Colors.black,width: 2,style: BorderStyle.solid),
             onChanged: (value) {
               setState(() {
                 if (value == true) {

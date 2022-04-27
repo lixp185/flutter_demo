@@ -128,6 +128,7 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> {
               scrollDirection: widget.scrollDirection,
             ),
             Container(
+
               padding: const EdgeInsets.all(20.0),
               child: Text(
                 "Image ${currentIndex + 1}",
