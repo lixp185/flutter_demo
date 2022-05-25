@@ -20,14 +20,16 @@ class _DialogState extends State<DialogWidgetDemo> {
               onPressed: () {
                 showDialog(
                     context: context,
-                    builder: (context) {
+                    builder: (context1) {
                       return AlertDialog(
                         title: Text("标题Widget"),
                         content: Text("内容Widget"),
                         actions: [
                           TextButton(
                               onPressed: () {
-                                Navigator.of(context).pop("确定");
+                                Navigator.of(context).pop();
+                                print("lxp ${context.toString()}");
+                                print("lxp ${context1.toString()}");
                               },
                               child: Text("确定")),
                           TextButton(
@@ -38,6 +40,7 @@ class _DialogState extends State<DialogWidgetDemo> {
                         ],
                       );
                     });
+                // Navigator.of(context).pop();
               },
               child: Text("AlertDialog")),
           Container(

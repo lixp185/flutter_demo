@@ -14,9 +14,9 @@ import 'widgets/main_page.dart';
 
 class App {
   static init() {
-    FlutterBugly.postCatchedException(() {
-      //
-    });
+    // FlutterBugly.postCatchedException(() {
+    //   //
+    // });
     WidgetsFlutterBinding.ensureInitialized();
     Global.instance.init().then((value) => SpUtil.init().then((value) {
           runApp(Status.init(MyApp()));
@@ -33,7 +33,7 @@ class App {
   }
 
   static void initApp() {
-    Bugly.init();
+    // Bugly.init();
   }
 
   /// 异常捕获处理

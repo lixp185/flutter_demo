@@ -28,12 +28,13 @@ class _TabBarDemoState extends State<TabBarDemo>
           isScrollable: true,
           indicator: MyTabIndicator(
             borderSide: BorderSide(
-              width: 2,
+              width: 4,
               color: Colors.redAccent,
             ),
             // indicatorWidth: 4,
-            indicatorBottom: 10,
-            tabController: _tabController
+            indicatorBottom: 20,
+            indicatorWidth: 30
+            // tabController: _tabController
           ),
           controller: _tabController,
           tabs: tabs
@@ -42,11 +43,8 @@ class _TabBarDemoState extends State<TabBarDemo>
                     text: value,
                   ))
               .toList(),
-          indicatorColor: Colors.redAccent,
-          indicatorWeight: 2,
-          indicatorSize: TabBarIndicatorSize.label,
 
-          labelColor: Colors.redAccent,
+          labelColor: Colors.black87,
           unselectedLabelColor: Colors.black87,
         ),
         Expanded(

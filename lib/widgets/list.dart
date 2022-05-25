@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,9 @@ class ListViewState extends State<ListViewWidgetDemo> {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       _scrollController.addListener(() {
         double appBarHeight = 56;
-        double stateHeight = MediaQuery.of(context).padding.top ==0?36: MediaQuery.of(context).padding.top;
+        double stateHeight = MediaQuery.of(context).padding.top == 0
+            ? 36
+            : MediaQuery.of(context).padding.top;
         double h = MediaQuery.of(context).size.height; //屏幕高度
 
         RenderBox? renderBox =
@@ -52,6 +55,11 @@ class ListViewState extends State<ListViewWidgetDemo> {
           }
         }
       });
+
+      print(
+          'stateHeight22:${WidgetsBinding.instance!.window.padding.top / WidgetsBinding.instance!.window.devicePixelRatio}');
+      print(
+          'stateHeight22:${MediaQueryData.fromWindow(window).padding.top}');
     });
 
     super.initState();
@@ -68,18 +76,14 @@ class ListViewState extends State<ListViewWidgetDemo> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("仿网易新闻广告卡片翻转"),
-        ),
-        body: ListView.builder(
-            controller: _scrollController,
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemCount: lis.length,
-            itemBuilder: (context, index) {
-              return _listWidget(lis[index]);
-            }));
+    return ListView.builder(
+        controller: _scrollController,
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        itemCount: lis.length,
+        itemBuilder: (context, index) {
+          return _listWidget(lis[index]);
+        });
   }
 
   Widget _listWidget(NewsListBean bean) {
@@ -126,7 +130,7 @@ class ListViewState extends State<ListViewWidgetDemo> {
               transform: Matrix4.identity()
                 ..setEntry(3, 2, 0.002)
                 ..rotateX(0)
-                ..rotateZ(pi/2)
+                ..rotateZ(pi / 2)
                 ..rotateY(angle),
               child: Image.asset(
                 "images/img.png",
@@ -141,6 +145,7 @@ class ListViewState extends State<ListViewWidgetDemo> {
     return widget;
   }
 }
+
 class NewsListBean {
   //资讯类型 0:资讯无图 1:资讯有图 2：3d广告
   final int type;

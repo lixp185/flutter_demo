@@ -115,6 +115,7 @@ class PaperPainter extends CustomPainter {
     // _drawZan(canvas, size);
     // _drawPath2(canvas, size);
     _drawLt(canvas, size);
+
   }
 
   void _drawShouShi(Canvas canvas, Size size) {
@@ -1026,7 +1027,6 @@ class PaperPainter extends CustomPainter {
     path.quadraticBezierTo(0, 140, -40, 120);
 
     canvas.rotate(pi);
-
 
     canvas.drawPath(
         path,
