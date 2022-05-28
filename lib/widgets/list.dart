@@ -1,8 +1,7 @@
-import 'dart:async';
+import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
-
-import 'package:flutter_demo/widgets/my_easy_refresh.dart';
 
 class ListViewWidgetDemo extends StatefulWidget {
   @override
@@ -12,77 +11,149 @@ class ListViewWidgetDemo extends StatefulWidget {
 }
 
 class ListViewState extends State<ListViewWidgetDemo> {
-  final lis = [];
-  final lisAdd = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  List<NewsListBean> lis = <NewsListBean>[];
+
+  late ScrollController _scrollController = ScrollController();
+  String imageUrl =
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60";
+
+  GlobalKey _globalKey = GlobalKey();
+
+  double angle = 0;
+  double bannerHeight = 200;
 
   @override
   void initState() {
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      _scrollController.addListener(() {
+        double appBarHeight = 56;
+        double stateHeight = MediaQuery.of(context).padding.top == 0
+            ? 36
+            : MediaQuery.of(context).padding.top;
+        double h = MediaQuery.of(context).size.height; //屏幕高度
+
+        RenderBox? renderBox =
+            _globalKey.currentContext?.findRenderObject() as RenderBox?;
+        double? dy = renderBox?.localToGlobal(Offset.zero).dy;
+        // 56 AppBar 高度
+        if (dy != null) {
+          // 广告距离AppBar Y轴距离
+          var bannerY = dy - appBarHeight - stateHeight;
+          // 主内容区域高度
+          var contentHeight = h - appBarHeight - stateHeight;
+          if (bannerY + bannerHeight < contentHeight && bannerY > 0) {
+            setState(() {
+              //滑动的距离
+              angle = pi *
+                  ((contentHeight - bannerHeight - bannerY) /
+                      (contentHeight - bannerHeight));
+              // 前半部分 0-90 后半部分 270-360
+              if (angle >= (pi / 2)) {
+                angle = angle + pi;
+              }
+            });
+          }
+        }
+      });
+
+      print(
+          'stateHeight22:${WidgetsBinding.instance!.window.padding.top / WidgetsBinding.instance!.window.devicePixelRatio}');
+      print(
+          'stateHeight22:${MediaQueryData.fromWindow(window).padding.top}');
+    });
+
     super.initState();
-    for (int i = 0; i < 20; i++) {
-      lis.add(i);
+    for (int i = 0; i < 40; i++) {
+      lis.add(NewsListBean(
+        i.isEven ? 0 : 1,
+        "资讯标题$i",
+        imageUrl,
+      ));
     }
+    // 插入广告
+    lis.insert(12, NewsListBean(2, "广告", imageUrl));
   }
 
   @override
   Widget build(BuildContext context) {
-    return MyEasyRefresh(
-        onRefresh: () async {
-          Future.delayed(Duration(milliseconds: 1000), () {
-          setState(() {
-            lis.clear();
-            lis.addAll(lisAdd);
-            lis.addAll(lisAdd);
-            MyEasyRefresh.controller.finishRefresh();
-            MyEasyRefresh.controller.resetLoadState();
-          });
-
-          });
-        },
-        onLoad: () async {
-          Future.delayed(Duration(milliseconds: 1000), () {
-            setState(() {
-              lis.addAll(lisAdd);
-              MyEasyRefresh.controller.finishLoad();
-            });
-
-          });
-        },
-        child: ListView.builder(
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemCount: lis.length,
-            itemBuilder: (context, index) {
-              return _listWidget(index);
-            }));
+    return ListView.builder(
+        controller: _scrollController,
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        itemCount: lis.length,
+        itemBuilder: (context, index) {
+          return _listWidget(lis[index]);
+        });
   }
 
-  Widget _listWidget(int index) {
-    Widget widget;
-    if (index % 2 == 0) {
-      widget = Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-              width: 100,
-              height: 50,
-              alignment: Alignment.center,
-              // constraints: BoxConstraints.tightFor(width: 150, height: 50),
-              color: Colors.blue[200],
-              child: Text(
-                index.toString(),
-                style: TextStyle(),
-              )),
-        ],
-      );
-    } else {
-      widget = Container(
-          alignment: Alignment.bottomCenter,
-          color: Colors.red[200],
-          margin: EdgeInsets.all(10),
-          child: Text(index.toString()));
+  Widget _listWidget(NewsListBean bean) {
+    late Widget widget;
+    switch (bean.type) {
+      case 0:
+        widget = Container(
+            height: 50,
+            padding: EdgeInsetsDirectional.only(start: 20),
+            alignment: Alignment.centerLeft,
+            color: Colors.blue[200],
+            child: Text(
+              bean.title,
+              style: TextStyle(),
+            ));
+        break;
+      case 1:
+        widget = Row(
+          children: [
+            Expanded(
+              child: Container(
+                  height: 80,
+                  alignment: Alignment.center,
+                  color: Colors.red[200],
+                  margin: EdgeInsets.all(10),
+                  child: Text(bean.title)),
+            ),
+            Image.network(
+              bean.image,
+              width: 40,
+              height: 40,
+            )
+          ],
+        );
+        break;
+      case 2:
+        widget = Container(
+            padding: EdgeInsetsDirectional.only(
+                start: 20, end: 20, top: 30, bottom: 30),
+            height: bannerHeight,
+            key: _globalKey,
+            child: Transform(
+              alignment: Alignment.center, //相对于坐标系原点的对齐方式
+              transform: Matrix4.identity()
+                ..setEntry(3, 2, 0.002)
+                ..rotateX(0)
+                ..rotateZ(pi / 2)
+                ..rotateY(angle),
+              child: Image.asset(
+                "images/img.png",
+                fit: BoxFit.fill,
+              ),
+            ));
+        break;
+      default:
+        widget = SizedBox();
+        break;
     }
     return widget;
   }
+}
+
+class NewsListBean {
+  //资讯类型 0:资讯无图 1:资讯有图 2：3d广告
+  final int type;
+  final bool isFirst;
+  final String title;
+  final String image;
+
+  NewsListBean(this.type, this.title, this.image, {this.isFirst = false});
 }
 
 /// listView 常用 属性

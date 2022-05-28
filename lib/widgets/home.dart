@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_demo/models/home_bean.dart';
 import 'package:flutter_demo/utils/sliver_to_widget.dart';
+import 'package:flutter_demo/widgets/canvas/gestures_unlock.dart';
 import 'package:flutter_demo/widgets/canvas/touch_controller.dart';
+import 'package:flutter_demo/widgets/canvas/xin_sui.dart';
+import 'package:flutter_demo/widgets/dragon_ball.dart';
+import 'package:flutter_demo/widgets/zan.dart';
 import 'dart:ui' as ui;
 import 'align.dart';
 import 'animated.dart';
@@ -10,10 +14,15 @@ import 'animated2.dart';
 import 'baseful_widget.dart';
 import 'button.dart';
 import 'calendar.dart';
+import 'canvas/bw.dart';
 import 'canvas/dolphin.dart';
+import 'canvas/fan_book.dart';
+import 'canvas/oval_loading.dart';
 import 'canvas_demo.dart';
 import 'check.dart';
 import 'container.dart';
+import 'flex_demo.dart';
+import 'hero_demo.dart';
 import 'padding.dart';
 import 'decorated_box.dart';
 import 'dialog.dart';
@@ -27,6 +36,8 @@ import 'progress.dart';
 import 'scroll_navigation.dart';
 import 'size_box.dart';
 import 'stack.dart';
+import 'summer.dart';
+import 'tab_bar_demo.dart';
 import 'test.dart';
 import 'text.dart';
 import 'text_field.dart';
@@ -54,6 +65,8 @@ class _HomeWidgetState extends State<HomeWidget>
 
   @override
   void initState() {
+    homeList.add(_getWidget(
+        HomeBean("布局demo", "lib/widgets/hero_demo.dart", FlexDemo())));
     homeList.add(_getWidget(
         HomeBean("主题(状态)", "lib/widgets/theme.dart", ThemeWidgetDemo())));
     homeList.add(_getWidget(
@@ -101,6 +114,21 @@ class _HomeWidgetState extends State<HomeWidget>
         "绘制组件 棋盘(Canvas)", "lib/widgets/canvas_demo.dart", CanvasDemo())));
     homeList.add(_getWidget(
         HomeBean("日期组件", "lib/widgets/calendar.dart", CalendarDemo())));
+    homeList.add(_getWidget(
+        HomeBean("Hero动画", "lib/widgets/hero_demo.dart", HeroDemo())));
+    homeList.add(_getWidget(
+        HomeBean("TabBar", "lib/widgets/hero_demo.dart", TabBarDemo())));
+    homeList.add(
+        _getWidget(HomeBean("水波纹", "lib/widgets/hero_demo.dart", BwDemo())));
+    homeList.add(_getWidget(
+        HomeBean("牛顿摆", "lib/widgets/hero_demo.dart", OvalLoading())));
+    homeList.add(
+        _getWidget(HomeBean("心碎的感觉", "lib/widgets/hero_demo.dart", XinSui())));
+    homeList.add(_getWidget(
+        HomeBean("手势解锁", "lib/widgets/hero_demo.dart", GesturesUnlock())));
+
+    homeList.add(_getWidget(
+        HomeBean("多边形多角星", "lib/widgets/hero_demo.dart", Polygonal())));
 
     loadImageInAssets('images/lbxx.png')?.then((value) {
       loadImageFromAssets('images/lbxx.png').then((value2) {
@@ -115,11 +143,15 @@ class _HomeWidgetState extends State<HomeWidget>
         });
       });
     });
-    homeList.add(_getWidget(
-        HomeBean("自定义绘制动画", "lib/widgets/paint2_demo.dart", Animated2Demo())));
+    homeList.add(_getWidget(HomeBean(
+        "吃豆人loading", "lib/widgets/paint2_demo.dart", Animated2Demo())));
+    homeList.add(
+        _getWidget(HomeBean("点赞", "lib/widgets/paint2_demo.dart", ZanDemo())));
     homeList.add(_getWidget(HomeBean(
         "自定义导航条", "lib/widgets/scroll_navigation.dart", ScrollNavigation())));
 
+    homeList
+        .add(_getWidget(HomeBean("夏日炎炎", "lib/widgets/summer.dart", Summer())));
     var touchController = TouchController();
     loadImageInAssets('images/ht.png')?.then((value) {
       setState(() {
@@ -211,6 +243,8 @@ class _HomeWidgetState extends State<HomeWidget>
         MaterialPageRoute(
             fullscreenDialog: true,
             builder: (BuildContext c) {
+              // return ListViewWidgetDemo();
+
               return BaseStatefulWidget(
                 widget,
                 title,

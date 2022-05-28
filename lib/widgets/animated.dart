@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/widgets/paint2_demo.dart';
 import 'package:flutter_demo/widgets/paint_demo.dart';
 
 /// 动画

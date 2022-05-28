@@ -20,6 +20,15 @@ class _PaintDemoState extends State<PaintDemo> {
   ValueNotifier<Offset> _offset = ValueNotifier(Offset.zero);
 
   @override
+  void initState() {
+    double d = -0.22222;
+
+    super.initState();
+    print("${2.isNegative}");
+    print("0.2 ${d.isNegative}");
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
         width: double.infinity,
@@ -33,8 +42,8 @@ class _PaintDemoState extends State<PaintDemo> {
                 PaperPainter(widget.image, widget.image22, offset: _offset),
           ),
           // 移动
-          onPanUpdate: parser,
-          onPanEnd: reset,
+          // onPanUpdate: parser,
+          // onPanEnd: reset,
         ));
   }
 
@@ -48,21 +57,7 @@ class _PaintDemoState extends State<PaintDemo> {
     double dy = 0.0;
     dx = offset.dx;
     dy = offset.dy;
-    // var rad = atan2(dx, dy);
-    // if (dx < 0) {
-    //   rad += 2 * pi;
-    // }
-    // var bgR = 80 / 2 - 10;
-    // var thta = rad - pi / 2; //旋转坐标系90度
-    // var d = sqrt(dx * dx + dy * dy);
-    // if (d > bgR) {
-    //   dx = bgR * cos(thta);
-    //   dy = -bgR * sin(thta);
-    // }
-
     _offset.value = Offset(dx, dy);
-
-    print("dx $dx dy$dy");
   }
 }
 
@@ -113,31 +108,58 @@ class PaperPainter extends CustomPainter {
     // _drawPath(canvas, size);
     // _drawColor(canvas, size);
     // _drawCDR(canvas, size);
-    _drawShouShi(canvas, size);
+    // _drawShouShi(canvas, size);
     // _drawSyr(canvas, size);
     // _drawHt(canvas, size);
+    // _drawXiaoA(canvas, size);
+    // _drawZan(canvas, size);
+    // _drawPath2(canvas, size);
+    _drawLt(canvas, size);
+
   }
 
   void _drawShouShi(Canvas canvas, Size size) {
+    var offsetTranslate =
+        offset.value.translate(-size.width / 2, -size.height / 2);
+
+    print("dx ${offsetTranslate.dx} dy${offsetTranslate.dy}");
+    var ata = atan2(offsetTranslate.dx, offsetTranslate.dy);
+    var thta = ata - pi / 2; //旋转坐标系90度
+    var d = sqrt(offsetTranslate.dx * offsetTranslate.dx +
+        offsetTranslate.dy * offsetTranslate.dy);
+    if (d > 60) {
+      var dx = 60 * cos(thta); // 求边长
+      var dy = -60 * sin(thta); // 求边长
+      offsetTranslate = Offset(dx, dy);
+    }
+
     canvas.drawCircle(
         Offset.zero,
         60,
         _paint
           ..style = PaintingStyle.fill
           ..color = Colors.blue.withOpacity(0.2));
-
-    canvas.drawCircle(
-        offset.value.translate(-size.width / 2, -size.height / 2),
-        20,
-        _paint
-          ..style = PaintingStyle.fill
-          ..color = Colors.blue.withOpacity(0.6));
-
-
     _paint.color = color;
     _paint.style = PaintingStyle.stroke;
-    canvas.drawLine(Offset.zero,
-        offset.value.translate(-size.width / 2, -size.height / 2), _paint);
+    if (offset.value == Offset.zero) {
+      canvas.drawCircle(
+          offset.value,
+          20,
+          _paint
+            ..style = PaintingStyle.fill
+            ..color = Colors.blue.withOpacity(0.6));
+
+      canvas.drawLine(Offset.zero, offset.value, _paint);
+    } else {
+      canvas.drawCircle(
+          offsetTranslate,
+          20,
+          _paint
+            ..style = PaintingStyle.fill
+            ..color = Colors.blue.withOpacity(0.6));
+
+      canvas.drawLine(Offset.zero, offsetTranslate, _paint);
+    }
 
     // canvas.drawCircle(
     //     Offset.zero,
@@ -734,20 +756,20 @@ class PaperPainter extends CustomPainter {
     // canvas.drawPath(path, _paint);
 
     /// 定点圆弧
-    Paint paint = Paint()
-      ..color = Colors.purpleAccent
-      ..strokeWidth = 2
-      ..style = PaintingStyle.fill;
-
-    path.lineTo(0, -20);
-    path.arcToPoint(Offset(20, 0),
-        radius: Radius.circular(20), largeArc: true, clockwise: true);
-    path.close();
-    var bounds = path.getBounds();
-    canvas.save();
-    canvas.translate(-bounds.width / 2, bounds.height / 2);
-    canvas.drawPath(path, paint);
-    canvas.restore();
+    // Paint paint = Paint()
+    //   ..color = Colors.purpleAccent
+    //   ..strokeWidth = 2
+    //   ..style = PaintingStyle.fill;
+    //
+    // path.lineTo(0, -20);
+    // path.arcToPoint(Offset(20, 0),
+    //     radius: Radius.circular(20), largeArc: true, clockwise: true);
+    // path.close();
+    // var bounds = path.getBounds();
+    // canvas.save();
+    // canvas.translate(-bounds.width / 2, bounds.height / 2);
+    // canvas.drawPath(path, paint);
+    // canvas.restore();
 
     // path.reset();
     // canvas.translate(0, -160);
@@ -819,25 +841,27 @@ class PaperPainter extends CustomPainter {
 
     /// 路径联合
 
-    // var pathOval = Path()
-    //   ..addOval(Rect.fromCenter(center: Offset(0, 0), width: 60, height: 60));
-    // path
-    //   ..relativeMoveTo(0, 10)
-    //   ..relativeLineTo(-30, 120)..relativeLineTo(30, -30)..relativeLineTo(
-    //     30, 30)
-    //   ..close()
-    //   ..addPath(pathOval, Offset.zero);
-    // // canvas.drawPath(Path.combine(PathOperation.union, path, pathOval),
-    // //     _paint..style = PaintingStyle.fill);
-    // canvas.drawPath(path, _paint..color = Colors.green);
-    // var pms = path.computeMetrics();
-    // pms.forEach((pm) {
-    //   var tangent = pm.getTangentForOffset(pm.length * 0.5);
-    //   print(
-    //       "---position:-${tangent?.position}----angle:-${tangent
-    //           ?.angle}----vector:-${tangent?.vector}----");
-    //   canvas.drawCircle(tangent!.position, 5, _paint..color = Colors.red);
-    // });
+    var pathOval = Path()
+      ..addOval(Rect.fromCenter(center: Offset(0, 0), width: 60, height: 60));
+    path
+      ..relativeMoveTo(0, 10)
+      ..relativeLineTo(-30, 120)
+      ..relativeLineTo(30, -30)
+      ..relativeLineTo(30, 30)
+      ..close()
+      ..addPath(pathOval, Offset.zero);
+    // canvas.drawPath(Path.combine(PathOperation.union, path, pathOval),
+    //     _paint..style = PaintingStyle.fill);
+    canvas.drawPath(path, _paint..color = Colors.green);
+    var pms = path.computeMetrics();
+
+    pms.forEach((pm) {
+      var tangent = pm.getTangentForOffset(pm.length * 1);
+      print(
+          "---position:-${tangent?.position}----angle:-${tangent?.angle}----vector:-${tangent?.vector}----");
+
+      canvas.drawCircle(tangent!.position, 5, _paint..color = Colors.red);
+    });
   }
 
   late Animation<double> animation;
@@ -904,6 +928,120 @@ class PaperPainter extends CustomPainter {
     canvas.restore();
     path.relativeQuadraticBezierTo(-30, 10, -20, 40);
     canvas.drawPath(path, paint);
+  }
+
+  void _drawXiaoA(Canvas canvas, Size size) {
+    Paint paint = Paint();
+    paint
+      ..style = PaintingStyle.fill
+      ..color = Colors.green.shade800;
+
+    canvas.drawRect(
+        Rect.fromCenter(center: Offset(0, 0), width: 4, height: 20), paint);
+    canvas.drawRect(
+        Rect.fromCenter(center: Offset(4, 4), width: 4, height: 20), paint);
+    canvas.drawRect(
+        Rect.fromCenter(center: Offset(6, 6), width: 4, height: 20), paint);
+    canvas.drawRect(
+        Rect.fromCenter(center: Offset(8, 8), width: 4, height: 20), paint);
+    canvas.drawRect(
+        Rect.fromCenter(center: Offset(10, 10), width: 4, height: 20), paint);
+    canvas.drawRect(
+        Rect.fromCenter(center: Offset(12, 12), width: 4, height: 20), paint);
+    canvas.drawRect(
+        Rect.fromCenter(center: Offset(14, 14), width: 4, height: 20), paint);
+    canvas.drawRect(
+        Rect.fromCenter(center: Offset(16, 20), width: 4, height: 20), paint);
+  }
+
+  void _drawZan(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = Colors.red
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 6
+      ..strokeJoin = StrokeJoin.round
+      ..strokeCap = StrokeCap.round;
+    Path path = Path();
+    canvas.drawLine(Offset(0, -20), Offset(0, 20), paint);
+
+    path.moveTo(10, -20);
+    path.relativeQuadraticBezierTo(10, -4, 14, -30);
+    path.relativeQuadraticBezierTo(20, 5, 6, 30);
+    path.relativeQuadraticBezierTo(10, 0, 30, 0);
+    path.relativeQuadraticBezierTo(-5, 20, -10, 40);
+    path.relativeQuadraticBezierTo(-5, 0, -40, 0);
+    path.close();
+    canvas.drawPath(path, paint);
+  }
+
+  List<Offset> points = [];
+  final double step = 60;
+  final double min = -160;
+  final double max = 160;
+
+  void initPoints() {
+    for (double x = min; x < max; x += step) {
+      points.add(Offset(x, f(x)));
+    }
+
+    points.add(Offset(max, f(max)));
+
+    // points.add(Offset(max, f(max)));
+  }
+
+  double f(double x) {
+    double y = -x * x / 200 + 100;
+    return y;
+  }
+
+  void _drawPath2(Canvas canvas, Size size) {
+    initPoints();
+    Offset p1 = points[0];
+    Path path = Path()..moveTo(p1.dx, p1.dy);
+
+    for (var i = 1; i < points.length - 1; i++) {
+      // 终点
+      double xc = (points[i].dx + points[i + 1].dx) / 2;
+      double yc = (points[i].dy + points[i + 1].dy) / 2;
+
+      Offset p2 = points[i];
+      path.quadraticBezierTo(p2.dx, p2.dy, xc, yc);
+    }
+
+    var computeMetrics = path.computeMetrics();
+    computeMetrics.forEach((element) {
+      var tangentForOffset = element.getTangentForOffset(element.length * 0.5);
+      canvas.drawCircle(tangentForOffset!.position, 5, _paint);
+    });
+
+    canvas.drawPath(path, _paint);
+  }
+
+  void _drawLt(Canvas canvas, Size size) {
+    Path path = Path();
+
+    path.lineTo(-40, 120);
+    path.moveTo(0, 0);
+    path.lineTo(40, 120);
+
+    path.quadraticBezierTo(0, 140, -40, 120);
+
+    canvas.rotate(pi);
+
+    canvas.drawPath(
+        path,
+        _paint
+          ..style = PaintingStyle.fill
+          ..color = Colors.black
+          ..shader = ui.Gradient.radial(
+              Offset(-40, 120), 140, [Colors.white, Colors.black87]));
+
+    // canvas.drawArc(
+    //     Rect.fromCenter(center: Offset(0, 60), width: 80, height: 120),
+    //     0,
+    //     pi,
+    //     false,
+    //     _paint);
   }
 }
 

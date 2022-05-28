@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 
 class WqQp extends StatefulWidget {
   // 落子
-  final List<Offset> offsetList;
+  final List<Offset> offsetList; // 落子集合
+  final Offset? offset; // 试落点位
   final double width; //棋盘宽
   final double height; //棋盘高
   final int qpWg; //棋盘网络路
   final double qzSize; //棋子大小
 
-  const WqQp(
-      {Key? key,
-      required this.offsetList,
-      this.width = 360,
-      this.height = 360,
-      this.qpWg = 18,
-      this.qzSize = 10})
-      : super(key: key);
+  const WqQp({
+    Key? key,
+    required this.offsetList,
+    this.offset,
+    this.width = 360,
+    this.height = 360,
+    this.qpWg = 18,
+    this.qzSize = 10,
+  }) : super(key: key);
 
   @override
   _WqQpState createState() => _WqQpState();
@@ -27,7 +29,8 @@ class _WqQpState extends State<WqQp> {
     return CustomPaint(
       size: Size(widget.width, widget.height),
       painter: MyPaint(widget.qpWg),
-      foregroundPainter: Qz(widget.offsetList, qzSize: widget.qzSize),
+      foregroundPainter:
+          Qz(widget.offsetList, widget.offset, qzSize: widget.qzSize),
     );
   }
 }
@@ -35,26 +38,54 @@ class _WqQpState extends State<WqQp> {
 // 棋子
 class Qz extends CustomPainter {
   final List<Offset> offsetList;
-  final double? qzSize; //棋子大小
-
-  Qz(this.offsetList, {this.qzSize});
+  final double qzSize; //棋子大小
+  final Offset? offset; // 试落点位
+  Qz(this.offsetList, this.offset, {required this.qzSize});
 
   @override
   void paint(Canvas canvas, Size size) {
-    Color color = Colors.black;
+    Color color;
+    var paint = Paint()..style = PaintingStyle.fill;
+    // 绘制棋子
     for (var i = 0; i < offsetList.length; i++) {
       if (i % 2 == 0) {
-        color = Colors.black;
+        color = Color(0xFF3A3A3A);
       } else {
         color = Colors.white;
       }
-      var paint = Paint()
+      paint
         ..color = color
-        // ..colorFilter = ColorFilter.mode(Colors.blueAccent,
-        //     BlendMode.exclusion)
-        // ..maskFilter = MaskFilter.blur(BlurStyle.inner,3)
-        ..style = PaintingStyle.fill;
-      canvas.drawCircle(offsetList[i], qzSize ?? 8, paint);
+       ;
+      Path path = Path();
+      path.addRRect(RRect.fromRectXY(
+          Rect.fromCenter(
+              center: offsetList[i], width: qzSize * 2, height: qzSize * 2),
+          qzSize,
+          qzSize));
+
+      canvas.drawPath(path, paint);
+      canvas.drawShadow(path, Colors.black, 10, true);
+
+      // canvas.drawCircle(offsetList[i], qzSize , paint);
+    }
+
+    if (offset != null) {
+      print("xxxxxoffset");
+      if (offsetList.length % 2 == 0) {
+        color = Colors.black54;
+      } else {
+        color = Colors.white60;
+      }
+      paint..color = color;
+      Path path = Path();
+      path.addRRect(RRect.fromRectXY(
+          Rect.fromCenter(
+              center: offset!, width: qzSize * 2, height: qzSize * 2),
+          qzSize,
+          qzSize));
+
+      canvas.drawPath(path, paint);
+      // canvas.drawShadow(path, Colors.black, 10, true);
     }
   }
 

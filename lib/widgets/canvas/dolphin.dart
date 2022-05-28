@@ -172,6 +172,8 @@ class _DolphinPainter extends CustomPainter {
     return false;
   }
 
+
+
   void _drawHelpPoint(Canvas canvas, Paint paint) {
     canvas.drawPoints(
         PointMode.points,

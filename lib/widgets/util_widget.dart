@@ -6,6 +6,7 @@ import 'package:flutter_demo/widgets/util_page/open_image.dart';
 import 'baseful_widget.dart';
 import 'big_image.dart';
 import 'util_page/my_toast.dart';
+import 'util_page/num_demo.dart';
 
 /// 工具、其他组件
 class UtilWidget extends StatefulWidget {
@@ -27,6 +28,10 @@ class _UtilWidgetState extends State<UtilWidget>
         _getWidget(HomeBean("吐司工具", "lib/widgets/my_toast.dart", MyToast())));
     utilList
         .add(_getWidget(HomeBean("查看大图", "lib/widgets/big_image.dart", BigImage())));
+    utilList
+        .add(_getWidget(HomeBean("Num运算符 算法汇总", "lib/widgets/big_image.dart",
+        NumDemo()
+    )));
   }
 
   @override

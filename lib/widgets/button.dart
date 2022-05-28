@@ -23,7 +23,15 @@ class _ButtonState extends State<ButtonWidgetDemo> {
       child: Column(
         children: [
           Text("3个button 属性用法完全一致（ButtonStyle）"),
-          TextButton(onPressed: () {}, child: Text("TextButton")),
+          TextButton(
+            onPressed: () {},
+            child: Text("TextButton"),
+            style: ButtonStyle(
+                padding: MaterialStateProperty.all(
+                    EdgeInsets.only(top: 0, bottom: 0, left: 0, right: 0)),
+                minimumSize: MaterialStateProperty.all(Size(0, 0)) // 按钮本身最小尺寸
+                ),
+          ),
           OutlinedButton(onPressed: () {}, child: Text("OutlinedButton")),
           ElevatedButton(
               onPressed: () {},
@@ -36,19 +44,21 @@ class _ButtonState extends State<ButtonWidgetDemo> {
                       EdgeInsets.only(top: 0, bottom: 0, left: 0, right: 0)),
                   minimumSize: MaterialStateProperty.all(Size(0, 0)) // 按钮本身最小尺寸
                   ),
-              onPressed: () {},
+              onPressed: () {
+
+              },
               child: Text(
                 "ElevatedButton去边距",
                 style: TextStyle(
                   fontSize: 20,
-                   ),
+                ),
               )),
           ElevatedButton(
-
               style: ButtonStyle(
                   foregroundColor: MaterialStateProperty.all(Colors.white),
                   backgroundColor: MaterialStateProperty.all(Colors.blue),
-                  shape: MaterialStateProperty.all(ContinuousRectangleBorder()),
+                  shape: MaterialStateProperty.all(ContinuousRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)))),
                   elevation: MaterialStateProperty.all(1)),
               onPressed: () {},
               child: Text(

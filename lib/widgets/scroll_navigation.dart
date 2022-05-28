@@ -162,7 +162,7 @@ class _ScrollNavigationState extends State<ScrollNavigation> {
     "李云龙",
     "李云龙",
     "丁伟",
-    "vvv"
+    "vvv",
     "vvv"
   ];
 
@@ -194,9 +194,14 @@ class _ScrollNavigationState extends State<ScrollNavigation> {
       nameBean.nameList = listName;
       dataList.add(nameBean);
     }
+    _positionsListener.itemPositions.addListener(() {
+      // print("lxp${_positionsListener.itemPositions.value.first.index}");
+      print("lxp${_positionsListener.itemPositions.value.last.index}");
+    });
   }
 
   late ItemScrollController _scrollController = ItemScrollController();
+  late ItemPositionsListener _positionsListener = ItemPositionsListener.create();
 
   @override
   Widget build(BuildContext context) {
@@ -206,6 +211,7 @@ class _ScrollNavigationState extends State<ScrollNavigation> {
             child: ScrollablePositionedList.builder(
           physics: BouncingScrollPhysics(),
           itemScrollController: _scrollController,
+          itemPositionsListener: _positionsListener,
           itemBuilder: (context, index) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -271,7 +277,7 @@ class _ScrollNavigationState extends State<ScrollNavigation> {
         Positioned(
           child: GestureDetector(
             child: Container(
-                margin: EdgeInsetsDirectional.only(top: 40),// 这里
+                margin: EdgeInsetsDirectional.only(top: 40), // 这里
                 width: 40,
                 child: ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
@@ -300,7 +306,7 @@ class _ScrollNavigationState extends State<ScrollNavigation> {
                 )),
             onVerticalDragDown: (DragDownDetails e) {
               //打印手指按下的位置(相对于屏幕)
-              int i = (e.localPosition.dy-40) ~/ 20;
+              int i = (e.localPosition.dy - 40) ~/ 20;
               _scrollController.jumpTo(index: i);
               setState(() {
                 currentIndex = i;
@@ -309,7 +315,7 @@ class _ScrollNavigationState extends State<ScrollNavigation> {
             //手指滑动时会触发此回调
             onVerticalDragUpdate: (DragUpdateDetails e) {
               //用户手指滑动时，更新偏移
-              int i = (e.localPosition.dy-40) ~/ 20;
+              int i = (e.localPosition.dy - 40) ~/ 20;
               _az.length;
               if (i >= 0 && i <= _az.length - 1) {
                 if (i != currentIndex) {

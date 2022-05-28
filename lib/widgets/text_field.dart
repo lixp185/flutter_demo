@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'form_edit.dart';
+
 class TextFieldWidgetDemo extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -125,6 +127,24 @@ class _TextFieldState extends State<TextFieldWidgetDemo> {
                         child: Text("提交")),
                   ],
                 )),
+
+            FormEdit(
+                margin: EdgeInsetsDirectional.only(top: 15),
+                contentPadding: EdgeInsetsDirectional.only(
+                    start: 13, end: 0, top: 12, bottom: 12),
+                borderType: BorderType.outLine,
+                inputType: TextInputType.text,
+                fontSize: 14,
+                hintText: "新密码：8-16个字母与数字结合",
+                suffixIcon: Container(
+                  // alignment: Alignment.centerRight,
+                    margin: EdgeInsetsDirectional.only(end: 15),
+                    child: Container(
+                      child: Text("获取验证码", style: TextStyle(fontSize: 14,),
+                        textAlign: TextAlign.right,),
+                    )
+                )
+            )
           ],
         ),
       ),
