@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bugly/flutter_bugly.dart';
+// import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_demo/models/app_theme.dart';
 import 'package:flutter_demo/utils/bugly.dart';

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_vibrate/flutter_vibrate.dart';
+// import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'dart:ui' as ui;
 
 class ZanDemo extends StatefulWidget {
@@ -56,10 +56,10 @@ class _ZanDemoState extends State<ZanDemo> with TickerProviderStateMixin {
             isZan.value = true;
             _controller2.forward(from: 0);
           });
-          Vibrate.feedback(FeedbackType.success);
+          // Vibrate.feedback(FeedbackType.success);
           zanNum.value++;
         } else if (isZan.value) {
-          Vibrate.feedback(FeedbackType.success);
+          // Vibrate.feedback(FeedbackType.success);
           isZan.value = false;
           zanNum.value--;
         }

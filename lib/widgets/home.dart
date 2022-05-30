@@ -150,8 +150,20 @@ class _HomeWidgetState extends State<HomeWidget>
     homeList.add(_getWidget(HomeBean(
         "自定义导航条", "lib/widgets/scroll_navigation.dart", ScrollNavigation())));
 
-    homeList
-        .add(_getWidget(HomeBean("夏日炎炎", "lib/widgets/summer.dart", Summer())));
+
+
+    loadImageInAssets('images/zongzi.jpeg')?.then((value) {
+      setState(() {
+        homeList.add(_getWidget(
+            HomeBean(
+                "粽子",
+                "lib/widgets/summer.dart",
+                Summer(
+                  image: value,
+                )),));
+      });
+    });
+
     var touchController = TouchController();
     loadImageInAssets('images/ht.png')?.then((value) {
       setState(() {

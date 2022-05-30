@@ -44,6 +44,7 @@ bin-release/
 **/doc/api/
 **/ios/Flutter/.last_build_id
 .dart_tool/
+.gradle/
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages

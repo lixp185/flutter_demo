@@ -89,6 +89,7 @@ class _DolphinPainter extends CustomPainter {
   final ui.Image image;
 
   _DolphinPainter(this.touchController, this.image)
+  //
       : super(repaint: touchController);
 
   List<Offset>? pos; //
@@ -99,7 +100,7 @@ class _DolphinPainter extends CustomPainter {
     canvas.translate(size.width / 2, size.height / 2);
     coordinate.paintT(canvas, size);
 
-    // ，因为手势识别的原点是左上角,所以这里将存储的点相对的原点进行偏移到跟画布一致
+    // ，因为手势识别的原点是左上角,所以这里将存储的点相对的原点进行偏移到跟画布一致 负值向左上角偏移
     pos = touchController.points
         .map((e) => e.translate(-size.width / 2, -size.height / 2))
         .toList();
@@ -152,19 +153,21 @@ class _DolphinPainter extends CustomPainter {
       _drawHelpPoint(canvas, paint);
     }
 
-    // canvas.drawCircle(
-    //     pos!.first.translate(-50, 5),
-    //     10,
-    //     paint
-    //       ..color = Colors.black87
-    //       ..style = PaintingStyle.stroke
-    //       ..strokeWidth = 2);
-    // canvas.drawCircle(
-    //     pos!.first.translate(-53, 5),
-    //     7,
-    //     paint
-    //       ..color = Colors.black87
-    //       ..style = PaintingStyle.fill);
+
+    // 画眼睛
+    canvas.drawCircle(
+        pos!.first.translate(-50, 5),
+        10,
+        paint
+          ..color = Colors.black87
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2);
+    canvas.drawCircle(
+        pos!.first.translate(-53, 5),
+        7,
+        paint
+          ..color = Colors.black87
+          ..style = PaintingStyle.fill);
   }
 
   @override
