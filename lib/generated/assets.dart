@@ -32,6 +32,7 @@ class Assets {
   static const String modelsNameBean = 'lib/models/name_bean.dart';
   static const String modelsNewsListBean = 'lib/models/news_list_bean.dart';
   static const String modelsQzBean = 'lib/models/qz_bean.dart';
+  static const String modelsXfRes = 'lib/models/xf_res.dart';
   static const String statesChangeNotifier = 'lib/states/change_notifier.dart';
   static const String utilPageMyToast = 'lib/widgets/util_page/my_toast.dart';
   static const String utilPageNumDemo = 'lib/widgets/util_page/num_demo.dart';
@@ -39,9 +40,12 @@ class Assets {
   static const String utilsBugly = 'lib/utils/bugly.dart';
   static const String utilsCallBack = 'lib/utils/call_back.dart';
   static const String utilsSliverToWidget = 'lib/utils/sliver_to_widget.dart';
+  static const String utilsSocketUtil = 'lib/utils/socket_util.dart';
   static const String utilsSpUtil = 'lib/utils/sp_util.dart';
   static const String utilsStatus = 'lib/utils/status.dart';
   static const String utilsToastUtil = 'lib/utils/toast_util.dart';
+  static const String utilsXfManage = 'lib/utils/xf_manage.dart';
+  static const String utilsXfUtils = 'lib/utils/xf_utils.dart';
   static const String viewMyTab = 'lib/utils/view/my_tab.dart';
   static const String viewMyTabBar = 'lib/utils/view/my_tab_bar.dart';
   static const String viewMyTabIndicator = 'lib/utils/view/my_tab_indicator.dart';

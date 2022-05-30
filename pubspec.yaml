@@ -40,6 +40,14 @@ dependencies:
   flutter_lints: ^1.0.4
 #  flutter_vibrate: ^1.3.0
   web_socket_channel: ^2.2.0
+  # 格式化
+  intl: ^0.17.0
+  # 加密
+  crypto: ^3.0.2
+
+  sound_stream: ^0.3.0
+  # 音频播放器
+  audioplayers: ^0.20.1
 
 dev_dependencies:
   flutter_test:
