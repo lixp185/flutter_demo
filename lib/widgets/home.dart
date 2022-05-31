@@ -152,7 +152,7 @@ class _HomeWidgetState extends State<HomeWidget>
 
 
 
-    loadImageInAssets('images/zongzi.jpeg')?.then((value) {
+    loadImageInAssets('images/duanwu.webp')?.then((value) {
       setState(() {
         homeList.add(_getWidget(
             HomeBean(
