@@ -14,12 +14,12 @@ class Global {
 
   // 打开程序初始化一些准备工作
   Future init() async {
-    // if (Platform.isAndroid) {
-    //   // 沉浸式
-    //   SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
-    //     statusBarColor: Colors.transparent,
-    //   );
-    //   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-    // }
+    if (Platform.isAndroid) {
+      // 沉浸式
+      SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+      );
+      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+    }
   }
 }

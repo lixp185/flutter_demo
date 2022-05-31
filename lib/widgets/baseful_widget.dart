@@ -33,7 +33,7 @@ class BaseWidgetState extends State<BaseStatefulWidget> {
     return WillPopScope(
         child: Scaffold(
           // primary: false,
-          appBar: _buildAppBar(),
+          appBar:widget.title.isEmpty?null: _buildAppBar(),
           body: Container(
             // padding: EdgeInsetsDirectional.only(top: 20),
             child: _buildBody(),

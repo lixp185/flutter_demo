@@ -33,6 +33,7 @@ class Assets {
   static const String modelsNewsListBean = 'lib/models/news_list_bean.dart';
   static const String modelsQzBean = 'lib/models/qz_bean.dart';
   static const String modelsXfRes = 'lib/models/xf_res.dart';
+  static const String modelsXfTextReq = 'lib/models/xf_text_req.dart';
   static const String statesChangeNotifier = 'lib/states/change_notifier.dart';
   static const String utilPageMyToast = 'lib/widgets/util_page/my_toast.dart';
   static const String utilPageNumDemo = 'lib/widgets/util_page/num_demo.dart';
@@ -103,5 +104,6 @@ class Assets {
   static const String widgetsWrap = 'lib/widgets/wrap.dart';
   static const String widgetsXlfBgButton = 'lib/widgets/xlf_bg_button.dart';
   static const String widgetsZan = 'lib/widgets/zan.dart';
+  static const String widgetsZongZIKePu = 'lib/widgets/zong_zI_ke_pu.dart';
 
 }

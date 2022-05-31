@@ -1,14 +1,24 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/utils/xf_manage.dart';
 import 'coordinate.dart';
 import 'dart:ui' as ui;
 
 /// 端午安康
 class Summer extends StatefulWidget {
   final ui.Image image;
+  final Animation<double> animation;
+  final Animation<double> animation2;
+  final Listenable listenable;
 
-  const Summer({Key? key, required this.image}) : super(key: key);
+  const Summer(
+      {Key? key,
+      required this.image,
+      required this.animation,
+      required this.animation2,
+      required this.listenable})
+      : super(key: key);
 
   @override
   _SummerState createState() => _SummerState();
@@ -16,27 +26,10 @@ class Summer extends StatefulWidget {
 
 class _SummerState extends State<Summer> {
 
-
-  String infoText = "端午节吃粽子由来,相传,这些民俗活动是为纪念伟大的爱国诗人屈原的。屈原是楚国三闾大夫、诗人,由于奸臣诽谤,昏庸的楚王不但不采纳他联齐抗秦的主张,反而放逐了他。"
-      "公元前278年,秦军攻破楚国的国都。相传,屈原投汨罗江后,当地百姓闻讯马上划船捞救,一直行至洞庭湖,始终不见屈原的尸体。"
- " 为了寄托哀思,楚国百姓哀痛异常,纷纷涌到汨罗江边去凭吊屈原。渔夫们划起船只,在江上来回打捞他的真身。"
-      "有位渔夫拿出为屈原准备的饭团、鸡蛋等食物,“扑通、扑通”地丢进江里,说是让鱼龙虾蟹吃饱了,就不会去咬屈大夫的身体了。"
-      "人们见后纷纷仿效。一位老医师则拿来一坛雄黄酒倒进江里,说是要药晕蛟龙水兽,以免伤害屈大夫。后来为怕饭团为蛟龙所食,人们想出用楝树叶包饭,外缠彩丝,发展成棕子。"
-  "历史上关于粽子的记载,最早见于汉代许慎的《说文解字》。"
-      "“粽”字本作“糵”,芦叶裹米也。从米,葼声。西汉把粽子做为最早出现的端午时食,应属“枭羹”。"
-      "《史记》“孝武本纪”注引如淳言:“汉使东郡送枭,五月五日为枭羹以赐百官。以恶鸟,故食之”。"
-      "大约因为枭不易捕捉,所以吃枭羹的习俗并没有持续下来。锉是端午的主角-粽子,在稍晚的东汉就已出现。"
-      "一直要到晋朝,粽子才成为端午的应节食品。粽子应该算得上是中国历史上迄今为止文化积淀最深厚的传统食品了。";
   @override
   void initState() {
     super.initState();
 
-    // XfManage.connect(_host, _apiKey, _apiSecret, _appId, "讯飞文本", (message) {
-    //
-    //
-    //   print("message == $message");
-    //
-    // });
   }
 
   @override
@@ -45,18 +38,23 @@ class _SummerState extends State<Summer> {
       child: CustomPaint(
         // size: Size(100, 100),
         size: Size(double.infinity, double.infinity),
-        painter: _GuaPainter(widget.image),
+        painter: _GuaPainter(widget.image, widget.animation, widget.animation2,
+            widget.listenable),
       ),
     );
   }
 }
 
 class _GuaPainter extends CustomPainter {
+  final Animation<double> animation;
+  final Animation<double> animation2;
+  final Listenable listenable;
   Coordinate coordinate = Coordinate(setP: 20);
 
   final ui.Image image;
 
-  _GuaPainter(this.image);
+  _GuaPainter(this.image, this.animation, this.animation2, this.listenable)
+      : super(repaint: listenable);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -68,7 +66,6 @@ class _GuaPainter extends CustomPainter {
       ..color = Color(0xFFFEFFDD)
       ..isAntiAlias = true;
 
-
     canvas.drawImageRect(
         image,
         // src
@@ -77,9 +74,15 @@ class _GuaPainter extends CustomPainter {
             width: image.width.toDouble(),
             height: image.height.toDouble()),
         //   dec
-        Rect.fromCenter(center: Offset.zero, width: size.width.toDouble(), height: size.height.toDouble()), paint);
+        Rect.fromCenter(
+            center: Offset.zero,
+            width: size.width.toDouble(),
+            height: size.height.toDouble()),
+        paint);
 
     canvas.translate(-150, -50);
+
+    canvas.translate(0, 20*animation2.value);
 
     Path path = Path();
 
@@ -90,7 +93,6 @@ class _GuaPainter extends CustomPainter {
 
     canvas.drawPath(path, paint..style = PaintingStyle.fill);
 
-
     Path path2 = Path();
 
     path2.relativeQuadraticBezierTo(60, 100, 190, 130);
@@ -98,6 +100,7 @@ class _GuaPainter extends CustomPainter {
     path2.relativeLineTo(-260, 0);
     path2.relativeLineTo(0, -200);
     path2.close();
+
     /// 左边粽叶
     Path pathStart = Path.combine(PathOperation.intersect, path, path2);
     pathStart.close();
@@ -141,7 +144,7 @@ class _GuaPainter extends CustomPainter {
     /// 嘴巴
     Path path4 = Path();
     path4.moveTo(40, 20);
-    path4.relativeCubicTo(2, 18, 18, 18, 20, 0);
+    path4.relativeCubicTo(2, 18*animation.value, 18, 18*animation.value, 20, 0);
     path4.close();
     canvas.drawPath(path4, paint..color = Colors.black87);
     //
@@ -165,23 +168,39 @@ class _GuaPainter extends CustomPainter {
 
     /// 晒红
     Path path9 = Path();
-    path9.addArc(Rect.fromCenter(center: Offset(30,30), width: 4, height: 6),0,pi*2);
-    canvas.drawPath(path9, paint..color = Color(0xFFFFA2AE)..style = PaintingStyle.fill);
+    path9.addArc(Rect.fromCenter(center: Offset(30, 30), width: 4, height: 6),
+        0, pi * 2);
+    canvas.drawPath(
+        path9,
+        paint
+          ..color = Color(0xFFFFA2AE)
+          ..style = PaintingStyle.fill);
     canvas.save();
     canvas.translate(6, 0);
-    canvas.drawPath(path9, paint..color = Color(0xFFFFA2AE)..style = PaintingStyle.fill);
+    canvas.drawPath(
+        path9,
+        paint
+          ..color = Color(0xFFFFA2AE)
+          ..style = PaintingStyle.fill);
     canvas.restore();
     canvas.save();
     canvas.translate(34, 0);
-    canvas.drawPath(path9, paint..color = Color(0xFFFFA2AE)..style = PaintingStyle.fill);
+    canvas.drawPath(
+        path9,
+        paint
+          ..color = Color(0xFFFFA2AE)
+          ..style = PaintingStyle.fill);
     canvas.restore();
     canvas.save();
     canvas.translate(40, 0);
-    canvas.drawPath(path9, paint..color = Color(0xFFFFA2AE)..style = PaintingStyle.fill);
+    canvas.drawPath(
+        path9,
+        paint
+          ..color = Color(0xFFFFA2AE)
+          ..style = PaintingStyle.fill);
     canvas.restore();
+
     ///
-
-
 
     ///甜
 
@@ -227,6 +246,7 @@ class _GuaPainter extends CustomPainter {
     var firstR = pmRs.first;
     var offsetStart = first.getTangentForOffset(first.length * 0.55)!;
     var offsetRight = firstR.getTangentForOffset(firstR.length * 0.43)!;
+
     /// 手
     Path path7 = Path();
     path7.moveTo(offsetStart.position.dx, offsetStart.position.dy);
@@ -251,6 +271,7 @@ class _GuaPainter extends CustomPainter {
         paint
           ..color = Colors.black
           ..style = PaintingStyle.stroke);
+
     /// 脚
     var offsetRightJ1 = firstR.getTangentForOffset(firstR.length * 0.9)!;
     var offsetRightJ2 = firstR.getTangentForOffset(firstR.length * 0.7)!;
@@ -259,6 +280,7 @@ class _GuaPainter extends CustomPainter {
     path8.moveTo(offsetRightJ1.position.dx, offsetRightJ1.position.dy);
     path8.relativeLineTo(-10, 40);
     path8.relativeLineTo(-10, 0);
+
     /// 左脚
     canvas.drawPath(
         path8,
@@ -278,39 +300,41 @@ class _GuaPainter extends CustomPainter {
           ..color = Colors.black
           ..style = PaintingStyle.stroke);
 
-
     /// 咸甜一家人
     var textPainter2 = TextPainter(
         text: TextSpan(
-            text: "咸甜一家人", style: TextStyle(fontSize: 26, color: Colors.black87)),
+            text: "咸甜一家人",
+            style: TextStyle(fontSize: 26, color: Colors.black87)),
         textDirection: TextDirection.ltr);
     textPainter2.layout();
     var size3 = textPainter.size;
 
-    textPainter2.paint(
-        canvas, Offset(-size3.width / 2, -size3.height / 2).translate(100, -100));
+    textPainter2.paint(canvas,
+        Offset(-size3.width / 2, -size3.height / 2).translate(100, -100));
 
-
-      ///小心心
+    ///小心心
     Path path12 = Path();
     path12.moveTo(140, 0);
     path12.relativeCubicTo(-20, -8, -6, -24, 0, -14);
     path12.close();
-    canvas.drawPath(path12, paint..color = Colors.red..style = PaintingStyle.fill);
+    canvas.drawPath(
+        path12,
+        paint
+          ..color = Colors.red
+          ..style = PaintingStyle.fill);
     path12.relativeCubicTo(20, -8, 6, -24, 0, -14);
     canvas.drawPath(path12, paint..color = Colors.red);
     canvas.save();
     canvas.translate(40, -20);
-    canvas.rotate(pi/18);
+    canvas.rotate(pi / 18);
     canvas.drawPath(path12, paint..color = Colors.red);
     canvas.restore();
-    _canvasXZ(canvas,size);
-
+    _canvasXZ(canvas, size);
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
+  bool shouldRepaint(covariant _GuaPainter oldDelegate) {
+    return oldDelegate.listenable != listenable;
   }
 
   _canvasStartLines(Canvas canvas, Path pathStart, Paint paint) {
@@ -348,9 +372,9 @@ class _GuaPainter extends CustomPainter {
   }
 
   void _canvasXZ(Canvas canvas, Size size) {
-  canvas.save();
-  canvas.translate(240, -30);
-  canvas.rotate(pi*2-pi/18);
+    canvas.save();
+    canvas.translate(240, -30);
+    canvas.rotate(pi * 2 - pi / 18);
     Paint paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2
@@ -365,7 +389,6 @@ class _GuaPainter extends CustomPainter {
 
     canvas.drawPath(path, paint..style = PaintingStyle.fill);
 
-
     Path path2 = Path();
 
     path2.relativeQuadraticBezierTo(60, 100, 190, 130);
@@ -373,6 +396,7 @@ class _GuaPainter extends CustomPainter {
     path2.relativeLineTo(-260, 0);
     path2.relativeLineTo(0, -200);
     path2.close();
+
     /// 左边粽叶
     Path pathStart = Path.combine(PathOperation.intersect, path, path2);
     pathStart.close();
@@ -423,23 +447,24 @@ class _GuaPainter extends CustomPainter {
     //
     /// 眼睛
     Path path5 = Path();
-    path5.addOval(Rect.fromCenter(center: Offset(26,5), width: 15, height: 15));
+    path5
+        .addOval(Rect.fromCenter(center: Offset(26, 5), width: 15, height: 15));
     canvas.drawPath(
         path5,
         paint
           ..color = Colors.black87
           ..style = PaintingStyle.fill);
 
-  path5.reset();
-  path5.addOval(Rect.fromCenter(center: Offset(24,5), width: 4, height: 4));
-  canvas.drawPath(
-      path5,
-      paint
-        ..color = Colors.white
-        ..style = PaintingStyle.fill);
-  canvas.save();
-  path5.reset();
-  canvas.translate(70, 0);
+    path5.reset();
+    path5.addOval(Rect.fromCenter(center: Offset(24, 5), width: 4, height: 4));
+    canvas.drawPath(
+        path5,
+        paint
+          ..color = Colors.white
+          ..style = PaintingStyle.fill);
+    canvas.save();
+    path5.reset();
+    canvas.translate(70, 0);
     path5.relativeLineTo(-10, 5);
     path5.relativeLineTo(10, 5);
     canvas.drawPath(
@@ -451,23 +476,39 @@ class _GuaPainter extends CustomPainter {
 
     /// 晒红
     Path path9 = Path();
-    path9.addArc(Rect.fromCenter(center: Offset(30,30), width: 4, height: 6),0,pi*2);
-    canvas.drawPath(path9, paint..color = Color(0xFFFFA2AE)..style = PaintingStyle.fill);
+    path9.addArc(Rect.fromCenter(center: Offset(30, 30), width: 4, height: 6),
+        0, pi * 2);
+    canvas.drawPath(
+        path9,
+        paint
+          ..color = Color(0xFFFFA2AE)
+          ..style = PaintingStyle.fill);
     canvas.save();
     canvas.translate(6, 0);
-    canvas.drawPath(path9, paint..color = Color(0xFFFFA2AE)..style = PaintingStyle.fill);
+    canvas.drawPath(
+        path9,
+        paint
+          ..color = Color(0xFFFFA2AE)
+          ..style = PaintingStyle.fill);
     canvas.restore();
     canvas.save();
     canvas.translate(34, 0);
-    canvas.drawPath(path9, paint..color = Color(0xFFFFA2AE)..style = PaintingStyle.fill);
+    canvas.drawPath(
+        path9,
+        paint
+          ..color = Color(0xFFFFA2AE)
+          ..style = PaintingStyle.fill);
     canvas.restore();
     canvas.save();
     canvas.translate(40, 0);
-    canvas.drawPath(path9, paint..color = Color(0xFFFFA2AE)..style = PaintingStyle.fill);
+    canvas.drawPath(
+        path9,
+        paint
+          ..color = Color(0xFFFFA2AE)
+          ..style = PaintingStyle.fill);
     canvas.restore();
+
     ///
-
-
 
     ///甜
 
@@ -513,6 +554,7 @@ class _GuaPainter extends CustomPainter {
     var firstR = pmRs.first;
     var offsetStart = first.getTangentForOffset(first.length * 0.55)!;
     var offsetRight = firstR.getTangentForOffset(firstR.length * 0.43)!;
+
     /// 手
     Path path7 = Path();
     path7.moveTo(offsetStart.position.dx, offsetStart.position.dy);
@@ -537,6 +579,7 @@ class _GuaPainter extends CustomPainter {
         paint
           ..color = Colors.black
           ..style = PaintingStyle.stroke);
+
     /// 脚
     var offsetRightJ1 = firstR.getTangentForOffset(firstR.length * 0.9)!;
     var offsetRightJ2 = firstR.getTangentForOffset(firstR.length * 0.7)!;
@@ -545,6 +588,7 @@ class _GuaPainter extends CustomPainter {
     path8.moveTo(offsetRightJ1.position.dx, offsetRightJ1.position.dy);
     path8.relativeLineTo(-20, 40);
     path8.relativeLineTo(-10, 0);
+
     /// 左脚
     canvas.drawPath(
         path8,
@@ -564,8 +608,6 @@ class _GuaPainter extends CustomPainter {
           ..color = Colors.black
           ..style = PaintingStyle.stroke);
 
-
     canvas.restore();
-
   }
 }

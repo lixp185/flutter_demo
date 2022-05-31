@@ -46,6 +46,8 @@ import 'transform.dart';
 import 'wrap.dart';
 import 'package:image/image.dart' as image;
 
+import 'zong_zI_ke_pu.dart';
+
 class HomeWidget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -149,20 +151,20 @@ class _HomeWidgetState extends State<HomeWidget>
         _getWidget(HomeBean("点赞", "lib/widgets/paint2_demo.dart", ZanDemo())));
     homeList.add(_getWidget(HomeBean(
         "自定义导航条", "lib/widgets/scroll_navigation.dart", ScrollNavigation())));
+    homeList.add(_getWidget(
+        HomeBean("端午粽子", "lib/widgets/scroll_navigation.dart", ZongZiKePu())));
 
-
-
-    loadImageInAssets('images/duanwu.webp')?.then((value) {
-      setState(() {
-        homeList.add(_getWidget(
-            HomeBean(
-                "粽子",
-                "lib/widgets/summer.dart",
-                Summer(
-                  image: value,
-                )),));
-      });
-    });
+    // loadImageInAssets('images/duanwu.webp')?.then((value) {
+    //   setState(() {
+    //     homeList.add(_getWidget(
+    //         HomeBean(
+    //             "粽子",
+    //             "lib/widgets/summer.dart",
+    //             Summer(
+    //               image: value,
+    //             )),));
+    //   });
+    // });
 
     var touchController = TouchController();
     loadImageInAssets('images/ht.png')?.then((value) {
@@ -205,8 +207,13 @@ class _HomeWidgetState extends State<HomeWidget>
           child: ElevatedButton(
             child: Text(homeBean.title),
             onPressed: () {
-              _startAty(homeBean.page!, homeBean.title, homeBean.path!,
-                  onRightClick: onRightClick);
+              if (homeBean.title == "端午粽子") {
+                _startAty(homeBean.page!, "", homeBean.path!,
+                    onRightClick: onRightClick);
+              } else {
+                _startAty(homeBean.page!, homeBean.title, homeBean.path!,
+                    onRightClick: onRightClick);
+              }
             },
           ));
     } else if (homeBean.type == 1) {

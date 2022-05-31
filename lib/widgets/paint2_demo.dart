@@ -7,8 +7,9 @@ class Pain2Painter extends CustomPainter {
   final ValueNotifier<Color> color2; // 豆子的的颜色
   final Animation<double> angle; // 吃豆人
   final Animation<double> angle2; // 豆
-  final double ddSize; // 豆豆大小
   final Listenable listenable;
+  final double ddSize; // 豆豆大小
+
 
   Pain2Painter(
       this.color, this.color2, this.angle, this.angle2, this.listenable,
