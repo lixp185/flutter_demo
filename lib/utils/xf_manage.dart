@@ -104,32 +104,6 @@ class XfManage {
     dataReq.text = base64.encode(utf8.encode(text));
     xfTextReq.data = dataReq;
 
-    String requestJson = "{\n" +
-        "  \"common\": {\n" +
-        "    \"app_id\": \"" +
-        _appId +
-        "\"\n" +
-        "  },\n" +
-        "  \"business\": {\n" +
-        "    \"aue\": \"lame\",\n" +
-        "    \"tte\": \"" +
-        'UTF8' +
-        "\",\n" +
-        "    \"ent\": \"intp65\",\n" +
-        "    \"vcn\": \"" +
-        'xiaoyan' +
-        "\",\n" +
-        "    \"pitch\": 50,\n" +
-        "    \"speed\": 50\n" +
-        "  },\n" +
-        "  \"data\": {\n" +
-        "    \"status\": 2,\n" +
-        "    \"text\": \"" +
-        base64.encode(utf8.encode(text)) +
-        "\"\n" +
-        "  }\n" +
-        "}";
-
     // print("input == ${jsonEncode(xfTextReq)}");
     // print("input2 == ${requestJson}");
     _channel?.sink.add(jsonEncode(xfTextReq));
