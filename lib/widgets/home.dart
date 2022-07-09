@@ -6,6 +6,7 @@ import 'package:flutter_demo/widgets/canvas/gestures_unlock.dart';
 import 'package:flutter_demo/widgets/canvas/touch_controller.dart';
 import 'package:flutter_demo/widgets/canvas/xin_sui.dart';
 import 'package:flutter_demo/widgets/dragon_ball.dart';
+import 'package:flutter_demo/widgets/table_demo.dart';
 import 'package:flutter_demo/widgets/zan.dart';
 import 'dart:ui' as ui;
 import 'align.dart';
@@ -17,12 +18,14 @@ import 'calendar.dart';
 import 'canvas/bw.dart';
 import 'canvas/dolphin.dart';
 import 'canvas/fan_book.dart';
+import 'canvas/joystick.dart';
 import 'canvas/oval_loading.dart';
 import 'canvas_demo.dart';
 import 'check.dart';
 import 'container.dart';
 import 'flex_demo.dart';
 import 'hero_demo.dart';
+import 'move_damo.dart';
 import 'padding.dart';
 import 'decorated_box.dart';
 import 'dialog.dart';
@@ -46,6 +49,7 @@ import 'transform.dart';
 import 'wrap.dart';
 import 'package:image/image.dart' as image;
 
+import 'yy_text_demo.dart';
 import 'zong_zI_ke_pu.dart';
 
 class HomeWidget extends StatefulWidget {
@@ -69,6 +73,10 @@ class _HomeWidgetState extends State<HomeWidget>
   void initState() {
     homeList.add(_getWidget(
         HomeBean("布局demo", "lib/widgets/hero_demo.dart", FlexDemo())));
+    homeList.add(_getWidget(
+        HomeBean("移动demo", "lib/widgets/move_demo.dart", JoyStick())));
+    homeList.add(_getWidget(
+        HomeBean("表格组件demo", "lib/widgets/table_demo.dart", TableDemo())));
     homeList.add(_getWidget(
         HomeBean("主题(状态)", "lib/widgets/theme.dart", ThemeWidgetDemo())));
     homeList.add(_getWidget(
@@ -154,6 +162,8 @@ class _HomeWidgetState extends State<HomeWidget>
     homeList.add(_getWidget(
         HomeBean("端午粽子", "lib/widgets/scroll_navigation.dart", ZongZiKePu())));
 
+    homeList.add(_getWidget(
+        HomeBean("语音识别", "lib/widgets/yy_text_demo.dart", YYTextDemo())));
     // loadImageInAssets('images/duanwu.webp')?.then((value) {
     //   setState(() {
     //     homeList.add(_getWidget(
@@ -221,7 +231,7 @@ class _HomeWidgetState extends State<HomeWidget>
         margin: EdgeInsets.only(top: 10, bottom: 10),
         alignment: Alignment.center,
         child: Text(
-          """${homeBean.title} ${String.fromCharCodes(Runes("\u2665"))}""",
+          """${homeBean.title} ${String.fromCharCodes(Runes("\u2665;"))}""",
           style: TextStyle(fontSize: 14),
         ),
       );

@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/utils/xf_manage.dart';
 import 'coordinate.dart';
 import 'dart:ui' as ui;
 

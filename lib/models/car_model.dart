@@ -21,6 +21,7 @@ class CarModel extends ChangeNotifier {
 
   ThemeData get getTheme => themeData;
 
+
   void setTheme(ThemeData themeData) {
     this.themeData = themeData;
     notifyListeners();

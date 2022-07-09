@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/states/firm_info.dart';
 
 class ListViewWidgetDemo extends StatefulWidget {
   @override
@@ -56,10 +57,7 @@ class ListViewState extends State<ListViewWidgetDemo> {
         }
       });
 
-      print(
-          'stateHeight22:${WidgetsBinding.instance!.window.padding.top / WidgetsBinding.instance!.window.devicePixelRatio}');
-      print(
-          'stateHeight22:${MediaQueryData.fromWindow(window).padding.top}');
+
     });
 
     super.initState();
@@ -76,14 +74,57 @@ class ListViewState extends State<ListViewWidgetDemo> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        controller: _scrollController,
-        shrinkWrap: true,
-        scrollDirection: Axis.vertical,
-        itemCount: lis.length,
-        itemBuilder: (context, index) {
-          return _listWidget(lis[index]);
-        });
+    // return ListView.separated(
+    //     controller: _scrollController,
+    //     shrinkWrap: true,
+    //     scrollDirection: Axis.vertical,
+    //     itemCount: lis.length,
+    //     separatorBuilder: (context,index){
+    //       return Divider();
+    //     },
+    //     itemBuilder: (context, index) {
+    //       print("index$index");
+    //
+    //       return _listWidget(lis[index]);
+    //     });
+
+    return   SafeArea(
+        top: false,
+        bottom: false,
+        child: Builder(builder: (c){
+          return
+            CustomScrollView(
+
+              slivers: [
+                SliverList(delegate:SliverChildBuilderDelegate((context,index){
+                  return Container(child: Text("data$index"),padding:
+                  EdgeInsetsDirectional.all(20),);
+                },
+                    childCount: 6),),
+                SliverFixedExtentList(
+                    delegate: SliverChildBuilderDelegate(
+                            (BuildContext context, int index) {
+                          return Container(
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: 10,
+                                  itemBuilder: (context, index) {
+                                    return  Container(child: Text("data$index"),padding:
+                                    EdgeInsetsDirectional.all(20),);
+                                  }));
+                        }, childCount: 1),
+                    itemExtent: 80.0),
+
+                SliverList(delegate:SliverChildBuilderDelegate((context,index){
+                  return Container(child: Text("data$index"),padding:
+                  EdgeInsetsDirectional.all(20),);
+                },
+                    childCount: 30),)
+
+              ],
+            );
+        },));
+
   }
 
   Widget _listWidget(NewsListBean bean) {

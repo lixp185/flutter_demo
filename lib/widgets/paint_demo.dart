@@ -17,47 +17,62 @@ class PaintDemo extends StatefulWidget {
 }
 
 class _PaintDemoState extends State<PaintDemo> {
+  ValueNotifier<Offset> _offsetCenter = ValueNotifier(Offset.zero);
   ValueNotifier<Offset> _offset = ValueNotifier(Offset.zero);
 
-  @override
-  void initState() {
-    double d = -0.22222;
-
-    super.initState();
-    print("${2.isNegative}");
-    print("0.2 ${d.isNegative}");
-  }
+  late Size size;
+  late double bgR = 40; // 底圆半径
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: double.infinity,
-        height: double.infinity,
+    size = Size(
+      MediaQuery.of(context).size.width / 2,
+      MediaQuery.of(context).size.height / 2,
+    );
+    return GestureDetector(
+      child: CustomPaint(
+        size: size,
+        painter: PaperPainter(widget.image, widget.image22,
+            offset: _offset,
+            offsetCenter: _offsetCenter,
+            listenable: Listenable.merge([_offset, _offsetCenter])),
+      ),
+      // 移动
+      onPanDown: down,
+      onPanUpdate: update,
+      onPanEnd: reset,
+    );
+  }
 
-        /// 显示绘制的结果
-        child: GestureDetector(
-          child: CustomPaint(
-            // size: Size(80,80),
-            painter:
-                PaperPainter(widget.image, widget.image22, offset: _offset),
-          ),
-          // 移动
-          // onPanUpdate: parser,
-          // onPanEnd: reset,
-        ));
+  down(DragDownDetails details) {
+    Offset offset = details.localPosition;
+
+    print("down dx ${offset.dx} down dy ${offset.dy}");
+    if (offset.dx > size.width - bgR) {
+      offset = Offset(size.width - bgR, offset.dy);
+    }
+    if (offset.dx < bgR) {
+      offset = Offset(bgR, offset.dy);
+    }
+    if (offset.dy > size.height - bgR) {
+      offset = Offset(offset.dx, size.height - bgR);
+    }
+    if (offset.dy < bgR) {
+      offset = Offset(offset.dx, bgR);
+    }
+    _offsetCenter.value = offset.translate(-size.width / 2, -size.height / 2);
+    _offset.value = offset.translate(-size.width / 2, -size.height / 2);
   }
 
   reset(DragEndDetails details) {
     _offset.value = Offset.zero;
+    _offsetCenter.value = Offset.zero;
   }
 
-  parser(DragUpdateDetails details) {
+  update(DragUpdateDetails details) {
     final offset = details.localPosition;
-    double dx = 0.0;
-    double dy = 0.0;
-    dx = offset.dx;
-    dy = offset.dy;
-    _offset.value = Offset(dx, dy);
+    _offset.value = Offset(offset.dx, offset.dy)
+        .translate(-size.width / 2, -size.height / 2);
   }
 }
 
@@ -70,10 +85,17 @@ class PaperPainter extends CustomPainter {
   final image2.Image? image22;
   List<Ball> balls = [];
   double d = 2.6; //复刻的像素边长
+  final ValueNotifier<Offset> offsetCenter;
   final ValueNotifier<Offset> offset;
+  late double bgR = 40; // 底圆半径
 
-  PaperPainter(this._image, this.image22, {required this.offset})
-      : super(repaint: offset) {
+  PaperPainter(
+    this._image,
+    this.image22, {
+    required this.offset,
+    required this.offsetCenter,
+    required Listenable listenable,
+  }) : super(repaint: listenable) {
     _paint = Paint()
       ..style = PaintingStyle.stroke
       ..color = color
@@ -84,13 +106,17 @@ class PaperPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(PaperPainter oldDelegate) {
-    return oldDelegate.offset != offset;
+    return oldDelegate.offset != offset ||
+        oldDelegate.offsetCenter != offsetCenter;
   }
 
   @override
   void paint(Canvas canvas, Size size) {
     // 平移画布 中心点
+    // canvas.clipRect(Offset.zero & size);
     canvas.translate(size.width / 2, size.height / 2);
+    // canvas.translate(offsetCenter.value.dx, offsetCenter.value.dy);
+
     coordinate.paintT(canvas, size);
     // 网格
     // _drawBottomRight(canvas, size);
@@ -108,65 +134,56 @@ class PaperPainter extends CustomPainter {
     // _drawPath(canvas, size);
     // _drawColor(canvas, size);
     // _drawCDR(canvas, size);
-    // _drawShouShi(canvas, size);
+    _drawShouShi(canvas, size);
     // _drawSyr(canvas, size);
     // _drawHt(canvas, size);
     // _drawXiaoA(canvas, size);
     // _drawZan(canvas, size);
     // _drawPath2(canvas, size);
-    _drawLt(canvas, size);
-
+    // _drawLt(canvas, size);
   }
 
   void _drawShouShi(Canvas canvas, Size size) {
-    var offsetTranslate =
-        offset.value.translate(-size.width / 2, -size.height / 2);
+    /// 手指移动坐标
+    var offsetTranslate = offset.value;
+    /// 操纵杆圆心坐标
+    var offsetTranslateCenter = offsetCenter.value;
+    /// 计算当前位置坐标点
+    double x = offsetTranslateCenter.dx - offsetTranslate.dx;
+    double y = offsetTranslateCenter.dy - offsetTranslate.dy;
+    /// 反正切函数 通过此函数可以计算出此坐标旋转的弧度
+    double ata = atan2(x, y);
+    /// 默认坐标系范围为-pi - pi  逆时针旋转坐标系90度 变为 0 - 2*pi;
+    var thta = ata - pi / 2;
+    print("angle ${(180 / pi * thta).toInt()}");
 
-    print("dx ${offsetTranslate.dx} dy${offsetTranslate.dy}");
-    var ata = atan2(offsetTranslate.dx, offsetTranslate.dy);
-    var thta = ata - pi / 2; //旋转坐标系90度
-    var d = sqrt(offsetTranslate.dx * offsetTranslate.dx +
-        offsetTranslate.dy * offsetTranslate.dy);
-    if (d > 60) {
-      var dx = 60 * cos(thta); // 求边长
-      var dy = -60 * sin(thta); // 求边长
+    /// 半径长度
+    var r = sqrt(pow(x, 2) + pow(y, 2));
+
+    if (r > bgR) {
+      var dx = -bgR * cos(thta) + offsetTranslateCenter.dx; // 求边长
+      var dy = bgR * sin(thta) + offsetTranslateCenter.dy; // 求边长
       offsetTranslate = Offset(dx, dy);
     }
-
+    // 底圆
     canvas.drawCircle(
-        Offset.zero,
-        60,
+        offsetTranslateCenter,
+        bgR,
         _paint
           ..style = PaintingStyle.fill
           ..color = Colors.blue.withOpacity(0.2));
     _paint.color = color;
     _paint.style = PaintingStyle.stroke;
-    if (offset.value == Offset.zero) {
-      canvas.drawCircle(
-          offset.value,
-          20,
-          _paint
-            ..style = PaintingStyle.fill
-            ..color = Colors.blue.withOpacity(0.6));
 
-      canvas.drawLine(Offset.zero, offset.value, _paint);
-    } else {
-      canvas.drawCircle(
-          offsetTranslate,
-          20,
-          _paint
-            ..style = PaintingStyle.fill
-            ..color = Colors.blue.withOpacity(0.6));
+    /// 手势小圆
+    canvas.drawCircle(
+        offsetTranslate,
+        bgR / 3,
+        _paint
+          ..style = PaintingStyle.fill
+          ..color = Colors.blue.withOpacity(0.6));
 
-      canvas.drawLine(Offset.zero, offsetTranslate, _paint);
-    }
-
-    // canvas.drawCircle(
-    //     Offset.zero,
-    //     20,
-    //     _paint
-    //       ..style = PaintingStyle.fill
-    //       ..color = Colors.blue.withOpacity(0.6));
+    // canvas.drawLine(Offset.zero, offsetTranslate, _paint);
   }
 
   void _drawBottomRight(Canvas canvas, Size size) {

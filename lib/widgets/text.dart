@@ -1,9 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_demo/widgets/summer.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'dart:ui' as ui;
+
 class TextWidgetDemo extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -12,17 +10,9 @@ class TextWidgetDemo extends StatefulWidget {
 }
 
 class _TextWidgetState extends State<TextWidgetDemo> {
-
-
-
-
-
-
- 
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -78,22 +68,23 @@ class _TextWidgetState extends State<TextWidgetDemo> {
             TextSpan(text: "github:"),
             TextSpan(
                 text: "https://github.com/lixp185/flutter_demo",
-                recognizer: TapGestureRecognizer()..onTap = () {
-                  _launchURL("https://github.com/lixp185/flutter_demo");
-                },
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    _launchURL("https://github.com/lixp185/flutter_demo");
+                  },
                 style: TextStyle(
                   color: Colors.blue,
                   decoration: TextDecoration.underline,
                 ))
           ])),
+
+          Text("&#8482;™α"),
         ],
       ),
     );
-
   }
 
-
-
+  var s = "&#8482";
   void _launchURL(String _url) async => await canLaunch(_url)
       ? await launch(_url)
       : throw 'Could not launch $_url';
