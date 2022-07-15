@@ -68,7 +68,6 @@ class Assets {
   static const String widgetsCurveBox = 'lib/widgets/curve_box.dart';
   static const String widgetsDecoratedBox = 'lib/widgets/decorated_box.dart';
   static const String widgetsDialog = 'lib/widgets/dialog.dart';
-  static const String widgetsDragonBall = 'lib/widgets/dragon_ball.dart';
   static const String widgetsFlexDemo = 'lib/widgets/flex_demo.dart';
   static const String widgetsFormEdit = 'lib/widgets/form_edit.dart';
   static const String widgetsGalleryExampleItem = 'lib/widgets/gallery_example_item.dart';
@@ -84,6 +83,7 @@ class Assets {
   static const String widgetsPadding = 'lib/widgets/padding.dart';
   static const String widgetsPaint2Demo = 'lib/widgets/paint2_demo.dart';
   static const String widgetsPaintDemo = 'lib/widgets/paint_demo.dart';
+  static const String widgetsPolygonal = 'lib/widgets/polygonal.dart';
   static const String widgetsProgress = 'lib/widgets/progress.dart';
   static const String widgetsQiPao = 'lib/widgets/qi_pao.dart';
   static const String widgetsQpWidget = 'lib/widgets/qp_widget.dart';

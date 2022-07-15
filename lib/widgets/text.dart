@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -14,6 +16,8 @@ class _TextWidgetState extends State<TextWidgetDemo> {
   void initState() {
     super.initState();
   }
+  HtmlEscape htmlEscape = HtmlEscape();
+
 
   @override
   Widget build(BuildContext context) {
@@ -78,13 +82,12 @@ class _TextWidgetState extends State<TextWidgetDemo> {
                 ))
           ])),
 
-          Text("&#8482;™α"),
+          Text(htmlEscape.convert("&#8482;")),
         ],
       ),
     );
   }
 
-  var s = "&#8482";
   void _launchURL(String _url) async => await canLaunch(_url)
       ? await launch(_url)
       : throw 'Could not launch $_url';

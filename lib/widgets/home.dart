@@ -5,7 +5,7 @@ import 'package:flutter_demo/utils/sliver_to_widget.dart';
 import 'package:flutter_demo/widgets/canvas/gestures_unlock.dart';
 import 'package:flutter_demo/widgets/canvas/touch_controller.dart';
 import 'package:flutter_demo/widgets/canvas/xin_sui.dart';
-import 'package:flutter_demo/widgets/dragon_ball.dart';
+
 import 'package:flutter_demo/widgets/table_demo.dart';
 import 'package:flutter_demo/widgets/zan.dart';
 import 'dart:ui' as ui;
@@ -35,6 +35,7 @@ import 'list.dart';
 import 'listener.dart';
 import 'paint2_demo.dart';
 import 'paint_demo.dart';
+import 'polygonal.dart';
 import 'progress.dart';
 import 'scroll_navigation.dart';
 import 'size_box.dart';
@@ -75,6 +76,8 @@ class _HomeWidgetState extends State<HomeWidget>
         HomeBean("布局demo", "lib/widgets/hero_demo.dart", FlexDemo())));
     homeList.add(_getWidget(
         HomeBean("移动demo", "lib/widgets/move_demo.dart", JoyStick())));
+    homeList.add(_getWidget(
+        HomeBean("翻书demo", "lib/widgets/fan_book.dart", FanBook())));
     homeList.add(_getWidget(
         HomeBean("表格组件demo", "lib/widgets/table_demo.dart", TableDemo())));
     homeList.add(_getWidget(

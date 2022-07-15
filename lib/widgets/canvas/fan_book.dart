@@ -41,22 +41,37 @@ class _FanBookState extends State<FanBook> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  PaperPoint? _paperPoint;
+  ValueNotifier<PaperPoint> p = ValueNotifier(PaperPoint(
+    Point(0, 0),
+    Point(200, 200),
+  ));
+
+  Size size = Size(300, 400);
 
   // 定义上一页、当前页、下一页
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: double.infinity,
+        color: Colors.blue,
+        // width: double.infinity,
         child: GestureDetector(
           child: CustomPaint(
-            size: Size(double.infinity, double.infinity),
-            painter: _BookPainter(_controller),
+            size: size,
+            painter: _BookPainter(
+              _controller,
+              p,
+            ),
           ),
           onPanDown: (d) {
-            _controller.forward(from: 0);
-            _paperPoint = PaperPoint(
-                Point(d.localPosition.dx, d.localPosition.dy), Point(1, 1));
+            // _controller.forward(from: 0);
+            var down =
+                d.localPosition.translate(-size.width / 2, -size.height / 2);
+
+            p.value = PaperPoint(Point(down.dx, down.dy),
+                Point(size.width / 2, size.height / 2));
+
+            print("xxxxx${down.dx}  ${down.dy}");
+            print("eeeee ${p.value.e.x}  ${p.value.e.y}");
           },
         ));
   }
@@ -64,51 +79,72 @@ class _FanBookState extends State<FanBook> with TickerProviderStateMixin {
 
 class _BookPainter extends CustomPainter {
   Animation<double> animation;
+  ValueNotifier<PaperPoint> p;
 
-  _BookPainter(this.animation) : super(repaint: animation);
+  _BookPainter(this.animation, this.p) : super(repaint: p);
 
   @override
   void paint(Canvas canvas, Size size) {
     canvas.translate(size.width / 2, size.height / 2);
     Paint paint = Paint()
       ..color = Colors.red
-      ..style = PaintingStyle.fill
+      ..style = PaintingStyle.stroke
       ..strokeWidth = 2;
-    Path path = Path();
-    Path path2 = Path();
+    Path mPath0 = Path();
     // 定义书的右下角
-    path.addOval(Rect.fromCircle(center: Offset(-20, 0), radius: 50));
-    path2.addOval(Rect.fromCircle(center: Offset(20, 0), radius: 50));
+    // mPath0.addRect(Rect.fromLTRB(
+    //   -size.width / 2,
+    //   -size.height / 2,
+    //   p.value.f.x,
+    //   p.value.f.y,
+    // ));
 
-    canvas.drawPath(Path.combine(PathOperation.difference, path, path2),
-        paint..color = Colors.yellow.shade700);
+    mPath0.lineTo(p.value.e.x, p.value.e.y);
+    mPath0.lineTo(p.value.c.x, p.value.c.y);
+    // mPath0.quadTo(hx, hy, kx, ky);
+    // mPath0.lineTo(ax, ay);
+    // mPath0.lineTo(bx, by);
+    // mPath0.quadTo(ex, ey, cx, cy);
+    // mPath0.lineTo(fx, fy);
+    mPath0.close();
+
+    canvas.drawPath(mPath0, paint);
+
+    // canvas.drawPath(Path.combine(PathOperation.difference, path, path2),
+    //     paint..color = Colors.yellow.shade700);
   }
 
   @override
   bool shouldRepaint(covariant _BookPainter oldDelegate) {
-    return oldDelegate.animation != animation;
+    return oldDelegate.p != p;
   }
 }
 
 class PaperPoint {
-  //拉拽点
-  final Point a;
+  //手指拉拽点 已知
+  final Point<double> a;
 
-  //右下角的点
-  final Point f;
+  //右下角的点 已知
+  final Point<double> f;
 
   //
   // //贝塞尔点(e为控制点)
-   Point? c, d, b, e;
-  //
+  late Point<double> b, c, d, e;
+
   // //贝塞尔点(h为控制点)
-   Point? i, j, k, h;
+  late Point<double> h, i, j, k;
 
   //eh实际为af中垂线，g为ah和af的交点
-  Point? g;
+  late Point<double> g;
 
   PaperPoint(this.a, this.f) {
-//每个点的计算公式
-    g = Point(a.x + f.x / 2, (a.y + f.y) / 2);
+    //每个点的计算公式
+    g = Point((a.x + f.x) / 2, (a.y + f.y) / 2);
+    //
+    e = Point(g.x - (pow((f.y - g.y), 2) / (f.x - g.x)), f.y);
+
+    c = Point(e.x - (f.x - e.x) / 2, f.y);
+
+
   }
 }

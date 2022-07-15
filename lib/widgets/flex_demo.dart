@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/widgets/dragon_ball.dart';
+
+import 'polygonal.dart';
 
 class FlexDemo extends StatefulWidget {
   const FlexDemo({Key? key}) : super(key: key);
