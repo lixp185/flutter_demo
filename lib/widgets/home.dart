@@ -5,6 +5,8 @@ import 'package:flutter_demo/utils/sliver_to_widget.dart';
 import 'package:flutter_demo/widgets/canvas/gestures_unlock.dart';
 import 'package:flutter_demo/widgets/canvas/touch_controller.dart';
 import 'package:flutter_demo/widgets/canvas/xin_sui.dart';
+
+import 'package:flutter_demo/widgets/table_demo.dart';
 import 'package:flutter_demo/widgets/zan.dart';
 import 'dart:ui' as ui;
 import 'align.dart';
@@ -16,11 +18,14 @@ import 'calendar.dart';
 import 'canvas/bw.dart';
 import 'canvas/dolphin.dart';
 import 'canvas/fan_book.dart';
+import 'canvas/joystick.dart';
 import 'canvas/oval_loading.dart';
 import 'canvas_demo.dart';
 import 'check.dart';
 import 'container.dart';
+import 'flex_demo.dart';
 import 'hero_demo.dart';
+import 'move_damo.dart';
 import 'padding.dart';
 import 'decorated_box.dart';
 import 'dialog.dart';
@@ -30,10 +35,12 @@ import 'list.dart';
 import 'listener.dart';
 import 'paint2_demo.dart';
 import 'paint_demo.dart';
+import 'polygonal.dart';
 import 'progress.dart';
 import 'scroll_navigation.dart';
 import 'size_box.dart';
 import 'stack.dart';
+import 'summer.dart';
 import 'tab_bar_demo.dart';
 import 'test.dart';
 import 'text.dart';
@@ -42,6 +49,9 @@ import 'theme.dart';
 import 'transform.dart';
 import 'wrap.dart';
 import 'package:image/image.dart' as image;
+
+import 'yy_text_demo.dart';
+import 'zong_zI_ke_pu.dart';
 
 class HomeWidget extends StatefulWidget {
   @override
@@ -62,6 +72,14 @@ class _HomeWidgetState extends State<HomeWidget>
 
   @override
   void initState() {
+    homeList.add(_getWidget(
+        HomeBean("布局demo", "lib/widgets/hero_demo.dart", FlexDemo())));
+    homeList.add(_getWidget(
+        HomeBean("移动demo", "lib/widgets/move_demo.dart", JoyStick())));
+    homeList.add(_getWidget(
+        HomeBean("翻书demo", "lib/widgets/fan_book.dart", FanBook())));
+    homeList.add(_getWidget(
+        HomeBean("表格组件demo", "lib/widgets/table_demo.dart", TableDemo())));
     homeList.add(_getWidget(
         HomeBean("主题(状态)", "lib/widgets/theme.dart", ThemeWidgetDemo())));
     homeList.add(_getWidget(
@@ -113,14 +131,17 @@ class _HomeWidgetState extends State<HomeWidget>
         HomeBean("Hero动画", "lib/widgets/hero_demo.dart", HeroDemo())));
     homeList.add(_getWidget(
         HomeBean("TabBar", "lib/widgets/hero_demo.dart", TabBarDemo())));
-    homeList.add(_getWidget(
-        HomeBean("水波纹", "lib/widgets/hero_demo.dart", BwDemo())));
+    homeList.add(
+        _getWidget(HomeBean("水波纹", "lib/widgets/hero_demo.dart", BwDemo())));
     homeList.add(_getWidget(
         HomeBean("牛顿摆", "lib/widgets/hero_demo.dart", OvalLoading())));
-    homeList.add(_getWidget(
-        HomeBean("心碎的感觉", "lib/widgets/hero_demo.dart", XinSui())));
+    homeList.add(
+        _getWidget(HomeBean("心碎的感觉", "lib/widgets/hero_demo.dart", XinSui())));
     homeList.add(_getWidget(
         HomeBean("手势解锁", "lib/widgets/hero_demo.dart", GesturesUnlock())));
+
+    homeList.add(_getWidget(
+        HomeBean("多边形多角星", "lib/widgets/hero_demo.dart", Polygonal())));
 
     loadImageInAssets('images/lbxx.png')?.then((value) {
       loadImageFromAssets('images/lbxx.png').then((value2) {
@@ -141,6 +162,22 @@ class _HomeWidgetState extends State<HomeWidget>
         _getWidget(HomeBean("点赞", "lib/widgets/paint2_demo.dart", ZanDemo())));
     homeList.add(_getWidget(HomeBean(
         "自定义导航条", "lib/widgets/scroll_navigation.dart", ScrollNavigation())));
+    homeList.add(_getWidget(
+        HomeBean("端午粽子", "lib/widgets/scroll_navigation.dart", ZongZiKePu())));
+
+    homeList.add(_getWidget(
+        HomeBean("语音识别", "lib/widgets/yy_text_demo.dart", YYTextDemo())));
+    // loadImageInAssets('images/duanwu.webp')?.then((value) {
+    //   setState(() {
+    //     homeList.add(_getWidget(
+    //         HomeBean(
+    //             "粽子",
+    //             "lib/widgets/summer.dart",
+    //             Summer(
+    //               image: value,
+    //             )),));
+    //   });
+    // });
 
     var touchController = TouchController();
     loadImageInAssets('images/ht.png')?.then((value) {
@@ -183,8 +220,13 @@ class _HomeWidgetState extends State<HomeWidget>
           child: ElevatedButton(
             child: Text(homeBean.title),
             onPressed: () {
-              _startAty(homeBean.page!, homeBean.title, homeBean.path!,
-                  onRightClick: onRightClick);
+              if (homeBean.title == "端午粽子") {
+                _startAty(homeBean.page!, "", homeBean.path!,
+                    onRightClick: onRightClick);
+              } else {
+                _startAty(homeBean.page!, homeBean.title, homeBean.path!,
+                    onRightClick: onRightClick);
+              }
             },
           ));
     } else if (homeBean.type == 1) {
@@ -192,7 +234,7 @@ class _HomeWidgetState extends State<HomeWidget>
         margin: EdgeInsets.only(top: 10, bottom: 10),
         alignment: Alignment.center,
         child: Text(
-          """${homeBean.title} ${String.fromCharCodes(Runes("\u2665"))}""",
+          """${homeBean.title} ${String.fromCharCodes(Runes("\u2665;"))}""",
           style: TextStyle(fontSize: 14),
         ),
       );
@@ -233,7 +275,6 @@ class _HomeWidgetState extends State<HomeWidget>
         MaterialPageRoute(
             fullscreenDialog: true,
             builder: (BuildContext c) {
-
               // return ListViewWidgetDemo();
 
               return BaseStatefulWidget(

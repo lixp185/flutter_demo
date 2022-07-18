@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/states/firm_info.dart';
 import 'package:flutter_demo/utils/view/my_tab_indicator.dart';
 
 /// TabBarDemo
@@ -11,7 +12,7 @@ class TabBarDemo extends StatefulWidget {
 
 class _TabBarDemoState extends State<TabBarDemo>
     with SingleTickerProviderStateMixin {
-  List<String> tabs = ["TAB1", "TAB2","TAB3","TAB4","TAB5","TAB6"];
+  List<String> tabs = ["TAB1", "TAB2", "TAB3", "TAB4", "TAB5", "TAB6"];
   late TabController _tabController =
       TabController(length: tabs.length, vsync: this); //tab 控制器
 
@@ -27,14 +28,15 @@ class _TabBarDemoState extends State<TabBarDemo>
         TabBar(
           isScrollable: true,
           indicator: MyTabIndicator(
-            borderSide: BorderSide(
-              width: 2,
-              color: Colors.redAccent,
-            ),
-            // indicatorWidth: 4,
-            indicatorBottom: 10,
-            tabController: _tabController
-          ),
+              borderSide: BorderSide(
+                width: 4,
+                color: Colors.redAccent,
+              ),
+              // indicatorWidth: 4,
+              indicatorBottom: 20,
+              indicatorWidth: 30
+              // tabController: _tabController
+              ),
           controller: _tabController,
           tabs: tabs
               .map((value) => Tab(
@@ -42,25 +44,43 @@ class _TabBarDemoState extends State<TabBarDemo>
                     text: value,
                   ))
               .toList(),
-          indicatorColor: Colors.redAccent,
-          indicatorWeight: 2,
-          indicatorSize: TabBarIndicatorSize.label,
-
-          labelColor: Colors.redAccent,
+          labelColor: Colors.black87,
           unselectedLabelColor: Colors.black87,
         ),
         Expanded(
-            child: TabBarView(
-          controller: _tabController,
-          children: tabs
-              .map((value) => Center(
-                    child: Text(
-                      value,
-                    ),
-                  ))
-              .toList(),
-        ))
+            child: FirmInfo(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: tabs.map((value) => Test()).toList(),
+                ),
+                data: "FLUTTER DEMO"))
       ],
+    );
+  }
+}
+
+class Test extends StatefulWidget {
+  const Test({Key? key}) : super(key: key);
+
+  @override
+  _TestState createState() => _TestState();
+}
+
+class _TestState extends State<Test> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+
+      print("xx${FirmInfo.of(context)}");
+
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text("xxx"),
     );
   }
 }

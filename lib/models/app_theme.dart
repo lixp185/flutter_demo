@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/utils/sp_util.dart';
 
@@ -138,7 +137,7 @@ class AppTheme extends ChangeNotifier {
         ),
         // elevatedButtonTheme: ElevatedButtonThemeData(
         //     style: ButtonStyle(
-        //         backgroundColor: MaterialStateProperty.all(Colors.blue),
+        //         backgroundColor: MaterialStateProperty.all(Colors.red),
         //         foregroundColor: MaterialStateProperty.all(Colors.white))),
         cardTheme: CardTheme(color: cardColorLight, elevation: 20));
   }

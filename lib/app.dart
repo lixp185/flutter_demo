@@ -1,10 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_demo/models/app_theme.dart';
-import 'package:flutter_demo/utils/bugly.dart';
 import 'package:flutter_demo/utils/sp_util.dart';
 import 'package:flutter_demo/utils/status.dart';
 
@@ -14,9 +12,9 @@ import 'widgets/main_page.dart';
 
 class App {
   static init() {
-    FlutterBugly.postCatchedException(() {
-      //
-    });
+    // FlutterBugly.postCatchedException(() {
+    //   //
+    // });
     WidgetsFlutterBinding.ensureInitialized();
     Global.instance.init().then((value) => SpUtil.init().then((value) {
           runApp(Status.init(MyApp()));
@@ -33,7 +31,7 @@ class App {
   }
 
   static void initApp() {
-    Bugly.init();
+    // Bugly.init();
   }
 
   /// 异常捕获处理

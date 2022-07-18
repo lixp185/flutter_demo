@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'form_edit.dart';
+
 class TextFieldWidgetDemo extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -9,7 +11,24 @@ class TextFieldWidgetDemo extends StatefulWidget {
 
 class _TextFieldState extends State<TextFieldWidgetDemo> {
   GlobalKey _formKey = new GlobalKey<FormState>();
-  TextEditingController _phoneController = TextEditingController();
+  TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller.addListener(() {
+      var text = _controller.text;
+      var selection = _controller.selection;
+      print("addListener text $text ");
+      print("addListener selection $selection ");
+    });
+    _controller.removeListener(() {
+      var text = _controller.text;
+
+      print("removeListener $text");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,114 +41,31 @@ class _TextFieldState extends State<TextFieldWidgetDemo> {
           children: [
             TextField(
               cursorColor: Colors.blue,
-              cursorWidth: 1,
-              cursorRadius: Radius.zero,
-              controller: TextEditingController(
-                text: "123456789",
-              ),
-              focusNode: FocusNode(),
-              style: TextStyle(fontSize: 14),
-              textAlign: TextAlign.left,
+              controller: _controller,
               autocorrect: true,
-              onSubmitted: (v) {},
-              maxLength: 11,
-              inputFormatters: [],
+              onChanged: (text) {
+                print("onChanged:$text");
+              },
               decoration: InputDecoration(
-                  labelText: "电话",
-                  hintText: "请输入电话",
-                  prefixIcon: Icon(Icons.phone),
-                  // icon: Icon(Icons.add),
-                  hintStyle: TextStyle(color: Colors.teal)),
-              textInputAction: TextInputAction.search,
-              keyboardType: TextInputType.phone,
-            ),
-            TextField(
-              cursorColor: Colors.blue,
-              cursorWidth: 1,
-              cursorRadius: Radius.zero,
-              controller: TextEditingController(),
-              style: TextStyle(fontSize: 14),
-              textAlign: TextAlign.left,
-              autocorrect: true,
-              obscureText: true,
-              onSubmitted: (v) {},
-              inputFormatters: [],
-              decoration: InputDecoration(
-                  labelText: "密码",
-                  hintText: "请输入密码",
-                  prefixIcon: Icon(Icons.lock),
+                  labelText: "关键字",
+                  hintText: "请输入内容",
+                  suffixIcon: InkWell(
+                    child: Icon(Icons.close),
+                    onTap: () {
+                      _controller.clear();
+                    },
+                  ),
                   // icon: Icon(Icons.add),
                   hintStyle: TextStyle(color: Colors.grey)),
-              textInputAction: TextInputAction.search,
-              keyboardType: TextInputType.text,
             ),
-            Text("表单form"),
-            Form(
-                key: _formKey,
-                autovalidateMode: AutovalidateMode.disabled,
-                child: Column(
-                  children: [
-                    TextFormField(
-                      autofocus: true,
-                      cursorWidth: 1,
-                      controller: _phoneController,
-                      style: TextStyle(fontSize: 14),
-                      textAlign: TextAlign.left,
-                      autocorrect: true,
-                      maxLength: 11,
-                      inputFormatters: [],
-                      decoration: InputDecoration(
-                          labelText: "电话",
-                          hintText: "请输入电话",
-                          prefixIcon: Icon(Icons.phone),
-                          // icon: Icon(Icons.add),
-                          hintStyle: TextStyle(color: Colors.grey)),
-                      textInputAction: TextInputAction.search,
-                      keyboardType: TextInputType.phone,
-                      validator: (phone) {
-                        return phone?.length == 11 ? null : "请输入11位手机号码";
-                      },
-                    ),
-                    TextFormField(
-                      cursorColor: Colors.blue,
-                      cursorWidth: 1,
-                      cursorRadius: Radius.zero,
-                      controller: TextEditingController(),
-                      style: TextStyle(fontSize: 14),
-                      textAlign: TextAlign.left,
-                      autocorrect: true,
-                      obscureText: true,
-                      inputFormatters: [],
-                      decoration: InputDecoration(
-                          labelText: "密码",
-                          hintText: "请输入密码",
-                          prefixIcon: Icon(Icons.lock),
-                          hintStyle: TextStyle(color: Colors.grey)),
-                      textInputAction: TextInputAction.search,
-                      keyboardType: TextInputType.text,
-                      validator: (psd) {
-                        return psd != null && psd.length >= 6
-                            ? null
-                            : "密码至少6位数";
-                      },
-                    ),
-                    ElevatedButton(
-                        onPressed: () {
-                          if ((_formKey.currentState as FormState).validate()) {
-                            // 验证通过
-                          } else {
-                            print("验证不通过---${_phoneController.value.text}");
-                            // 验证不通过
-                          }
-                        },
-                        child: Text("提交")),
-                  ],
-                )),
+            ElevatedButton(onPressed: () {}, child: Text("搜索")),
           ],
         ),
       ),
     );
   }
+
+
 }
 
 ///const TextField({
@@ -162,3 +98,148 @@ class _TextFieldState extends State<TextFieldWidgetDemo> {
 ///     this.enableInteractiveSelection,    // 长按是否展示【剪切/复制/粘贴菜单LengthLimitingTextInputFormatter】
 ///     this.onTap,                         // 点击时回调
 /// })
+
+/// return SingleChildScrollView(
+//       child: Container(
+//         margin: EdgeInsets.all(20),
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             TextField(
+//               cursorColor: Colors.blue,
+//               cursorWidth: 1,
+//               cursorRadius: Radius.zero,
+//               controller: TextEditingController(
+//                 text: "123456789",
+//               ),
+//               focusNode: FocusNode(),
+//               style: TextStyle(fontSize: 14),
+//               textAlign: TextAlign.left,
+//               autocorrect: true,
+//               onSubmitted: (v) {},
+//               maxLength: 11,
+//               inputFormatters: [],
+//               decoration: InputDecoration(
+//                   labelText: "电话",
+//                   hintText: "请输入电话",
+//                   prefixIcon: Icon(Icons.phone),
+//                   // icon: Icon(Icons.add),
+//                   hintStyle: TextStyle(color: Colors.teal)),
+//               textInputAction: TextInputAction.search,
+//               keyboardType: TextInputType.phone,
+//             ),
+//             TextField(
+//               cursorColor: Colors.blue,
+//               cursorWidth: 1,
+//               cursorRadius: Radius.zero,
+//               controller: TextEditingController(),
+//               style: TextStyle(fontSize: 14),
+//               textAlign: TextAlign.left,
+//               autocorrect: true,
+//               obscureText: true,
+//               onSubmitted: (v) {},
+//               onChanged: (text){
+//
+//
+//               },
+//               inputFormatters: [],
+//               decoration: InputDecoration(
+//                   labelText: "密码",
+//                   hintText: "请输入密码",
+//                   prefixIcon: Icon(Icons.lock),
+//                   // icon: Icon(Icons.add),
+//                   hintStyle: TextStyle(color: Colors.grey)),
+//               textInputAction: TextInputAction.search,
+//               keyboardType: TextInputType.text,
+//             ),
+//             Text("表单form"),
+//             Form(
+//                 key: _formKey,
+//                 autovalidateMode: AutovalidateMode.disabled,
+//                 child: Column(
+//                   children: [
+//                     TextFormField(
+//                       autofocus: true,
+//                       cursorWidth: 1,
+//                       controller: _phoneController,
+//                       style: TextStyle(fontSize: 14),
+//                       textAlign: TextAlign.left,
+//                       autocorrect: true,
+//                       maxLength: 11,
+//                       inputFormatters: [],
+//                       onChanged: (text){
+//                         print("onChanged:$text");
+//                       },
+//                       decoration: InputDecoration(
+//                           labelText: "电话",
+//                           hintText: "请输入电话",
+//                           prefixIcon: Icon(Icons.phone),
+//                           // icon: Icon(Icons.add),
+//                           hintStyle: TextStyle(color: Colors.grey)),
+//                       textInputAction: TextInputAction.search,
+//                       keyboardType: TextInputType.phone,
+//                       validator: (phone) {
+//                         return phone?.length == 11 ? null : "请输入11位手机号码";
+//                       },
+//                     ),
+//                     TextFormField(
+//                       cursorColor: Colors.blue,
+//                       cursorWidth: 1,
+//                       cursorRadius: Radius.zero,
+//                       controller: TextEditingController(),
+//                       style: TextStyle(fontSize: 14),
+//                       textAlign: TextAlign.left,
+//                       autocorrect: true,
+//                       obscureText: true,
+//                       inputFormatters: [],
+//                       decoration: InputDecoration(
+//                           labelText: "密码",
+//                           hintText: "请输入密码",
+//                           prefixIcon: Icon(Icons.lock),
+//                           hintStyle: TextStyle(color: Colors.grey)),
+//                       textInputAction: TextInputAction.search,
+//                       keyboardType: TextInputType.text,
+//                       validator: (psd) {
+//                         return psd != null && psd.length >= 6
+//                             ? null
+//                             : "密码至少6位数";
+//                       },
+//                     ),
+//                     ElevatedButton(
+//                         onPressed: () {
+//                           _phoneController.text = "123";
+//                           _phoneController.text = "1234";
+//                           if ((_formKey.currentState as FormState).validate()) {
+//                             // 验证通过
+//                           } else {
+//                             print("验证不通过---${_phoneController.value.text}");
+//                             // 验证不通过
+//                           }
+//                         },
+//                         child: Text("提交")),
+//                   ],
+//                 )),
+//             FormEdit(
+//                 margin: EdgeInsetsDirectional.only(top: 15),
+//                 contentPadding: EdgeInsetsDirectional.only(
+//                     start: 13, end: 0, top: 12, bottom: 12),
+//                 borderType: BorderType.outLine,
+//                 inputType: TextInputType.text,
+//                 fontSize: 14,
+//                 hintText: "新密码：8-16个字母与数字结合",
+//                 suffixIcon: Container(
+//                     // alignment: Alignment.centerRight,
+//                     margin: EdgeInsetsDirectional.only(end: 15),
+//                     child: Container(
+//                       child: Text(
+//                         "获取验证码",
+//                         style: TextStyle(
+//                           fontSize: 14,
+//                         ),
+//                         textAlign: TextAlign.right,
+//                       ),
+//                     )))
+//           ],
+//         ),
+//       ),
+//     );

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class BaseStatefulWidget extends StatefulWidget {
   final Widget widget;
   final String title;
@@ -23,16 +22,20 @@ class BaseWidgetState extends State<BaseStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return _buildWidgetDefault();
+    return  _buildWidgetDefault();
   }
 
   Widget _buildWidgetDefault() {
     ///使用appbar，也可直接只有 body 在 body 里自定义状态栏、标题栏
+    // return _buildBody();
     return WillPopScope(
         child: Scaffold(
-
-          appBar: _buildAppBar(),
-          body: _buildBody(),
+          // primary: false,
+          appBar: widget.title.isEmpty ? null : _buildAppBar(),
+          body: Container(
+            // padding: EdgeInsetsDirectional.only(top: 20),
+            child: _buildBody(),
+          ),
         ),
         onWillPop: _requestPop);
   }
@@ -45,8 +48,6 @@ class BaseWidgetState extends State<BaseStatefulWidget> {
 
   AppBar? _buildAppBar() {
     return AppBar(
-
-
       title: Text(widget.title),
       centerTitle: true,
       actions: [

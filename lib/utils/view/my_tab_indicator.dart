@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 
 /// 修改下划线自定义
@@ -70,6 +72,8 @@ class _UnderlinePainter extends BoxPainter {
     // 圆角画笔
     final Paint paint = decoration.borderSide.toPaint()
       ..style = PaintingStyle.fill
+      ..shader = ui.Gradient.linear(indicator.bottomLeft, indicator.bottomRight,
+          [Color(0xFFFF6530), Color(0x00FF7B13)])
       ..strokeCap = StrokeCap.round;
     if (animation != null) {
       num x = animation!.value; // 变化速度 0-0.5-1-1.5-2...
