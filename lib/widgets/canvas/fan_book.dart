@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
@@ -13,99 +14,117 @@ class FanBook extends StatefulWidget {
 }
 
 class _FanBookState extends State<FanBook> with TickerProviderStateMixin {
+  Size size = Size(300, 600);
+
+  Point<double> currentA = Point(0, 0);
   late AnimationController _controller =
-      AnimationController(vsync: this, duration: Duration(milliseconds: 1000))
-        ..addStatusListener((status) {
-          // dismissed	动画在起始点停止
-          // forward	动画正在正向执行
-          // reverse	动画正在反向执行
-          // completed	动画在终点停止
-          if (status == AnimationStatus.completed) {
-            _controller2.forward();
-          }
+      AnimationController(vsync: this, duration: Duration(milliseconds: 500))
+        ..addListener(() {
+          print("_controller.value ${_controller.value}");
+
+          /// 不翻页 回到原始位置
+          p.value = PaperPoint(
+              Point(
+                currentA.x + (size.width / 2 - currentA.x) * _controller.value,
+                currentA.y + (size.height / 2 - currentA.y) * _controller
+                    .value,
+              ),
+              size);
+          /// 翻页
+          ///
+          ///
+          // p.value = PaperPoint(
+          //     Point(
+          //       currentA.x - (currentA.x - ) * _controller.value,
+          //       currentA.y + (size.height / 2 - currentA.y) * _controller
+          //           .value,
+          //     ),
+          //     size);
+
+
+
         });
-  late AnimationController _controller2 =
-      AnimationController(vsync: this, duration: Duration(milliseconds: 2000));
-  late CurvedAnimation cure =
-      CurvedAnimation(parent: _controller2, curve: Curves.easeIn);
-  late Animation<double> animation4 =
-      Tween(begin: 0.0, end: pi).animate(_controller2);
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      p.value = PaperPoint(Point(size.width / 2, -size.height / 2), size);
+    });
   }
 
   @override
   void dispose() {
     _controller.dispose();
-    _controller2.dispose();
     super.dispose();
   }
 
-  ValueNotifier<PaperPoint> p = ValueNotifier(PaperPoint(
-    Point(0, 0),
-    Point(200, 200),
-  ));
-
-  Size size = Size(300, 600);
+  ValueNotifier<PaperPoint> p =
+      ValueNotifier(PaperPoint(Point(0, 0), Size(0, 0)));
 
   // 定义上一页、当前页、下一页
   @override
   Widget build(BuildContext context) {
+    size = Size(MediaQuery.of(context).size.width - 40, 600);
     return Container(
-        // color: Colors.blue,
-        // width: double.infinity,
-        child: GestureDetector(
-          child: CustomPaint(
-            size: size,
-            painter: _BookPainter(
-              _controller,
-              p,
-            ),
+      // color: Colors.blue,
+      // width: double.infinity,
+      child: GestureDetector(
+        child: CustomPaint(
+          size: size,
+          painter: _BookPainter(
+            p,
           ),
-          onPanDown: (d) {
-            // _controller.forward(from: 0);
-            var down =
-                d.localPosition.translate(-size.width / 2, -size.height / 2);
-            p.value = PaperPoint(Point(down.dx, down.dy),
-                Point(size.width / 2, size.height / 2));
+        ),
+        onPanDown: (d) {
+          var down =
+              d.localPosition.translate(-size.width / 2, -size.height / 2);
+          p.value = PaperPoint(Point(down.dx, down.dy), size);
 
-          },
-          onPanUpdate: (d){
-            var down = d.localPosition.translate(-size.width / 2, -size.height / 2);
-
-            if(down.dx>size.width/2 ||down.dy>size.height/2){
-              return;
-            }
-            p.value = PaperPoint(Point(down.dx, down.dy),
-                Point(size.width / 2, size.height / 2));
-          },
-          onPanEnd: (d){
-            // p.value = PaperPoint(Point(size.width/2, size.height/2),
-            //     Point(size.width / 2, size.height / 2));
-          },
-        ));
+          currentA = Point(down.dx, down.dy);
+        },
+        onPanUpdate: (d) {
+          var move =
+              d.localPosition.translate(-size.width / 2, -size.height / 2);
+          // 临界值取消更新
+          if (move.dx >= size.width / 2 || move.dy >= size.height / 2) {
+            return;
+          }
+          print("move ${move.dy}");
+          currentA = Point(move.dx, move.dy);
+          p.value = PaperPoint(Point(move.dx, move.dy), size);
+        },
+        onPanEnd: (d) {
+          _controller.forward(from: 0);
+          // p.value = PaperPoint(Point(size.width/2, size.height/2),
+          //     Point(size.width / 2, size.height / 2));
+        },
+      ),
+    );
   }
 }
 
 class _BookPainter extends CustomPainter {
-  Animation<double> animation;
   ValueNotifier<PaperPoint> p;
 
-  _BookPainter(this.animation, this.p) : super(repaint: p);
+  _BookPainter(this.p) : super(repaint: p);
 
   Coordinate coordinate = Coordinate(setP: 20);
 
   @override
   void paint(Canvas canvas, Size size) {
+    canvas.clipRect(Offset.zero & size);
+
     canvas.translate(size.width / 2, size.height / 2);
-    coordinate.paintT(canvas, size);
+
     Paint paint = Paint()
-      ..color = Colors.red
+      ..color = Colors.green
       ..style = PaintingStyle.fill
       ..strokeWidth = 2;
-    Path mPath0 = Path();
+
+    // coordinate.paintT(canvas, size);
+
+    Path mPathA = Path();
     // 定义书的右下角
     // mPath0.addRect(Rect.fromLTRB(
     //   -size.width / 2,
@@ -113,43 +132,73 @@ class _BookPainter extends CustomPainter {
     //   p.value.f.x,
     //   p.value.f.y,
     // ));
+    //
+    // mPathA.moveTo(p.value.c.x, p.value.c.y);
+    // mPathA.lineTo(p.value.j.x, p.value.j.y);
+    //
+    // mPathA.moveTo(p.value.a.x, p.value.a.y);
+    // mPathA.lineTo(p.value.e.x, p.value.e.y);
+    //
+    // mPathA.moveTo(p.value.a.x, p.value.a.y);
+    // mPathA.lineTo(p.value.h.x, p.value.h.y);
+    //
+    // mPathA.moveTo(p.value.a.x, p.value.a.y);
+    // mPathA.lineTo(p.value.f.x, p.value.f.y);
+    //
+    // mPathA.moveTo(p.value.e.x, p.value.e.y);
+    // mPathA.lineTo(p.value.h.x, p.value.h.y);
+    //
+    // mPathA.moveTo(p.value.e.x, p.value.e.y);
+    // mPathA.lineTo(
+    //     (p.value.c.x + p.value.b.x) / 2, (p.value.c.y + p.value.b.y) / 2);
+    //
+    // mPathA.moveTo(p.value.h.x, p.value.h.y);
+    // mPathA.lineTo(
+    //     (p.value.j.x + p.value.k.x) / 2, (p.value.j.y + p.value.k.y) / 2);
+    Path mPathC;
+    Path mPath = Path();
+    mPath.addRect(Rect.fromCenter(
+        center: Offset.zero, width: size.width, height: size.height));
 
+    if (p.value.a != p.value.f) {
+      mPathA.moveTo(p.value.c.x, p.value.c.y);
+      mPathA.quadraticBezierTo(
+          p.value.e.x, p.value.e.y, p.value.b.x, p.value.b.y);
+      mPathA.lineTo(p.value.a.x, p.value.a.y);
+      mPathA.lineTo(p.value.k.x, p.value.k.y);
+      mPathA.quadraticBezierTo(
+          p.value.h.x, p.value.h.y, p.value.j.x, p.value.j.y);
+      mPathA.lineTo(p.value.f.x, p.value.f.y);
+
+      mPathA.close();
+
+      canvas.drawPath(mPathA, paint..color = Colors.yellow);
+
+      Path mPath1 = Path();
+      mPath1.moveTo(p.value.d.x, p.value.d.y);
+      mPath1.lineTo(p.value.a.x, p.value.a.y);
+      mPath1.lineTo(p.value.i.x, p.value.i.y);
+      mPath1.close();
+
+      mPathC = Path.combine(PathOperation.reverseDifference, mPathA, mPath);
+      canvas.drawPath(mPathC, paint..color = Colors.grey);
+
+      if (!p.value.b.x.isNaN) {
+        Path mPathB = Path.combine(PathOperation.intersect, mPathA, mPath1);
+        canvas.drawPath(mPathB, paint..color = Colors.yellow.shade700);
+      }
+    } else {
+
+      canvas.drawPath(mPath, paint..color = Colors.grey);
+    }
+
+    // canvas.drawPath(mPathC, paint);
 
     //
-    // mPath0.moveTo(p.value.c.x, p.value.c.y);
-    //
-    // mPath0.lineTo(p.value.c.x, p.value.c.y);
-    // mPath0.lineTo(p.value.j.x, p.value.j.y);
-    //
-    // mPath0.moveTo(p.value.a.x, p.value.a.y);
-    //
-    // mPath0.lineTo(p.value.a.x, p.value.a.y);
-    // mPath0.lineTo(p.value.e.x, p.value.e.y);
-
-    mPath0.moveTo(p.value.c.x, p.value.c.y);
-    mPath0.quadraticBezierTo(p.value.e.x, p.value.e.y, p.value.b.x, p.value.b.y);
-    mPath0.lineTo(p.value.a.x, p.value.a.y);
-    mPath0.lineTo(p.value.k.x, p.value.k.y);
-    mPath0.quadraticBezierTo(p.value.h.x, p.value.h.y, p.value.j.x, p.value.j.y);
-    mPath0.lineTo(p.value.f.x, p.value.f.y);
-    // mPath0.lineTo(p.value.e.x, p.value.e.y);
-    // mPath0.lineTo(p.value.b.x, p.value.b.y);
-    // mPath0.lineTo(100, 100);
-    mPath0.close();
-
-
-    Path mPath1 = Path();
-    mPath1.moveTo(p.value.d.x, p.value.d.y);
-    mPath1.lineTo(p.value.a.x,p.value.a.y);
-    mPath1.lineTo(p.value.i.x,p.value.i.y);
-    mPath1.close();
-    canvas.drawPath(mPath0, paint..color = Colors.red);
-
-    // Path mPath = Path();
-    // mPath.addRect(Rect.fromCenter(center: Offset.zero, width: size.width, height: size.height));
-    var mPath3 = Path.combine(PathOperation.intersect, mPath0, mPath1);
-    canvas.drawPath(mPath3,
-        paint..color = Colors.yellow.shade700);
+    // canvas.drawRect(
+    //     Rect.fromCenter(
+    //         center: Offset.zero, width: size.width, height: size.height),
+    //     paint..color = Colors.red);
   }
 
   @override
@@ -160,10 +209,10 @@ class _BookPainter extends CustomPainter {
 
 class PaperPoint {
   //手指拉拽点 已知
-  final Point<double> a;
+  Point<double> a;
 
   //右下角的点 已知
-  final Point<double> f;
+  late Point<double> f;
 
   //
   // //贝塞尔点(e为控制点)
@@ -175,18 +224,41 @@ class PaperPoint {
   //eh实际为af中垂线，g为ah和af的交点
   late Point<double> g;
 
-  PaperPoint(this.a, this.f) {
+  late Size size;
+
+  PaperPoint(this.a, this.size) {
     //每个点的计算公式
+    f = Point(size.width / 2, size.height / 2);
     g = Point((a.x + f.x) / 2, (a.y + f.y) / 2);
     //
-    e = Point(g.x - (pow((f.y - g.y), 2) / (f.x - g.x)), f.y);
 
-    h = Point(f.x, g.x - (pow((f.x - g.x), 2) / (f.y - g.y)));
 
-    c = Point(e.x - (f.x - e.x) / 2, f.y);
+    e = Point(g.x - (pow(f.y - g.y, 2) / (f.x - g.x)), f.y);
+    double cx = e.x - (f.x - e.x) / 2;
+
+    if (cx <= -size.width / 2) {
+      //   // 临界点
+      double w0 = f.x - cx;
+      double w1 = f.x - a.x;
+
+      double w2 = size.width * w1 / w0;
+
+      double h1 = f.y - a.y;
+      double h2 = w2 * h1 / w1;
+
+      a = Point(f.x - w2, f.y - h2);
+
+      g = Point((a.x + f.x) / 2, (a.y + f.y) / 2);
+      e = Point(g.x - (pow((f - g).y, 2) / (f - g).x), f.y);
+
+      cx = -size.width / 2;
+    }
+
+    c = Point(cx, f.y);
+
+    h = Point(f.x, g.y - (pow((f - g).x, 2) / (f.y - g.y)));
 
     j = Point(f.x, h.y - (f.y - h.y) / 2);
-
 
     double k1 = towPointKb(c, j);
     double b1 = towPointKb(c, j, isK: false);
@@ -194,22 +266,16 @@ class PaperPoint {
     double k2 = towPointKb(a, e);
     double b2 = towPointKb(a, e, isK: false);
 
+    print("k2:    $k2   ${a.x} ${a.y} ${e.x} ${a.y} ");
     double k3 = towPointKb(a, h);
     double b3 = towPointKb(a, h, isK: false);
 
+    b = Point((b2 - b1) / (k1 - k2), (b2 - b1) / (k1 - k2) * k1 + b1);
+    k = Point((b3 - b1) / (k1 - k3), (b3 - b1) / (k1 - k3) * k1 + b1);
 
-    b = Point((b2 - b1)/(k1 - k2) , (b2 - b1) / (k1 - k2) * k1 + b1);
-    k = Point((b3 - b1)/(k1 - k3) , (b3 - b1) / (k1 - k3) * k1 + b1);
-    if(k2>k1 || k.y>b.y){
-      b = Point(a.x, a.y);
-      k = Point(a.x, a.y);
-    }
+    d = Point(((c.x + b.x) / 2 + e.x) / 2, ((c.y + b.y) / 2 + e.y) / 2);
 
-
-    d = Point(((c.x+b.x)/2+e.x)/2,((c.y+b.y)/2+e.y)/2 );
-    i = Point(((j.x+k.x)/2+h.x)/2,((j.y+k.y)/2+h.y)/2 );
-
-
+    i = Point(((j.x + k.x) / 2 + h.x) / 2, ((j.y + k.y) / 2 + h.y) / 2);
   }
 
   /// 两点求直线方程
@@ -217,11 +283,14 @@ class PaperPoint {
     /// 求得两点斜率
     double k = 0;
     double b = 0;
-    k = (p1.y - p2.y) / (p1.x - p2.x);
+    // 防止除数 = 0 出现的计算错误 a e x轴重合
+
+    if (p1.x == p2.x) {
+      k = (p1.y - p2.y) / (p1.x - p2.x - 1);
+    } else {
+      k = (p1.y - p2.y) / (p1.x - p2.x);
+    }
     b = p1.y - k * p1.x;
-    print("zzzz${p1.y} ${p2.y}");
-    print("k $k");
-    print("b $b");
     if (isK)
       return k;
     else

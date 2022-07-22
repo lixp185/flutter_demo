@@ -64,7 +64,7 @@ class Qz extends CustomPainter {
           qzSize));
 
       canvas.drawPath(path, paint);
-      canvas.drawShadow(path, Colors.black, 10, true);
+      // canvas.drawShadow(path, Colors.black, 10, true);
 
       // canvas.drawCircle(offsetList[i], qzSize , paint);
     }
