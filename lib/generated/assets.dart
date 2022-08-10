@@ -13,12 +13,14 @@ class Assets {
   static const String canvasTolyWaveLoading = 'lib/widgets/canvas/toly_wave_loading.dart';
   static const String canvasTouchController = 'lib/widgets/canvas/touch_controller.dart';
   static const String canvasUnlockController = 'lib/widgets/canvas/unlock_controller.dart';
+  static const String canvasWqQp2 = 'lib/widgets/canvas/wq_qp2.dart';
   static const String canvasXinSui = 'lib/widgets/canvas/xin_sui.dart';
   static const String commonGlobal = 'lib/common/global.dart';
   static const String commonMyColors = 'lib/common/my_colors.dart';
   static const String commonSyntaxHighlighter = 'lib/common/syntax_highlighter.dart';
   static const String commonThemeCommon = 'lib/common/theme_common.dart';
   static const String commonWidget = 'lib/common/widget.dart';
+  static const String dartDartDemo = 'lib/dart/dart_demo.dart';
   static const String dataChangeProvider = 'lib/widgets/data/change_provider.dart';
   static const String dataShareData = 'lib/widgets/data/share_data.dart';
   static const String dataShareProvider = 'lib/widgets/data/share_provider.dart';
@@ -62,6 +64,7 @@ class Assets {
   static const String widgetsCalendar = 'lib/widgets/calendar.dart';
   static const String widgetsCanvasDemo = 'lib/widgets/canvas_demo.dart';
   static const String widgetsCheck = 'lib/widgets/check.dart';
+  static const String widgetsClipWidget = 'lib/widgets/clip_widget.dart';
   static const String widgetsCodePage = 'lib/widgets/code_page.dart';
   static const String widgetsContainer = 'lib/widgets/container.dart';
   static const String widgetsCoordinate = 'lib/widgets/coordinate.dart';

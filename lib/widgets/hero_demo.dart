@@ -16,10 +16,10 @@ class _HeroDemoState extends State<HeroDemo> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: PhotoView(
+        child: Hero(tag: "k", child: PhotoView(
           imageProvider: AssetImage("images/lbxx.png"),
           // imageProvider: NetworkImage("imageUrl"),
-        )
+        ))
     );
   }
 }

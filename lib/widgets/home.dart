@@ -22,6 +22,7 @@ import 'canvas/joystick.dart';
 import 'canvas/oval_loading.dart';
 import 'canvas_demo.dart';
 import 'check.dart';
+import 'clip_widget.dart';
 import 'container.dart';
 import 'flex_demo.dart';
 import 'hero_demo.dart';
@@ -77,6 +78,8 @@ class _HomeWidgetState extends State<HomeWidget>
     homeList.add(_getWidget(
         HomeBean("移动demo", "lib/widgets/move_demo.dart", JoyStick())));
     homeList.add(_getWidget(
+        HomeBean("裁剪", "lib/widgets/clip_widget.dart", ClipWidget())));
+    homeList.add(_getWidget(
         HomeBean("翻书demo", "lib/widgets/fan_book.dart", FanBook())));
     homeList.add(_getWidget(
         HomeBean("表格组件demo", "lib/widgets/table_demo.dart", TableDemo())));
@@ -123,8 +126,7 @@ class _HomeWidgetState extends State<HomeWidget>
 
     homeList.add(_getWidget(HomeBean(
         "Animated(动画)", "lib/widgets/animated.dart", AnimateWidgetDemo())));
-    homeList.add(_getWidget(HomeBean(
-        "绘制组件 棋盘(Canvas)", "lib/widgets/canvas_demo.dart", CanvasDemo())));
+
     homeList.add(_getWidget(
         HomeBean("日期组件", "lib/widgets/calendar.dart", CalendarDemo())));
     homeList.add(_getWidget(
@@ -143,6 +145,8 @@ class _HomeWidgetState extends State<HomeWidget>
     homeList.add(_getWidget(
         HomeBean("多边形多角星", "lib/widgets/hero_demo.dart", Polygonal())));
 
+    homeList.add(_getWidget(HomeBean(
+        "围棋棋盘", "lib/widgets/canvas_demo.dart", CanvasDemo())));
     loadImageInAssets('images/lbxx.png')?.then((value) {
       loadImageFromAssets('images/lbxx.png').then((value2) {
         setState(() {
@@ -165,8 +169,8 @@ class _HomeWidgetState extends State<HomeWidget>
     homeList.add(_getWidget(
         HomeBean("端午粽子", "lib/widgets/scroll_navigation.dart", ZongZiKePu())));
 
-    homeList.add(_getWidget(
-        HomeBean("语音识别", "lib/widgets/yy_text_demo.dart", YYTextDemo())));
+    // homeList.add(_getWidget(
+    //     HomeBean("语音识别", "lib/widgets/yy_text_demo.dart", YYTextDemo())));
     // loadImageInAssets('images/duanwu.webp')?.then((value) {
     //   setState(() {
     //     homeList.add(_getWidget(
