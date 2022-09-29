@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 void main() {
 //   String a = '"Dart基础知识"';
 //   String b = "'Dart基础知识'";
@@ -47,9 +45,9 @@ void main() {
   // int a =0;
   late int a;
 
-  Object? x;
-  z.abc();
-  print(x?.toString());
+  // Object? x;
+  // z.abc();
+  // print(x?.toString());
 }
 
 abstract class A {
@@ -57,6 +55,8 @@ abstract class A {
 }
 
 class B {
+
+
   Function()? back;
   Future<String?> Function(int page, Function()? back)? loadData;
 
@@ -105,6 +105,7 @@ class Cat with Life, Zoo {
   quickly() {
     return super.quickly();
   }
+
 }
 
 // class DartDemo extends A implements B {

@@ -107,8 +107,6 @@ class _AnimateWidgetDemoState extends State<AnimateWidgetDemo>
               ),
             ),
 
-
-
             Text("缩放"),
             AnimatedLogo(
               // 缩放

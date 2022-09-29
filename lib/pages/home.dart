@@ -1,58 +1,45 @@
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_demo/models/home_bean.dart';
 import 'package:flutter_demo/utils/sliver_to_widget.dart';
 import 'package:flutter_demo/widgets/canvas/gestures_unlock.dart';
+import 'package:flutter_demo/widgets/canvas/loading.dart';
 import 'package:flutter_demo/widgets/canvas/touch_controller.dart';
 import 'package:flutter_demo/widgets/canvas/xin_sui.dart';
-
 import 'package:flutter_demo/widgets/table_demo.dart';
-import 'package:flutter_demo/widgets/zan.dart';
-import 'dart:ui' as ui;
-import 'align.dart';
-import 'animated.dart';
-import 'animated2.dart';
-import 'baseful_widget.dart';
-import 'button.dart';
-import 'calendar.dart';
-import 'canvas/bw.dart';
-import 'canvas/dolphin.dart';
-import 'canvas/fan_book.dart';
-import 'canvas/joystick.dart';
-import 'canvas/oval_loading.dart';
-import 'canvas_demo.dart';
-import 'check.dart';
-import 'clip_widget.dart';
-import 'container.dart';
-import 'flex_demo.dart';
-import 'hero_demo.dart';
-import 'move_damo.dart';
-import 'padding.dart';
-import 'decorated_box.dart';
-import 'dialog.dart';
-import 'gesture_detector.dart';
-import 'icon.dart';
-import 'list.dart';
-import 'listener.dart';
-import 'paint2_demo.dart';
-import 'paint_demo.dart';
-import 'polygonal.dart';
-import 'progress.dart';
-import 'scroll_navigation.dart';
-import 'size_box.dart';
-import 'stack.dart';
-import 'summer.dart';
-import 'tab_bar_demo.dart';
-import 'test.dart';
-import 'text.dart';
-import 'text_field.dart';
-import 'theme.dart';
-import 'transform.dart';
-import 'wrap.dart';
-import 'package:image/image.dart' as image;
 
-import 'yy_text_demo.dart';
-import 'zong_zI_ke_pu.dart';
+import '../widgets/align.dart';
+import '../widgets/animated.dart';
+import '../widgets/baseful_widget.dart';
+import '../widgets/button.dart';
+import '../widgets/calendar.dart';
+import '../widgets/canvas/bw.dart';
+import '../widgets/canvas/dolphin.dart';
+import '../widgets/canvas/fan_book.dart';
+import '../widgets/canvas/joystick.dart';
+import '../widgets/canvas/oval_loading.dart';
+import '../widgets/check.dart';
+import '../widgets/clip_widget.dart';
+import '../widgets/container.dart';
+import '../widgets/decorated_box.dart';
+import '../widgets/dialog.dart';
+import '../widgets/flex_demo.dart';
+import '../widgets/gesture_detector.dart';
+import '../widgets/hero_demo.dart';
+import '../widgets/icon.dart';
+import '../widgets/list.dart';
+import '../widgets/listener.dart';
+import '../widgets/padding.dart';
+import '../widgets/progress.dart';
+import '../widgets/size_box.dart';
+import '../widgets/stack.dart';
+import '../widgets/tab_bar_demo.dart';
+import '../widgets/text.dart';
+import '../widgets/text_field.dart';
+import '../widgets/theme.dart';
+import '../widgets/transform.dart';
+import '../widgets/wrap.dart';
+
 
 class HomeWidget extends StatefulWidget {
   @override
@@ -74,13 +61,15 @@ class _HomeWidgetState extends State<HomeWidget>
   @override
   void initState() {
     homeList.add(_getWidget(
+        HomeBean("loadingDemo", "lib/widgets/loading.dart", LoadingDemo())));
+    homeList.add(_getWidget(
         HomeBean("布局demo", "lib/widgets/hero_demo.dart", FlexDemo())));
     homeList.add(_getWidget(
         HomeBean("移动demo", "lib/widgets/move_demo.dart", JoyStick())));
     homeList.add(_getWidget(
         HomeBean("裁剪", "lib/widgets/clip_widget.dart", ClipWidget())));
-    homeList.add(_getWidget(
-        HomeBean("翻书demo", "lib/widgets/fan_book.dart", FanBook())));
+    homeList.add(
+        _getWidget(HomeBean("翻书demo", "lib/widgets/fan_book.dart", FanBook())));
     homeList.add(_getWidget(
         HomeBean("表格组件demo", "lib/widgets/table_demo.dart", TableDemo())));
     homeList.add(_getWidget(
@@ -127,96 +116,18 @@ class _HomeWidgetState extends State<HomeWidget>
     homeList.add(_getWidget(HomeBean(
         "Animated(动画)", "lib/widgets/animated.dart", AnimateWidgetDemo())));
 
-    homeList.add(_getWidget(
-        HomeBean("日期组件", "lib/widgets/calendar.dart", CalendarDemo())));
-    homeList.add(_getWidget(
-        HomeBean("Hero动画", "lib/widgets/hero_demo.dart", HeroDemo())));
-    homeList.add(_getWidget(
-        HomeBean("TabBar", "lib/widgets/hero_demo.dart", TabBarDemo())));
-    homeList.add(
-        _getWidget(HomeBean("水波纹", "lib/widgets/hero_demo.dart", BwDemo())));
-    homeList.add(_getWidget(
-        HomeBean("牛顿摆", "lib/widgets/hero_demo.dart", OvalLoading())));
-    homeList.add(
-        _getWidget(HomeBean("心碎的感觉", "lib/widgets/hero_demo.dart", XinSui())));
-    homeList.add(_getWidget(
-        HomeBean("手势解锁", "lib/widgets/hero_demo.dart", GesturesUnlock())));
 
-    homeList.add(_getWidget(
-        HomeBean("多边形多角星", "lib/widgets/hero_demo.dart", Polygonal())));
 
-    homeList.add(_getWidget(HomeBean(
-        "围棋棋盘", "lib/widgets/canvas_demo.dart", CanvasDemo())));
-    loadImageInAssets('images/lbxx.png')?.then((value) {
-      loadImageFromAssets('images/lbxx.png').then((value2) {
-        setState(() {
-          homeList.add(_getWidget(HomeBean(
-              "绘制（妙笔生花）",
-              "lib/widgets/paint_demo.dart",
-              PaintDemo(
-                image: value,
-                image22: value2,
-              ))));
-        });
-      });
-    });
-    homeList.add(_getWidget(HomeBean(
-        "吃豆人loading", "lib/widgets/paint2_demo.dart", Animated2Demo())));
-    homeList.add(
-        _getWidget(HomeBean("点赞", "lib/widgets/paint2_demo.dart", ZanDemo())));
-    homeList.add(_getWidget(HomeBean(
-        "自定义导航条", "lib/widgets/scroll_navigation.dart", ScrollNavigation())));
-    homeList.add(_getWidget(
-        HomeBean("端午粽子", "lib/widgets/scroll_navigation.dart", ZongZiKePu())));
 
-    // homeList.add(_getWidget(
-    //     HomeBean("语音识别", "lib/widgets/yy_text_demo.dart", YYTextDemo())));
-    // loadImageInAssets('images/duanwu.webp')?.then((value) {
-    //   setState(() {
-    //     homeList.add(_getWidget(
-    //         HomeBean(
-    //             "粽子",
-    //             "lib/widgets/summer.dart",
-    //             Summer(
-    //               image: value,
-    //             )),));
-    //   });
-    // });
 
-    var touchController = TouchController();
-    loadImageInAssets('images/ht.png')?.then((value) {
-      setState(() {
-        homeList.add(_getWidget(
-            HomeBean(
-                "贝塞尔",
-                "lib/widgets/scroll_navigation.dart",
-                Dolphin(
-                  touchController: touchController,
-                  image: value,
-                )), onRightClick: () {
-          touchController.removeLast();
-        }));
-      });
-    });
+
 
     super.initState();
   }
 
-  Future<ui.Image>? loadImageInAssets(String assetsName) async {
-    return decodeImageFromList(
-        (await rootBundle.load(assetsName)).buffer.asUint8List());
-  }
 
-  Future<image.Image?> loadImageFromAssets(String path) async {
-    ByteData data = await rootBundle.load(path);
-    List<int> bytes =
-        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-    return image.decodeImage(bytes);
-  }
 
-  ui.Image? _image;
-
-  Widget _getWidget(HomeBean homeBean, {VoidCallback? onRightClick}) {
+  Widget _getWidget(HomeBean homeBean,) {
     if (homeBean.type == null) {
       return Container(
           padding: EdgeInsets.all(2),
@@ -224,13 +135,7 @@ class _HomeWidgetState extends State<HomeWidget>
           child: ElevatedButton(
             child: Text(homeBean.title),
             onPressed: () {
-              if (homeBean.title == "端午粽子") {
-                _startAty(homeBean.page!, "", homeBean.path!,
-                    onRightClick: onRightClick);
-              } else {
-                _startAty(homeBean.page!, homeBean.title, homeBean.path!,
-                    onRightClick: onRightClick);
-              }
+              _startAty(homeBean.page!, homeBean.title, homeBean.path!);
             },
           ));
     } else if (homeBean.type == 1) {

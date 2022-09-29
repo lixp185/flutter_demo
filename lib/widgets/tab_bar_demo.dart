@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/states/firm_info.dart';
 import 'package:flutter_demo/utils/view/my_tab_indicator.dart';
 
 /// TabBarDemo
@@ -48,12 +47,10 @@ class _TabBarDemoState extends State<TabBarDemo>
           unselectedLabelColor: Colors.black87,
         ),
         Expanded(
-            child: FirmInfo(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: tabs.map((value) => Test()).toList(),
-                ),
-                data: "FLUTTER DEMO"))
+            child:  TabBarView(
+              controller: _tabController,
+              children: tabs.map((value) => Test()).toList(),
+            ),)
       ],
     );
   }
@@ -70,11 +67,7 @@ class _TestState extends State<Test> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
 
-      print("xx${FirmInfo.of(context)}");
-
-    });
   }
 
   @override
