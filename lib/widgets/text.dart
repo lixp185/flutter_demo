@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +13,20 @@ class TextWidgetDemo extends StatefulWidget {
 }
 
 class _TextWidgetState extends State<TextWidgetDemo> {
+
+
+
+
+
   @override
   void initState() {
     super.initState();
+    final Int32List result = Int32List(7); //
+
+    print("xxx${result[0]}");
+    result[0] |= 1 << 5;
+
+
   }
   HtmlEscape htmlEscape = HtmlEscape();
 
