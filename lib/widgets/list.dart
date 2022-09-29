@@ -1,8 +1,6 @@
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/states/firm_info.dart';
 
 class ListViewWidgetDemo extends StatefulWidget {
   @override

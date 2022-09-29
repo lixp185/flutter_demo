@@ -12,11 +12,12 @@ class _CanvasState extends State<CanvasDemo> {
   bool isTry = false;
   bool showNum = true;
   bool isClean = false;
+
   @override
   Widget build(BuildContext context) {
     return Container(
         color: Colors.white70,
-        padding: EdgeInsets.only(top: 40, left: 100),
+        // padding: EdgeInsets.only(top: 40, left: 100),
         alignment: Alignment.topLeft,
         child: Column(
           children: [
@@ -69,6 +70,7 @@ class _CanvasState extends State<CanvasDemo> {
               ),
             ),
             WqQp(
+              size: MediaQuery.of(context).size.width,
               qpSize: qpSize,
               isOpenTry: isTry,
               isShowNum: showNum,

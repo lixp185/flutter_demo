@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+
 /// 心碎的感觉
 class XinSui extends StatefulWidget {
   const XinSui({Key? key}) : super(key: key);
@@ -65,13 +66,12 @@ class _XinSuiPainter extends CustomPainter {
     canvas.drawPath(
         path,
         paint
-        ..color = Colors.red
+          ..color = Colors.red
           ..color = Color.fromRGBO(
               255 - (86 * animation.value).toInt(),
               (animation.value * 169).toInt(),
               (animation.value * 169).toInt(),
               1)
-
           ..style = PaintingStyle.fill);
     canvas.restore();
     path2.cubicTo(200, -80, 60, -240, 0, -140);
@@ -83,9 +83,9 @@ class _XinSuiPainter extends CustomPainter {
     path2.relativeLineTo(10, 10);
     path2.close();
     canvas.rotate(pi / 4 * animation.value);
-    canvas.drawPath(
-        path2,paint);
+    canvas.drawPath(path2, paint);
   }
+
   @override
   bool shouldRepaint(covariant _XinSuiPainter oldDelegate) {
     return oldDelegate.animation != animation;

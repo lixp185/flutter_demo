@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'code_page.dart';
+
 class BaseStatefulWidget extends StatefulWidget {
   final Widget widget;
   final String title;
@@ -51,17 +53,17 @@ class BaseWidgetState extends State<BaseStatefulWidget> {
       title: Text(widget.title),
       centerTitle: true,
       actions: [
-        // IconButton(
-        //     icon: Icon(Icons.c),
-        //     onPressed: () {
-        //       if (widget.onClick == null) {
-        //         Navigator.push(context, MaterialPageRoute(builder: (context) {
-        //           return CodePage(widget.codePath);
-        //         }));
-        //       } else {
-        //         widget.onClick?.call();
-        //       }
-        //     }),
+        IconButton(
+            icon: Icon(Icons.code),
+            onPressed: () {
+              if (widget.onClick == null) {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return CodePage(widget.codePath);
+                }));
+              } else {
+                widget.onClick?.call();
+              }
+            }),
       ],
     );
   }

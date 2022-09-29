@@ -7,7 +7,7 @@ import 'package:flutter_demo/utils/toast_util.dart';
 import '../coordinate.dart';
 
 // 翻页效果demo
-class FanBook extends StatefulWidget {
+class FanBook extends StatefulWidget   {
   const FanBook({Key? key}) : super(key: key);
 
   @override
@@ -69,13 +69,13 @@ class _FanBookState extends State<FanBook> with TickerProviderStateMixin {
   bool isNext = true; // 是否翻页到下一页
   // 控制点类
   ValueNotifier<PaperPoint> _p =
-  ValueNotifier(PaperPoint(Point(0, 0), Size(0, 0)));
+      ValueNotifier(PaperPoint(Point(0, 0), Size(0, 0)));
 
   // 定义数据
   List<String> dataList = [
-    "第一页数据第一页数据第一页数据第一页数据第一页数据第一页数据第一页数据第一页数据第一页数据第一页数据第一页数据第一页数据第一页数据第一页数据第一页数据第一页数据第一页数据第一页数据第一页数据第一页数据第一页数据第一页数据第一页数据",
-    "第二页数据第二页数据第二页数据第二页数据第二页数据第二页数据第二页数据第二页数据第二页数据第二页数据第二页数据第二页数据第二页数据第二页数据第二页数据第二页数据第二页数据第二页数据第二页数据第二页数据第二页数据",
-    "第三页数据第三页数据第三页数据第三页数据第三页数据第三页数据第三页数据第三页数据第三页数据第三页数据第三页数据第三页数据第三页数据第三页数据第三页数据第三页数据第三页数据第三页数据第三页数据第三页数据第三页数据第三页数据第三页数据第三页数据第三页数据",
+    "第一页数据",
+    "第二页数据",
+    "第三页数据",
   ];
 
   // 当前页码
@@ -94,17 +94,19 @@ class _FanBookState extends State<FanBook> with TickerProviderStateMixin {
               children: [
                 currentIndex == dataList.length - 1
                     ? SizedBox()
-                // 下一页
-                    : Container(
-                  alignment: Alignment.center,
-                  color: Colors.blue,
-                  width: size.width,
-                  height: size.height,
-                  child: Text(
-                    dataList[currentIndex + 1],
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
+                    // 下一页
+                    : ClipPath(
+                        child: Container(
+                          alignment: Alignment.center,
+                          color: Colors.blue,
+                          width: size.width,
+                          height: size.height,
+                          child: Text(
+                            dataList[currentIndex + 1],
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                      ),
                 // // 当前页
                 ClipPath(
                   child: Container(
@@ -141,44 +143,35 @@ class _FanBookState extends State<FanBook> with TickerProviderStateMixin {
             onPanUpdate: currentIndex == dataList.length - 1
                 ? null
                 : (d) {
-              var move = d.localPosition;
+                    var move = d.localPosition;
 
-              var primaryDelta = d.primaryDelta;
+                    // 临界值取消更新
+                    if (move.dx >= size.width ||
+                        move.dx < 0 ||
+                        move.dy >= size.height ||
+                        move.dy < 0) {
+                      return;
+                    }
+                    currentA = Point(move.dx, move.dy);
+                    _p.value = PaperPoint(Point(move.dx, move.dy), size);
 
-              print("prima$primaryDelta");
-              // 临界值取消更新
-              if (move.dx >= size.width ||
-                  move.dx < 0 ||
-                  move.dy >= size.height ||
-                  move.dy < 0) {
-                return;
-              }
-              currentA = Point(move.dx, move.dy);
-              _p.value = PaperPoint(Point(move.dx, move.dy), size);
-
-              if ((size.width - move.dx) / size.width > 1 / 3) {
-                isNext = true;
-              } else {
-                isNext = false;
-              }
-            },
+                    if ((size.width - move.dx) / size.width > 1 / 3) {
+                      isNext = true;
+                    } else {
+                      isNext = false;
+                    }
+                  },
             onPanEnd: currentIndex == dataList.length - 1
                 ? null
                 : (d) {
-              var velocity = d.velocity;
-              print("v ${velocity}");
-              _controller.forward(
-                from: 0,
-              );
-            },
+                    _controller.forward(
+                      from: 0,
+                    );
+                  },
           ),
         ),
         ElevatedButton(
             onPressed: () {
-              if(currentIndex == 0){
-                ToastUtil.show("已经第一页了");
-                return;
-              }
               setState(() {
                 currentA = Point(-100, size.height - 100);
                 currentIndex--;
@@ -200,8 +193,8 @@ class CurrentPaperClipPath extends CustomClipper<Path> {
   ValueNotifier<PaperPoint> p;
 
   CurrentPaperClipPath(
-      this.p,
-      ) : super(reclip: p);
+    this.p,
+  ) : super(reclip: p);
 
   @override
   Path getClip(Size size) {
@@ -225,7 +218,7 @@ class CurrentPaperClipPath extends CustomClipper<Path> {
       mPathA.lineTo(p.value.f.x, p.value.f.y);
       mPathA.close();
       Path mPathC =
-      Path.combine(PathOperation.reverseDifference, mPathA, mPath);
+          Path.combine(PathOperation.reverseDifference, mPathA, mPath);
       return mPathC;
     }
 
@@ -318,7 +311,7 @@ class _BookPainter extends CustomPainter {
 
         /// C区域 当前页可见区域 与A区域重新生成新路径
         Path mPathC =
-        Path.combine(PathOperation.reverseDifference, mPathAB, mPath);
+            Path.combine(PathOperation.reverseDifference, mPathAB, mPath);
 
         // canvas.drawPath(mPathC, paint..color = Colors.red);
         // canvas.drawPath(mPathAB, paint..color = Colors.yellow);
@@ -375,9 +368,9 @@ class _BookPainter extends CustomPainter {
           //       ..style = PaintingStyle.stroke);
 
           Path startYY =
-          Path.combine(PathOperation.reverseDifference, mPathAB, pyy1);
+              Path.combine(PathOperation.reverseDifference, mPathAB, pyy1);
           Path endYY =
-          Path.combine(PathOperation.reverseDifference, mPathAB, pyy2);
+              Path.combine(PathOperation.reverseDifference, mPathAB, pyy2);
 
           canvas.drawPath(mPathB, paint..color = Colors.grey.shade400);
 

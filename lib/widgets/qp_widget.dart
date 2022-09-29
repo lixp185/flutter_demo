@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'wq_qp.dart';
 
+// 棋盘大小 9路 13路 19路
+class QpSize {
+  static const nine = 9; //9路
+  static const thirteen = 13; //13路
+  static const nineteen = 19; // 19路
+}
+
 /// 棋盘
 class QpWidget extends StatefulWidget {
   // 落子
-  final QpSize qpSize; //  9路 19路棋盘
+  final int qpSize; //  9路 19路棋盘
   final double width; //棋盘宽
   final double height; //棋盘高
   const QpWidget(
@@ -17,12 +24,6 @@ class QpWidget extends StatefulWidget {
 
   @override
   _QpWidgetState createState() => _QpWidgetState();
-}
-
-enum QpSize {
-  nine, //9路
-  thirteen, //13路
-  nineteen // 19路
 }
 
 class _QpWidgetState extends State<QpWidget> {
@@ -80,6 +81,7 @@ class _QpWidgetState extends State<QpWidget> {
   @override
   void initState() {
     super.initState();
+
     if (widget.qpSize == QpSize.nine) {
       // 9路
       qpWg = 8;
@@ -102,8 +104,12 @@ class _QpWidgetState extends State<QpWidget> {
 
   @override
   Widget build(BuildContext context) {
+    for (var i = qpWg + 1; i < 19; i++) {
+      numList.removeLast();
+      zmList.removeLast();
+    }
     return Container(
-      height: widget.height * 1.3,
+      height: widget.height * 1.5,
       alignment: Alignment.center,
       child: Stack(
         children: [
@@ -186,16 +192,20 @@ class _QpWidgetState extends State<QpWidget> {
                     },
                   ),
                 ),
+
+
                 Container(
-                  margin: EdgeInsets.only(top: 5),
+                  margin: EdgeInsets.only(top: 0),
                   height: 15,
-                  width: widget.width + widget.height / qpWg,
+                  color: Colors.blue,
+                  width: widget.width + widget.width / qpWg,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return Container(
                         width: widget.width / qpWg,
                         height: 15,
+                        color: index.isOdd ? Colors.red : null,
                         alignment: Alignment.center,
                         child: Text(
                           zmList[index],
@@ -237,7 +247,7 @@ class _QpWidgetState extends State<QpWidget> {
                         },
                         child: Text("确认"))
                   ],
-                )
+                ),
               ],
             ),
             left: 10,

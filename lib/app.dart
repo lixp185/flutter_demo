@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_navigation/src/router_report.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_demo/models/app_theme.dart';
 import 'package:flutter_demo/utils/sp_util.dart';
@@ -8,7 +10,7 @@ import 'package:flutter_demo/utils/status.dart';
 
 import 'common/global.dart';
 import 'common/theme_common.dart';
-import 'widgets/main_page.dart';
+import 'pages/main_page.dart';
 
 class App {
   static init() {
@@ -96,8 +98,22 @@ class MyApp extends StatelessWidget {
           darkTheme: ThemeCommon.darkTheme,
           home: MainPage(),
           debugShowCheckedModeBanner: false,
+          navigatorObservers: [GetXRouterObserver()],
         );
       },
     );
+  }
+}
+
+///自定义这个关键类！！！！！！
+class GetXRouterObserver extends NavigatorObserver {
+  @override
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    RouterReportManager.reportCurrentRoute(route);
+  }
+
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) async {
+    RouterReportManager.reportRouteDispose(route);
   }
 }

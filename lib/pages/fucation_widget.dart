@@ -1,37 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/models/home_bean.dart';
+import 'package:flutter_demo/pages/function/event/page_one.dart';
+import 'package:flutter_demo/states/bloc/bloc_demo/view.dart';
+import 'package:flutter_demo/states/getx/num/view.dart';
+import 'package:flutter_demo/states/provider/p_num/view.dart';
 import 'package:flutter_demo/utils/sliver_to_widget.dart';
-import 'package:flutter_demo/widgets/util_page/open_image.dart';
+import 'package:flutter_demo/widgets/baseful_widget.dart';
+import 'package:get/get.dart';
 
-import 'baseful_widget.dart';
-import 'big_image.dart';
-import 'util_page/my_toast.dart';
-import 'util_page/num_demo.dart';
+import 'function/inherited_demo.dart';
+import 'function/notification_demo.dart';
 
-/// 工具、其他组件
-class UtilWidget extends StatefulWidget {
+
+/// 作者： lixp
+/// 创建时间： 2022/9/27 11:23
+/// 类介绍： 功能性组件
+class FunctionWidget extends StatefulWidget {
+  const FunctionWidget({Key? key}) : super(key: key);
+
   @override
-  _UtilWidgetState createState() => _UtilWidgetState();
+  State<FunctionWidget> createState() => _FunctionWidgetState();
 }
 
-class _UtilWidgetState extends State<UtilWidget>
+class _FunctionWidgetState extends State<FunctionWidget>
     with AutomaticKeepAliveClientMixin {
-  var utilList = [];
+  var _list = [];
 
   @override
   void initState() {
     super.initState();
+    _list.add(_getWidget(HomeBean(
+        "数据共享", "lib/widgets/open_image.dart", InheritedWidgetDemo())));
+    _list.add(_getWidget(
+        HomeBean("通知", "lib/widgets/open_image.dart", NotificationDemo())));
+    _list.add(_getWidget(
+        HomeBean("跨组件通信", "lib/widgets/open_image.dart", PageOne())));
 
-    utilList.add(_getWidget(
-        HomeBean("图片选择器", "lib/widgets/open_image.dart", OpenImage())));
-    utilList.add(
-        _getWidget(HomeBean("吐司工具", "lib/widgets/my_toast.dart", MyToast())));
-    utilList
-        .add(_getWidget(HomeBean("查看大图", "lib/widgets/big_image.dart", BigImage())));
-    utilList
-        .add(_getWidget(HomeBean("Num运算符 算法汇总", "lib/widgets/big_image.dart",
-        NumDemo()
-    )));
+    _list.add(_getWidget(
+        HomeBean("provider", "lib/widgets/open_image.dart", PNumPage())));
+
+    _list.add(_getWidget(
+        HomeBean("bloc", "lib/widgets/open_image.dart", BlocNumPage())));
+
+    _list.add(_getWidget(
+        HomeBean("get", "lib/widgets/open_image.dart", GetNumPage())));
   }
 
   @override
@@ -42,11 +54,11 @@ class _UtilWidgetState extends State<UtilWidget>
         child: CustomScrollView(
           physics: BouncingScrollPhysics(),
           slivers: [
-            SliverToWidget(_getWidget(HomeBean("常用工具", "", null, type: 1))),
+            SliverToWidget(_getWidget(HomeBean("功能组件", "", null, type: 1))),
             SliverGrid(
               delegate: SliverChildBuilderDelegate((context, index) {
-                return utilList[index];
-              }, childCount: utilList.length),
+                return _list[index];
+              }, childCount: _list.length),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisSpacing: 5, // 左右间距
                   childAspectRatio: 1,
@@ -93,6 +105,8 @@ class _UtilWidgetState extends State<UtilWidget>
             fullscreenDialog: true,
             builder: (BuildContext c) {
               return BaseStatefulWidget(widget, title, path);
-            }));
+               }));
+
+    // Get.to(GetCounterEasyPage());
   }
 }

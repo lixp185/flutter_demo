@@ -130,11 +130,11 @@ class PaperPainter extends CustomPainter {
     // _drawDRRect(canvas, size);
     // _drawColor(canvas, size);
     // _drawImage(canvas, size);
-    // _drawText(canvas, size);
+    _drawText(canvas, size);
     // _drawPath(canvas, size);
     // _drawColor(canvas, size);
     // _drawCDR(canvas, size);
-    _drawShouShi(canvas, size);
+    // _drawShouShi(canvas, size);
     // _drawSyr(canvas, size);
     // _drawHt(canvas, size);
     // _drawXiaoA(canvas, size);
@@ -146,13 +146,17 @@ class PaperPainter extends CustomPainter {
   void _drawShouShi(Canvas canvas, Size size) {
     /// 手指移动坐标
     var offsetTranslate = offset.value;
+
     /// 操纵杆圆心坐标
     var offsetTranslateCenter = offsetCenter.value;
+
     /// 计算当前位置坐标点
     double x = offsetTranslateCenter.dx - offsetTranslate.dx;
     double y = offsetTranslateCenter.dy - offsetTranslate.dy;
+
     /// 反正切函数 通过此函数可以计算出此坐标旋转的弧度
     double ata = atan2(x, y);
+
     /// 默认坐标系范围为-pi - pi  逆时针旋转坐标系90度 变为 0 - 2*pi;
     var thta = ata - pi / 2;
     print("angle ${(180 / pi * thta).toInt()}");
@@ -710,13 +714,43 @@ class PaperPainter extends CustomPainter {
     // paragraph.layout(ui.ParagraphConstraints(width: 140));
     // canvas.drawParagraph(paragraph, Offset(0, 0));
 
+    Path path = Path();
+
+    // 黑子
+    path.addOval(Rect.fromCenter(center: Offset.zero, width: 40, height: 40));
+    path.close();
+    canvas.save();
+    canvas.rotate(pi * 2 - pi / 4);
+    canvas.drawPath(
+        path,
+        _paint
+          ..shader = ui.Gradient.linear(Offset(0, -40), Offset(10, 10),
+              [Color(0xFFa5a5a5), Color(0xFF333333)])
+          ..style = PaintingStyle.fill);
+    // 白字
+    path.addOval(Rect.fromCenter(center: Offset.zero, width: 40, height: 40));
+    path.close();
+    canvas.restore();
+    canvas.save();
+    canvas.translate(60, 0);
+    canvas.rotate(pi * 2 - pi / 4);
+    canvas.drawPath(
+        path,
+        _paint
+          ..shader = ui.Gradient.linear(Offset(0, -40), Offset(10, 10),
+              [Color(0xFFa5a5a5), Color(0xFFF3F3F3)])
+          ..style = PaintingStyle.fill);
+    canvas.restore();
+
+    // 文本
     var textPainter = TextPainter(
         text: TextSpan(
-            text: "Flutter Text",
+            text: "88",
             style: TextStyle(
-              fontSize: 40,
+              fontSize: 20,
               foreground: Paint()
-                ..style = PaintingStyle.stroke
+                ..style = PaintingStyle.fill
+                ..color = Color(0xFFF3F3F3)
                 ..strokeWidth = 1,
             )),
         textAlign: TextAlign.left,
@@ -724,16 +758,75 @@ class PaperPainter extends CustomPainter {
         ellipsis: "...",
         textDirection: TextDirection.ltr);
     textPainter.layout();
-    var size2 = textPainter.size;
-    textPainter.paint(canvas, Offset(-size2.width / 2, -size2.height / 2));
-    // textPainter.paint(canvas, Offset.zero);
+    Size textSize = textPainter.size;
+    textPainter.paint(canvas,
+        Offset.zero.translate(-textSize.width / 2, -textSize.height / 2));
 
-    canvas.drawRect(
-        Rect.fromLTRB(0, 0, size2.width, size2.height)
-            .translate(-size2.width / 2, -size2.height / 2),
-        _paint
-          ..color = Colors.blue.withAlpha(33)
-          ..style = PaintingStyle.fill);
+    var textPainter2 = TextPainter(
+        text: TextSpan(
+            text: "88",
+            style: TextStyle(
+              fontSize: 20,
+              foreground: Paint()
+                ..style = PaintingStyle.fill
+                ..color = Color(0xFF333333)
+                ..strokeWidth = 1,
+            )),
+        textAlign: TextAlign.left,
+        maxLines: 1,
+        ellipsis: "...",
+        textDirection: TextDirection.ltr);
+    textPainter2.layout();
+    Size textSize2 = textPainter2.size;
+
+    canvas.save();
+    canvas.translate(60, 0);
+    textPainter2.paint(canvas,
+        Offset.zero.translate(-textSize2.width / 2, -textSize2.height / 2));
+
+    canvas.restore();
+
+
+    Path currentPath = Path();
+
+    currentPath.moveTo(0, 20-2);
+    currentPath.lineTo(10, 10);
+    currentPath.lineTo(-10, 10);
+    currentPath.close();
+    Paint paint = Paint();
+    canvas.drawPath(currentPath, paint..color = Colors.red..style =
+        PaintingStyle.fill);
+    canvas.save();
+    canvas.translate(60, 0);
+    currentPath.moveTo(0, 20-2);
+    currentPath.lineTo(10, 10);
+    currentPath.lineTo(-10, 10);
+    currentPath.close();
+    canvas.drawPath(currentPath, paint..color = Colors.red..style =
+        PaintingStyle.fill);
+    canvas.restore();
+
+
+
+    // canvas.drawRect(
+    //     Rect.fromLTRB(0, 0, textSize2.width, textSize2.height)
+    //         .translate(-textSize2.width / 2, -textSize2.height / 2),
+    //     _paint
+    //       ..color = Colors.blue.withAlpha(88)
+    //       ..style = PaintingStyle.fill);
+
+    // canvas.drawCircle(Offset.zero, 20, _paint..color = Colors.black..style =
+    //     PaintingStyle.stroke..strokeWidth= 1);
+
+    // Path path2 = Path();
+    //
+    // path2.addOval(Rect.fromCenter(
+    //     center: Offset.zero.translate(-10, -10), width: 20, height: 20));
+    // path2.close();
+    // canvas.drawPath(
+    //     path2,
+    //     _paint..shader = ui.Gradient.radial(Offset.zero.translate(-6, -6),
+    //         15, [Colors.white24, Colors.transparent]));
   }
 
   /// path 绘制

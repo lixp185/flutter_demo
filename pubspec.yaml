@@ -22,8 +22,7 @@ dependencies:
   keyboard_avoider: ^0.1.2
   path_provider: ^2.0.1
   fluttertoast: ^8.0.3
-  # 状态管理
-  provider: ^6.0.3
+
   shared_preferences: ^2.0.5
   #  flutter_bugly: ^0.3.1
   #  jpush_flutter: ^2.0.1
@@ -49,8 +48,13 @@ dependencies:
   # 音频播放器
   audioplayers: ^0.20.1
   # 录制音频
-#  flutter_sound: ^9.2.13
+  #  flutter_sound: ^9.2.13
   permission_handler: ^6.0.1
+
+  # 状态管理
+  provider: ^6.0.3
+  flutter_bloc: ^8.1.1
+  get: ^4.6.5
 
 dev_dependencies:
   flutter_test:

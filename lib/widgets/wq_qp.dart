@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+/// 围棋棋盘demo
 class WqQp extends StatefulWidget {
   // 落子
   final List<Offset> offsetList; // 落子集合
@@ -64,13 +66,12 @@ class Qz extends CustomPainter {
           qzSize));
 
       canvas.drawPath(path, paint);
-      // canvas.drawShadow(path, Colors.black, 10, true);
 
+      canvas.drawShadow(path, Colors.black, 10, true);
       // canvas.drawCircle(offsetList[i], qzSize , paint);
     }
 
     if (offset != null) {
-      print("xxxxxoffset");
       if (offsetList.length % 2 == 0) {
         color = Colors.black54;
       } else {
@@ -148,7 +149,9 @@ class MyPaint extends CustomPainter {
       // 13路
       offsetXList.add(Offset(eW * 3, eH * 3));
       offsetXList.add(Offset(eW * 3, eH * 9));
+
       offsetXList.add(Offset(eW * 6, eH * 6)); // 天元
+
       offsetXList.add(Offset(eW * 9, eH * 3));
       offsetXList.add(Offset(eW * 9, eH * 9));
     } else {
@@ -169,7 +172,8 @@ class MyPaint extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    //是否需要重新绘制
+    // 棋盘在落子时无需刷新
     return false;
   }
 }
+

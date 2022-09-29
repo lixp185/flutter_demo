@@ -14,13 +14,14 @@ class WqQp extends StatefulWidget {
   final int qpSize; //棋盘大小
   final isShowNum; // 是否显示手数
   final isOpenTry; // 是否开启试下
-  final bool isCleanQP ;
+  final bool isCleanQP; // 是否清除棋盘棋子
   const WqQp({
     Key? key,
     this.size = 400,
     this.qpSize = QpSize.thirteen, // 棋盘大小
     this.isShowNum,
-    this.isOpenTry = false, this.isCleanQP = false,
+    this.isOpenTry = false,
+    this.isCleanQP = false,
   }) : super(key: key);
 
   @override
@@ -40,7 +41,7 @@ class _WqQpState extends State<WqQp> {
 
   @override
   Widget build(BuildContext context) {
-    if(widget.isCleanQP){
+    if (widget.isCleanQP) {
       qzList.clear();
       goList.value = qzList;
     }
@@ -51,7 +52,8 @@ class _WqQpState extends State<WqQp> {
         GestureDetector(
           child: CustomPaint(
             size: Size(
-                // MediaQuery.of(context).size.width, MediaQuery.of(context).size.width),
+                // MediaQuery.of(context).size.width, MediaQuery.of(context)
+                // .size.width),
                 widget.size,
                 widget.size),
             painter: __QpPainter(widget.qpSize, margin1, margin2),
@@ -64,15 +66,13 @@ class _WqQpState extends State<WqQp> {
               ]),
               margin1,
               widget.isShowNum,
-              qzSize: eSide * 0.9,
+              qzSize: eSide * 1,
               eSide: eSide,
             ),
           ),
           onPanDown: (e) {
             double dx = e.localPosition.dx;
             double dy = e.localPosition.dy;
-            double eSide = (widget.size - (margin1 + margin2)) /
-                (widget.qpSize - 1); // 格子边长
             if (dx < margin1 - eSide / 2 ||
                 dy < margin1 - eSide / 2 ||
                 dx - (margin1 + ((widget.qpSize - 1) * eSide) + eSide / 2) >
@@ -155,6 +155,8 @@ class __QpPainter extends CustomPainter {
     // 棋盘除了网格还有坐标 所以真实的棋盘区域是要比我们设置Size的要小一点 留出区域绘制坐标
     double eSide = (size.width - margin1 - margin2) / (qpSize - 1); //格子边长
     // double eSide = (size.width ) / qpWg; //格子边长
+
+    print("xxxx 格子边长= $eSide");
 
     /// 竖线 横向 坐标
     _drawColumnLines(canvas, paint, Size(size.width, size.height), eSide);
@@ -427,6 +429,8 @@ class _QzPainter extends CustomPainter {
 
   void _drawQz(QzType qzType, Offset centerOffset, Canvas canvas,
       {bool isTry = false}) {
+    print("centerOffset $centerOffset");
+
     // 棋子颜色
     List<Color> qzColors;
     if (qzType == QzType.black) {
