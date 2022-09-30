@@ -1,3 +1,6 @@
+
+
+/// 数据层
 class PNumState {
   int num;
 

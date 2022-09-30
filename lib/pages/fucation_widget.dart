@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo/models/home_bean.dart';
 import 'package:flutter_demo/pages/function/event/page_one.dart';
 import 'package:flutter_demo/states/bloc/bloc_demo/view.dart';
+import 'package:flutter_demo/states/getx/jump_page/jump_one/view.dart';
 import 'package:flutter_demo/states/getx/num/view.dart';
 import 'package:flutter_demo/states/provider/p_num/view.dart';
 import 'package:flutter_demo/utils/sliver_to_widget.dart';
@@ -10,7 +11,6 @@ import 'package:get/get.dart';
 
 import 'function/inherited_demo.dart';
 import 'function/notification_demo.dart';
-
 
 /// 作者： lixp
 /// 创建时间： 2022/9/27 11:23
@@ -44,6 +44,8 @@ class _FunctionWidgetState extends State<FunctionWidget>
 
     _list.add(_getWidget(
         HomeBean("get", "lib/widgets/open_image.dart", GetNumPage())));
+    _list.add(_getWidget(HomeBean(
+        "get跨页面-one", "lib/widgets/open_image.dart", GetJumpOnePage())));
   }
 
   @override
@@ -105,7 +107,7 @@ class _FunctionWidgetState extends State<FunctionWidget>
             fullscreenDialog: true,
             builder: (BuildContext c) {
               return BaseStatefulWidget(widget, title, path);
-               }));
+            }));
 
     // Get.to(GetCounterEasyPage());
   }
