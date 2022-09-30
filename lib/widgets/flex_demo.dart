@@ -16,44 +16,44 @@ class _FlexDemoState extends State<FlexDemo> {
       // color: Colors.blue,
       child: Column(
         children: [
-          Row(
-            // verticalDirection: VerticalDirection.up,
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.ideographic,
-            // crossAxisAlignment: CrossAxisAlignment.stretch, // 交叉轴紧约束
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SizedBox(
-                width: 50,
-                height: 50,
-                child: ColoredBox(
-                  color: Colors.red,
-                  child: Text("1"),
-                ),
-              ),
-              SizedBox(
-                width: 50,
-                height: 50,
-                child: ColoredBox(
-                  color: Colors.lightBlue,
-                ),
-              ),
-              SizedBox(
-                width: 50,
-                height: 80,
-                child: ColoredBox(
-                  color: Colors.blue,
-                ),
-              ),
-              SizedBox(
-                width: 50,
-                height: 50,
-                child: ColoredBox(
-                  color: Colors.green,
-                ),
-              )
-            ],
-          ),
+          // Row(
+          //   // verticalDirection: VerticalDirection.up,
+          //   crossAxisAlignment: CrossAxisAlignment.baseline,
+          //   textBaseline: TextBaseline.ideographic,
+          //   // crossAxisAlignment: CrossAxisAlignment.stretch, // 交叉轴紧约束
+          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //   children: [
+          //     SizedBox(
+          //       width: 50,
+          //       height: 50,
+          //       child: ColoredBox(
+          //         color: Colors.red,
+          //         child: Text("1"),
+          //       ),
+          //     ),
+          //     SizedBox(
+          //       width: 50,
+          //       height: 50,
+          //       child: ColoredBox(
+          //         color: Colors.lightBlue,
+          //       ),
+          //     ),
+          //     SizedBox(
+          //       width: 50,
+          //       height: 80,
+          //       child: ColoredBox(
+          //         color: Colors.blue,
+          //       ),
+          //     ),
+          //     SizedBox(
+          //       width: 50,
+          //       height: 50,
+          //       child: ColoredBox(
+          //         color: Colors.green,
+          //       ),
+          //     )
+          //   ],
+          // ),
 
        Container(
          child:    Wrap(

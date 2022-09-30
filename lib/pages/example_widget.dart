@@ -12,6 +12,7 @@ import 'package:flutter_demo/widgets/canvas/oval_loading.dart';
 import 'package:flutter_demo/widgets/canvas/touch_controller.dart';
 import 'package:flutter_demo/widgets/canvas/xin_sui.dart';
 import 'package:flutter_demo/widgets/canvas_demo.dart';
+import 'package:flutter_demo/widgets/flex_demo.dart';
 import 'package:flutter_demo/widgets/hero_demo.dart';
 import 'package:flutter_demo/widgets/paint_demo.dart';
 import 'package:flutter_demo/widgets/polygonal.dart';
@@ -50,7 +51,7 @@ class _ExampleWidgetState extends State<ExampleWidget>
     super.initState();
 
     _list.add(_getWidget(
-        HomeBean("多边形多角星", "lib/widgets/hero_demo.dart", Polygonal())));
+        HomeBean("多边形多角星", "lib/widgets/hero_demo.dart", FlexDemo())));
 
     _list.add(_getWidget(
         HomeBean("围棋棋盘", "lib/widgets/canvas_demo.dart", CanvasDemo())));

@@ -26,8 +26,8 @@ class _PaintDemoState extends State<PaintDemo> {
   @override
   Widget build(BuildContext context) {
     size = Size(
-      MediaQuery.of(context).size.width / 2,
-      MediaQuery.of(context).size.height / 2,
+      MediaQuery.of(context).size.width ,
+      MediaQuery.of(context).size.height ,
     );
     return GestureDetector(
       child: CustomPaint(
@@ -124,13 +124,13 @@ class PaperPainter extends CustomPainter {
     // _drawDot(canvas, size);
     // _drawCir(canvas, size);
     // drawLine(canvas, size);
-    // _drawPoint(canvas, size);
+    _drawPoint(canvas, size);
     /// 绘制矩形
     // _drawRect(canvas, size);
     // _drawDRRect(canvas, size);
     // _drawColor(canvas, size);
     // _drawImage(canvas, size);
-    _drawText(canvas, size);
+    // _drawText(canvas, size);
     // _drawPath(canvas, size);
     // _drawColor(canvas, size);
     // _drawCDR(canvas, size);

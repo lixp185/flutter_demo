@@ -22,7 +22,7 @@ class _InheritedWidgetDemoState extends State<InheritedWidgetDemo>
       TabController(length: tabs.length, vsync: this); //tab 控制器
   @override
   Widget build(BuildContext context) {
-    return TestData(
+    return CountData(
         child: Column(
           children: [
             TabBar(
@@ -78,7 +78,7 @@ class _TextWidgetState extends State<TextWidget> {
   @override
   void initState() {
     super.initState();
-    print("test${TestData.of(context)?.data}");
+    print("test${CountData.of(context)?.data}");
   }
 
   @override
@@ -87,7 +87,7 @@ class _TextWidgetState extends State<TextWidget> {
     return Container(
       color: Colors.yellow,
       alignment: Alignment.center,
-      child: Text("共享数据：${TestData.of(context)?.data}"),
+      child: Text("共享数据：${CountData.of(context)?.data}"),
       // child: Text("data"),
     );
   }

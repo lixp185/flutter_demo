@@ -23,7 +23,7 @@ class ListViewState extends State<ListViewWidgetDemo> {
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _scrollController.addListener(() {
         double appBarHeight = 56;
         double stateHeight = MediaQuery.of(context).padding.top == 0
