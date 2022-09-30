@@ -92,12 +92,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AppTheme>(
       builder: (context, appTheme, _) {
-        return MaterialApp(
+        return GetMaterialApp(
           title: 'Flutter Demo',
           theme: appTheme.themeDate,
           darkTheme: ThemeCommon.darkTheme,
           home: MainPage(),
           debugShowCheckedModeBanner: false,
+          // 不使用getX路由 实现状态管理自动释放资源
           navigatorObservers: [GetXRouterObserver()],
         );
       },

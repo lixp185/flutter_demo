@@ -7,6 +7,8 @@ import 'state.dart';
 
 /// 视图页面
 class BlocNumPage extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

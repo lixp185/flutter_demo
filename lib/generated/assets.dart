@@ -41,6 +41,10 @@ class Assets {
   static const String functionNotificationDemo = 'lib/pages/function/notification_demo.dart';
   static const String functionTestData = 'lib/pages/function/test_data.dart';
   static const String generatedAssets = 'lib/generated/assets.dart';
+  static const String jumpOneLogic = 'lib/states/getx/jump_page/jump_one/logic.dart';
+  static const String jumpOneView = 'lib/states/getx/jump_page/jump_one/view.dart';
+  static const String jumpTwoLogic = 'lib/states/getx/jump_page/jump_two/logic.dart';
+  static const String jumpTwoView = 'lib/states/getx/jump_page/jump_two/view.dart';
   static const String libApp = 'lib/app.dart';
   static const String libGeneratedPluginRegistrant = 'lib/generated_plugin_registrant.dart';
   static const String libMain = 'lib/main.dart';
