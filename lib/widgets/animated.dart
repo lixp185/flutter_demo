@@ -51,7 +51,6 @@ class _AnimateWidgetDemoState extends State<AnimateWidgetDemo>
 
     // pi 3.14
     animation4 = Tween(begin: 0.0, end: pi * 2).animate(cure);
-    _controller.addListener(() {});
     _controller.addStatusListener((status) {
       // dismissed	动画在起始点停止
       // forward	动画正在正向执行
@@ -65,9 +64,9 @@ class _AnimateWidgetDemoState extends State<AnimateWidgetDemo>
     });
 
     // 启动动画
-    // _controller.forward();//正向开始动画
+    _controller.forward();//正向开始动画
     // _controller.reverse();//反向开始动画
-    _controller.repeat(); // 无限循环开始动画
+    // _controller.repeat(); // 无限循环开始动画
   }
 
   @override
@@ -80,48 +79,60 @@ class _AnimateWidgetDemoState extends State<AnimateWidgetDemo>
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // 平移
-        // Text("平移"),
-        // SlideTransitionLogo(
-        //   child: FlutterLogo(),
-        //   animation: animation2,
-        // ),
+        Text("平移"),
+        SlideTransitionLogo(
+          child: FlutterLogo(),
+          animation: animation2,
+        ),
 
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: [
-        //     Text("旋转"),
-        //     RotationTransitionLogo(
-        //       child: FlutterLogo(),
-        //       animation: animation3,
-        //     ),
-        //     Text("渐变"),
-        //     FadeTransition(
-        //       opacity: animation3,
-        //       child: Container(
-        //         width: 100,
-        //         height: 100,
-        //         child: FlutterLogo(),
-        //       ),
-        //     ),
-        //   ],
-        // ),
-        // Text("3d旋转动画(变换组件实现)"),
-        // ZAnimatedLogo(animation: animation4, child: FlutterLogo()),
-        Text("缩放"),
-        Center(
-          child: AnimatedBuilder(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("旋转"),
+            RotationTransitionLogo(
               child: FlutterLogo(),
+              animation: animation3,
+            ),
+            Text("渐变"),
+            FadeTransition(
+              opacity: animation3,
+              child: Container(
+                width: 100,
+                height: 100,
+                child: FlutterLogo(),
+              ),
+            ),
+          ],
+        ),
+        Text("3d旋转动画(变换组件实现)"),
+        ZAnimatedLogo(animation: animation4, child: FlutterLogo()),
+        Text("组合动画"),
+        ZhAnimatedLogo(
+          animation: animation2,
+          animation2: animation3,
+          child: RotationTransitionLogo(
+            child: AnimatedLogo(
               animation: animation,
-              builder: (context, child) {
-                return Container(
-                  width: 100 * animation.value,
-                  height: 100 * animation.value,
-                  child: child,
-                );
-              }),
-        )
+              child:ZAnimatedLogo(animation: animation4,
+              child: FlutterLogo(),),
+            ),
+            animation: animation3,
+          ),
+        ),
+        Text("缩放"),
+        AnimatedBuilder(
+            child: FlutterLogo(),
+            animation: animation,
+            builder: (context, child) {
+              return Container(
+                width: 100 * animation.value,
+                height: 100 * animation.value,
+                child: child,
+              );
+            }),
 
         // AnimatedLogo(
         //   // 缩放
@@ -133,15 +144,7 @@ class _AnimateWidgetDemoState extends State<AnimateWidgetDemo>
         //   animation: _controller,
         // ),
 
-        // Text("组合动画"),
-        // ZhAnimatedLogo(
-        //   animation: animation2,
-        //   animation2: animation3,
-        //   child: RotationTransitionLogo(
-        //     child: FlutterLogo(),
-        //     animation: animation3,
-        //   ),
-        // ),
+
       ],
     );
   }
@@ -249,8 +252,10 @@ class ZhAnimatedLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // 平移
       child: SlideTransitionLogo(
         animation: animation,
+        // 渐变
         child: FadeTransition(
           opacity: animation2,
           child: child,
@@ -265,6 +270,8 @@ class MyCurve extends Curve {
   double transformInternal(double x) {
     // 自定义变化曲线
     // y = x的立方。这里可以理解为定义方程 x可以理解为0-1的变化过程 y即是返回0-1的位置，无需关系中间是如何计算的。
-    return x * x * x;
+    // return x * x * x;
+
+    return x;
   }
 }

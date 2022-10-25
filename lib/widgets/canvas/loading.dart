@@ -7,15 +7,30 @@ class LoadingDemo extends StatefulWidget {
   _LoadingDemoState createState() => _LoadingDemoState();
 }
 
+class LtCurve extends Curve {
+  LtCurve._();
+
+  @override
+  double transformInternal(double t) {
+    double g = 9.8;
+    // h =1/2 * g * t * t
+    // return g * (t * 2) * (t * 2) / 2;
+    return t;
+  }
+}
+
 class _LoadingDemoState extends State<LoadingDemo>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller = AnimationController(
-      vsync: this, duration: const Duration(milliseconds: 500))
-    ..repeat(reverse: true); //1s;
+      vsync: this, duration: const Duration(milliseconds: 2000))
+    ..repeat(); //1s;
+
+  late CurvedAnimation cure =
+      CurvedAnimation(parent: _controller, curve: LtCurve._());
 
   // 控制器
   late Animation<double> animation =
-      Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
+      Tween<double>(begin: 0.0, end: 1.0).animate(cure);
 
   @override
   void initState() {
@@ -53,28 +68,7 @@ class _LoadingPaint extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     canvas.translate(size.width / 2, size.height / 2);
 
-    /// 0..1
-
-    canvas.drawCircle(Offset(0, 20 * animation.value), 5, _paint);
-
-    /// 线性渐变
-    /// 0.2 - 1 - 0.8 => 0..1
-    //     0- 0.8 - 1
-
-    /// 0.8 - 0 - 0.2 => 1..0
-
-    // 1  -  0.2 - 0
-    canvas.drawCircle(Offset(20, 20 * (1-animation.value)), 5, _paint);
-
-    // else {
-    //   canvas.drawCircle(Offset(20, 20 * (animation.value - 0.2)), 5, _paint);
-    // }
-    //
-    // /// 0.4 - 1 - 0.6
-    // canvas.drawCircle(Offset(40, 10 * (animation.value)), 5, _paint);
-    //
-    // /// 0.6 - 1 - 0.4
-    // canvas.drawCircle(Offset(60, 10 * (1 - animation.value)), 5, _paint);
+    canvas.drawCircle(Offset(0, 100 * animation.value), 10, _paint);
   }
 
   @override

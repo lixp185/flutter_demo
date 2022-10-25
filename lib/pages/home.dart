@@ -2,9 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/models/home_bean.dart';
 import 'package:flutter_demo/utils/sliver_to_widget.dart';
+import 'package:flutter_demo/widgets/autocomplete_demo.dart';
 import 'package:flutter_demo/widgets/canvas/gestures_unlock.dart';
 import 'package:flutter_demo/widgets/canvas/loading.dart';
 import 'package:flutter_demo/widgets/canvas/touch_controller.dart';
+import 'package:flutter_demo/widgets/canvas/world.dart';
 import 'package:flutter_demo/widgets/canvas/xin_sui.dart';
 import 'package:flutter_demo/widgets/table_demo.dart';
 
@@ -61,7 +63,11 @@ class _HomeWidgetState extends State<HomeWidget>
   @override
   void initState() {
     homeList.add(_getWidget(
+        HomeBean("粒子运动", "lib/widgets/world.dart", World())));
+    homeList.add(_getWidget(
         HomeBean("loadingDemo", "lib/widgets/loading.dart", LoadingDemo())));
+    homeList.add(_getWidget(
+        HomeBean("联想词填充", "lib/widgets/loading.dart", AutocompleteDemo())));
     homeList.add(_getWidget(
         HomeBean("布局demo", "lib/widgets/hero_demo.dart", FlexDemo())));
     homeList.add(_getWidget(
