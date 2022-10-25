@@ -23,6 +23,7 @@ class _InheritedWidgetDemoState extends State<InheritedWidgetDemo>
   @override
   Widget build(BuildContext context) {
     return CountData(
+
         child: Column(
           children: [
             TabBar(
@@ -62,6 +63,7 @@ class _InheritedWidgetDemoState extends State<InheritedWidgetDemo>
                 child: Icon(Icons.add))
           ],
         ),
+
         data: data);
   }
 }
@@ -78,11 +80,14 @@ class _TextWidgetState extends State<TextWidget> {
   @override
   void initState() {
     super.initState();
-    print("test${CountData.of(context)?.data}");
+
+
   }
 
   @override
   Widget build(BuildContext context) {
+    print("test${CountData.of(context)?.data}");
+
     print("子节点 build 方法触发");
     return Container(
       color: Colors.yellow,

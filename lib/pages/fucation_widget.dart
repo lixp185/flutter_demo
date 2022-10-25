@@ -9,6 +9,7 @@ import 'package:flutter_demo/utils/sliver_to_widget.dart';
 import 'package:flutter_demo/widgets/baseful_widget.dart';
 import 'package:get/get.dart';
 
+import '../states/bloc/cubit_demo/cubit/cubit_view.dart';
 import 'function/inherited_demo.dart';
 import 'function/notification_demo.dart';
 
@@ -40,7 +41,7 @@ class _FunctionWidgetState extends State<FunctionWidget>
         HomeBean("provider", "lib/widgets/open_image.dart", PNumPage())));
 
     _list.add(_getWidget(
-        HomeBean("bloc", "lib/widgets/open_image.dart", BlocNumPage())));
+        HomeBean("bloc", "lib/widgets/open_image.dart", CubitPage())));
 
     _list.add(_getWidget(
         HomeBean("get", "lib/widgets/open_image.dart", GetNumPage())));

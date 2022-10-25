@@ -18,10 +18,8 @@ class GetJumpOnePage extends StatelessWidget {
           ),
         ),
         Positioned(
-          child: FloatingActionButton(
-            onPressed: () => logic.toJumpTwo(),
-            child: const Icon(Icons.arrow_forward_outlined),
-          ),
+          child: ElevatedButton(
+              onPressed: () => logic.toJumpTwo(), child: Text("跳转Two")),
           bottom: 20,
           right: 20,
         )

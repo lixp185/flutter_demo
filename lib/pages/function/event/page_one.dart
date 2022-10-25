@@ -27,6 +27,7 @@ class _PageOneState extends State<PageOne> {
     super.initState();
     // 如果 第一个页面和第三个页面共享数据 将这个数据全局处理
     listen = Event.eventBus.on<CountEvent>().listen((event) {
+      print("1111111");
       setState(() {
         num = event.data;
       });

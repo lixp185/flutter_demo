@@ -11,11 +11,11 @@ class GetNumPage extends StatelessWidget {
 
     return Stack(
       children: [
-        GetBuilder<NumLogic>(builder: (logic) {
+        Obx(() {
           return Center(
-            child: Text("点击了${logic.state.num}次"),
+            child: Text("点击了${logic.data.value}次"),
           );
-        },),
+        }),
         Positioned(
           child: FloatingActionButton(
             onPressed: () {
@@ -28,7 +28,6 @@ class GetNumPage extends StatelessWidget {
         )
       ],
     );
-
   }
 }
 

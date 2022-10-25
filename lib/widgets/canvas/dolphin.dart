@@ -154,20 +154,20 @@ class _DolphinPainter extends CustomPainter {
     }
 
 
-    // 画眼睛
-    canvas.drawCircle(
-        pos!.first.translate(-50, 5),
-        10,
-        paint
-          ..color = Colors.black87
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 2);
-    canvas.drawCircle(
-        pos!.first.translate(-53, 5),
-        7,
-        paint
-          ..color = Colors.black87
-          ..style = PaintingStyle.fill);
+    // // 画眼睛
+    // canvas.drawCircle(
+    //     pos!.first.translate(-50, 5),
+    //     10,
+    //     paint
+    //       ..color = Colors.black87
+    //       ..style = PaintingStyle.stroke
+    //       ..strokeWidth = 2);
+    // canvas.drawCircle(
+    //     pos!.first.translate(-53, 5),
+    //     7,
+    //     paint
+    //       ..color = Colors.black87
+    //       ..style = PaintingStyle.fill);
   }
 
   @override

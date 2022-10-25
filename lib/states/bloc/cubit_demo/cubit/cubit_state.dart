@@ -6,7 +6,7 @@ class CubitState {
 
 
   CubitState init() {
-    return CubitState()..num = 2;
+    return CubitState()..num = 0;
   }
 
   CubitState clone() {

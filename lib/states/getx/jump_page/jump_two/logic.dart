@@ -1,8 +1,11 @@
 import 'package:get/get.dart';
 
 class GetJumpTwoLogic extends GetxController {
+
   var count = 0;
+
   var msg = '';
+
 
   /// 接受参数回调 Get.argument
   @override

@@ -15,6 +15,7 @@ class GetJumpTwoPage extends StatelessWidget {
       appBar: AppBar(title: Text('跨页面-Two')),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          // 调用上一页面自增方法
           oneLogic.increase();
           twoLogic.increase();
         },

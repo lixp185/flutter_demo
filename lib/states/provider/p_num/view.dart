@@ -14,13 +14,13 @@ class PNumPage extends StatelessWidget {
   }
 
   Widget _buildPage(BuildContext context) {
-    final provider = context.read<PNumProvider>();
-    final state = provider.state;
+    final provider = context.read()<PNumProvider>();
+    // final state = providerer.state;
     return Stack(
       children: [
         Consumer<PNumProvider>(
           builder: (context, provider, child) {
-            return Center(child: Text("点击了${state.num}次"));
+            return Center(child: Text("点击了${provider.state.num}次"));
           },
         ),
         Positioned(
