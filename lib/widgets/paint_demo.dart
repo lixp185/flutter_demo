@@ -89,6 +89,23 @@ class PaperPainter extends CustomPainter {
   final ValueNotifier<Offset> offset;
   late double bgR = 40; // 底圆半径
 
+
+  late Animation<double> animation;
+  var colors2 = [
+    Color(0xFFF60C0C),
+    Color(0xFFF3B913),
+    Color(0xFFE7F716),
+    Color(0xFF3DF30B),
+    Color(0xFF0DF6EF),
+    Color(0xFF0829FB),
+    Color(0xFFB709F4),
+  ];
+  List<Offset> points = [];
+  final double step = 60;
+  final double min = -160;
+  final double max = 160;
+
+
   PaperPainter(
     this._image,
     this.image22, {
@@ -132,7 +149,6 @@ class PaperPainter extends CustomPainter {
     // _drawImage(canvas, size);
     // _drawText(canvas, size);
     // _drawPath(canvas, size);
-    // _drawColor(canvas, size);
     // _drawCDR(canvas, size);
     // _drawShouShi(canvas, size);
     // _drawSyr(canvas, size);
@@ -140,7 +156,7 @@ class PaperPainter extends CustomPainter {
     // _drawXiaoA(canvas, size);
     // _drawZan(canvas, size);
     // _drawPath2(canvas, size);
-    // _drawLt(canvas, size);
+    _drawLt(canvas, size);
   }
 
   void _drawShouShi(Canvas canvas, Size size) {
@@ -424,16 +440,6 @@ class PaperPainter extends CustomPainter {
 
   final List<Color> colors = List<Color>.generate(
       256, (index) => Color.fromARGB(255 - index, 0, 255, 0));
-
-  var colors2 = [
-    Color(0xFFF60C0C),
-    Color(0xFFF3B913),
-    Color(0xFFE7F716),
-    Color(0xFF3DF30B),
-    Color(0xFF0DF6EF),
-    Color(0xFF0829FB),
-    Color(0xFFB709F4),
-  ];
 
   void _drawColor(Canvas canvas, Size size) {
     // canvas.drawColor(Colors.blue, BlendMode.lighten);
@@ -974,8 +980,6 @@ class PaperPainter extends CustomPainter {
     });
   }
 
-  late Animation<double> animation;
-
   void _drawCDR(Canvas canvas, Size size) {
     //画头
     Paint paint = Paint()
@@ -1084,10 +1088,7 @@ class PaperPainter extends CustomPainter {
     canvas.drawPath(path, paint);
   }
 
-  List<Offset> points = [];
-  final double step = 60;
-  final double min = -160;
-  final double max = 160;
+
 
   void initPoints() {
     for (double x = min; x < max; x += step) {

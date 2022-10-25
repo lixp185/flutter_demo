@@ -18,6 +18,7 @@ class Assets {
   static const String canvasTolyWaveLoading = 'lib/widgets/canvas/toly_wave_loading.dart';
   static const String canvasTouchController = 'lib/widgets/canvas/touch_controller.dart';
   static const String canvasUnlockController = 'lib/widgets/canvas/unlock_controller.dart';
+  static const String canvasWorld = 'lib/widgets/canvas/world.dart';
   static const String canvasWqQp2 = 'lib/widgets/canvas/wq_qp2.dart';
   static const String canvasXinSui = 'lib/widgets/canvas/xin_sui.dart';
   static const String commonGlobal = 'lib/common/global.dart';
@@ -88,6 +89,8 @@ class Assets {
   static const String widgetsAlign = 'lib/widgets/align.dart';
   static const String widgetsAnimated = 'lib/widgets/animated.dart';
   static const String widgetsAnimated2 = 'lib/widgets/animated2.dart';
+  static const String widgetsAppBarSearch = 'lib/widgets/app_bar_search.dart';
+  static const String widgetsAutocompleteDemo = 'lib/widgets/autocomplete_demo.dart';
   static const String widgetsBasefulWidget = 'lib/widgets/baseful_widget.dart';
   static const String widgetsBaselessWidget = 'lib/widgets/baseless_widget.dart';
   static const String widgetsBigImage = 'lib/widgets/big_image.dart';

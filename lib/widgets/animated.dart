@@ -119,14 +119,14 @@ class _AnimateWidgetDemoState extends State<AnimateWidgetDemo>
           ZAnimatedLogo(animation: animation4, child: FlutterLogo()),
 
           Text("缩放"),
-      ScaleTransition(
-        child:   Container(
-          width: 100,
-          height: 100,
-          child: FlutterLogo(),
-        ),
-        scale: animation,
-      ),
+          ScaleTransition(
+            child:   Container(
+              width: 100,
+              height: 100,
+              child: FlutterLogo(),
+            ),
+            scale: animation,
+          ),
 
           Text("组合动画"),
           // // 平移
@@ -137,7 +137,7 @@ class _AnimateWidgetDemoState extends State<AnimateWidgetDemo>
               opacity: animation3,
               // 二维旋转
               child:  RotationTransitionLogo(
-               // 缩放
+                // 缩放
                 child: ScaleTransition(
                   // 3D旋转
                   child: AnimatedBuilder(
@@ -276,9 +276,9 @@ class ZhAnimatedLogo extends StatelessWidget {
 
   const ZhAnimatedLogo(
       {Key? key,
-      required this.animation,
-      required this.animation2,
-      required this.child})
+        required this.animation,
+        required this.animation2,
+        required this.child})
       : super(key: key);
 
   @override
