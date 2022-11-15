@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/widgets/app_bar_search.dart';
 
 
 class AutocompleteDemo extends StatefulWidget {
@@ -23,81 +24,7 @@ class _AutocompleteDemoState extends State<AutocompleteDemo> {
           fieldViewBuilder:
               (ctx, textEditingController, focusNode, onFieldSubmitted) {
             _controller = textEditingController;
-            return Container(
-              height: 40,
-              child: Row(
-                children: [
-                  InkWell(
-                    child: Icon(
-                      Icons.arrow_back_ios_outlined,
-                      size: 16,
-                    ),
-                    onTap: () {
-
-                    },
-                  ),
-                  Expanded(child:  Container(
-                    margin: EdgeInsetsDirectional.only(end: 10),
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFF2F2F2),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 16,
-                          height: 16,
-                          child: Icon(Icons.search,
-                              size: 14, color: Color(0xFF999999)),
-                        ),
-                        Expanded(
-                          // 权重
-                          flex: 1,
-                          child: TextField(
-                            // 是否自动获取焦点
-                            autofocus: false,
-                            // 焦点控制
-                            focusNode: focusNode,
-                            // 与输入框交互控制器
-                            controller: _controller,
-                            //装饰
-                            decoration: InputDecoration(
-                              isDense: true,
-                              border: InputBorder.none,
-                              hintText: '请输入关键字',
-                              hintStyle: TextStyle(
-                                fontSize: 12,
-                              ),
-                            ),
-                            style: TextStyle(
-                              fontSize: 12,
-                            ),
-                            // 键盘动作右下角图标
-                            textInputAction: TextInputAction.search,
-                            onTap: () {},
-                            // 输入框内容改变回调
-                            onChanged: (t) {},
-                            onSubmitted: (t) {}, //输入框完成触发
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),),
-                  InkWell(
-                    onTap: (){},
-                    child: Container(
-                      constraints: BoxConstraints(minWidth: 48),
-
-                      child: Text(
-                        '搜索',
-                      ),
-                    ),
-                  )
-
-                ],
-              ),
-            );
+            return AppBarSearch();
           },
           optionsViewBuilder: (ctx, onSelected, options) {
             return Padding(

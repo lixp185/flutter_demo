@@ -14,7 +14,7 @@ class PNumPage extends StatelessWidget {
   }
 
   Widget _buildPage(BuildContext context) {
-    final provider = context.read()<PNumProvider>();
+    final provider = context.read<PNumProvider>();
     // final state = providerer.state;
     return Stack(
       children: [

@@ -168,56 +168,88 @@ class _AppBarSearchState extends State<AppBarSearch> {
             ),
             onTap: () {},
           ),
-      title: Hero(
+      title:  Hero(
           tag: 'search',
           child: Material(
-            child: Container(
-              margin: EdgeInsetsDirectional.only(end: 10),
+            color: Colors.transparent,
+            child: SizedBox(
               height: widget.height,
-              decoration: BoxDecoration(
-                color: Color(0xFFF2F2F2),
-                borderRadius: BorderRadius.circular(widget.borderRadius ?? 0),
-              ),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: widget.height,
-                    height: widget.height,
-                    child:
-                        Icon(Icons.search, size: 14, color: Color(0xFF999999)),
-                  ),
-                  Expanded(
-                    // 权重
-                    flex: 1,
-                    child: TextField(
-                      // 是否自动获取焦点
-                      autofocus: widget.autoFocus ?? false,
-                      // 焦点控制
-                      focusNode: _focusNode,
-                      // 与输入框交互控制器
-                      controller: _controller,
-                      //装饰
-                      decoration: InputDecoration(
-                        isDense: true,
-                        border: InputBorder.none,
-                        hintText: widget.hintText ?? '请输入关键字',
-                        hintStyle: TextStyle(
-                          fontSize: 12,
-                        ),
-                      ),
-                      style: TextStyle(
-                        fontSize: 12,
-                      ),
-                      // 键盘动作右下角图标
-                      textInputAction: TextInputAction.search,
-                      onTap: widget.onTap,
-                      // 输入框内容改变回调
-                      onChanged: widget.onChanged,
-                      onSubmitted: widget.onSearch, //输入框完成触发
+              child: TextField(
+                // 是否自动获取焦点
+                autofocus: widget.autoFocus ?? false,
+                // 焦点控制
+                focusNode: _focusNode,
+                // 与输入框交互控制器
+                controller: _controller,
+
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.black87,
+                ),
+                // 键盘动作右下角图标
+                textInputAction: TextInputAction.search,
+                onTap: widget.onTap,
+                // 输入框内容改变回调
+                onChanged: widget.onChanged,
+                onSubmitted: widget.onSearch,
+                //输入框完成触发
+                //装饰
+                decoration: InputDecoration(
+                  prefixIcon: Container(
+                    padding: EdgeInsetsDirectional.only(start: 5, end: 5),
+                    child: Icon(
+                      Icons.search_rounded,
+                      size: 16,
+                      color: Colors.black87,
                     ),
                   ),
-                  _suffix(),
-                ],
+
+                  //添加内部图标之后，图标和文字会有间距，实现这个方法，不用写任何参数即可解决
+                  prefixIconConstraints: const BoxConstraints(),
+                  suffixIconConstraints: const BoxConstraints(),
+                  suffixIcon: InkWell(
+                      onTap: _onClearInput,
+                      child: Visibility(
+                        child: Container(
+                          margin: EdgeInsetsDirectional.only(end: 5),
+                          child: const Icon(
+                            Icons.cancel,
+                            size: 16,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        visible: !isTextEmpty,
+                      )),
+
+                  // isDense: true,
+                  isCollapsed: true,
+                  contentPadding: EdgeInsetsDirectional.only(
+                      end: 15, ),
+
+                  hintText: widget.hintText ?? '请输入关键字',
+                  hintStyle:
+                  TextStyle(fontSize: 14, color: Colors.grey),
+
+                  border: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.black87),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(widget.borderRadius ?? 20),
+                    ),
+                  ),
+
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.black87),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(widget.borderRadius ?? 20),
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.black87),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(widget.borderRadius ?? 20),
+                    ),
+                  ),
+                ),
               ),
             ),
           )),

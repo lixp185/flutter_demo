@@ -19,7 +19,6 @@ class BlocNumPage extends StatelessWidget {
 
   Widget _buildPage(BuildContext context) {
     final bloc = BlocProvider.of<DemoBloc>(context);
-
     return Stack(
       children: [
         Center(

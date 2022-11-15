@@ -93,7 +93,7 @@ class _ExampleWidgetState extends State<ExampleWidget>
         HomeBean("端午粽子", "lib/widgets/scroll_navigation.dart", ZongZiKePu())));
 
     var touchController = TouchController();
-    loadImageInAssets('images/ht.png')?.then((value) {
+    loadImageInAssets('images/img_2.png')?.then((value) {
       setState(() {
         _list.add(_getWidget(
             HomeBean(

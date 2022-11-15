@@ -111,7 +111,7 @@ class _DolphinPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..isAntiAlias = true;
 
-    // canvas.drawImage(image, Offset(-image.width / 2, -image.height / 2), paint);
+    canvas.drawImage(image, Offset(-image.width / 2, -image.height / 2), paint);
 
     // 如果点小于4个 那么就只绘制点
     if (pos != null && pos!.length >= 4) {

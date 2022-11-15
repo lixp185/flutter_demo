@@ -31,6 +31,7 @@ import '../widgets/hero_demo.dart';
 import '../widgets/icon.dart';
 import '../widgets/list.dart';
 import '../widgets/listener.dart';
+import '../widgets/logo.dart';
 import '../widgets/padding.dart';
 import '../widgets/progress.dart';
 import '../widgets/size_box.dart';
@@ -65,6 +66,8 @@ class _HomeWidgetState extends State<HomeWidget>
     homeList.add(_getWidget(
         HomeBean("粒子运动", "lib/widgets/world.dart", World())));
     homeList.add(_getWidget(
+        HomeBean("掘金logo", "lib/widgets/logo_demo.dart", LogoDemo())));
+  homeList.add(_getWidget(
         HomeBean("loadingDemo", "lib/widgets/loading.dart", LoadingDemo())));
     homeList.add(_getWidget(
         HomeBean("联想词填充", "lib/widgets/loading.dart", AutocompleteDemo())));

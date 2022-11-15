@@ -42,7 +42,7 @@ class _MainPageState extends State<MainPage> {
     ];
     _pageController = PageController();
 
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       print("bottom Height:${globalKey.currentContext?.size?.height}");
     });
   }
@@ -166,4 +166,5 @@ class _MainPageState extends State<MainPage> {
       ],
     );
   }
+
 }
