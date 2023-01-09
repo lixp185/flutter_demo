@@ -43,7 +43,5 @@
 	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
-	 <key>NSMicrophoneUsageDescription</key>
-     <string>语音识别</string>
 </dict>
 </plist>

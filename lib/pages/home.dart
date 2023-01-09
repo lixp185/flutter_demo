@@ -128,6 +128,19 @@ class _HomeWidgetState extends State<HomeWidget>
 
 
 
+    // homeList.add(_getWidget(
+    //     HomeBean("语音识别", "lib/widgets/yy_text_demo.dart", YYTextDemo())));
+    // loadImageInAssets('images/duanwu.webp')?.then((value) {
+    //   setState(() {
+    //     homeList.add(_getWidget(
+    //         HomeBean(
+    //             "粽子",
+    //             "lib/widgets/summer.dart",
+    //             Summer(
+    //               image: value,
+    //             )),));
+    //   });
+    // });
 
 
 

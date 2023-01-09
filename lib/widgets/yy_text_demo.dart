@@ -19,7 +19,7 @@ class YYTextDemo extends StatefulWidget {
 
 class _YYTextDemoState extends State<YYTextDemo> {
   // final FlutterSoundRecorder _mRecorder = FlutterSoundRecorder();
-
+  //
   // late final StreamController<Food> recordingDataController =
   //     StreamController<Food>();
 
@@ -43,7 +43,7 @@ class _YYTextDemoState extends State<YYTextDemo> {
     // });
     //用户允许使用麦克风之后开始录音
     Directory tempDir = await getTemporaryDirectory();
-    var time = DateTime.now().millisecondsSinceEpoch;
+    // var time = DateTime.now().millisecondsSinceEpoch;
     // String path = '${tempDir.path}/$time${ext[Codec.aacADTS.index]}';
     // await _mRecorder.startRecorder(
     //   toFile: path,

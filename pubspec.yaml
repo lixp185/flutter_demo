@@ -44,12 +44,12 @@ dependencies:
   # 加密
   crypto: ^3.0.2
 
-  sound_stream: ^0.3.0
+#  sound_stream: ^0.3.0
   # 音频播放器
   audioplayers: ^0.20.1
   # 录制音频
-  #  flutter_sound: ^9.2.13
-  permission_handler: ^6.0.1
+#  flutter_sound: ^9.2.13
+  permission_handler: ^10.2.0
 
   # 状态管理
   provider: ^6.0.3
