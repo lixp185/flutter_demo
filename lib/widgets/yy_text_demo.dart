@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_sound/flutter_sound.dart';
+// import 'package:flutter_sound/flutter_sound.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:ui' as ui;
@@ -18,10 +18,10 @@ class YYTextDemo extends StatefulWidget {
 }
 
 class _YYTextDemoState extends State<YYTextDemo> {
-  final FlutterSoundRecorder _mRecorder = FlutterSoundRecorder();
-
-  late final StreamController<Food> recordingDataController =
-      StreamController<Food>();
+  // final FlutterSoundRecorder _mRecorder = FlutterSoundRecorder();
+  //
+  // late final StreamController<Food> recordingDataController =
+  //     StreamController<Food>();
 
   @override
   void initState() {
@@ -32,9 +32,9 @@ class _YYTextDemoState extends State<YYTextDemo> {
   Future<void> openTheRecorder() async {
     var status = await Permission.microphone.request();
     if (status != PermissionStatus.granted) {
-      throw RecordingPermissionException('Microphone permission not granted');
+      // throw RecordingPermissionException('Microphone permission not granted');
     }
-    await _mRecorder.openRecorder();
+    // await _mRecorder.openRecorder();
 
     // recordingDataController.stream.listen((buffer) {
     //   if (buffer is FoodData) {
@@ -43,22 +43,22 @@ class _YYTextDemoState extends State<YYTextDemo> {
     // });
     //用户允许使用麦克风之后开始录音
     Directory tempDir = await getTemporaryDirectory();
-    var time = DateTime.now().millisecondsSinceEpoch;
-    String path = '${tempDir.path}/$time${ext[Codec.aacADTS.index]}';
-    await _mRecorder.startRecorder(
-      toFile: path,
-      codec: Codec.aacADTS,
-      bitRate: 8000,
-      numChannels: 1,
-      sampleRate: 8000,
-      // toStream: recordingDataController.sink,
-    );
+    // var time = DateTime.now().millisecondsSinceEpoch;
+    // String path = '${tempDir.path}/$time${ext[Codec.aacADTS.index]}';
+    // await _mRecorder.startRecorder(
+    //   toFile: path,
+    //   codec: Codec.aacADTS,
+    //   bitRate: 8000,
+    //   numChannels: 1,
+    //   sampleRate: 8000,
+    //   // toStream: recordingDataController.sink,
+    // );
   }
 
   @override
   void dispose() {
     super.dispose();
-    recordingDataController.close();
+    // recordingDataController.close();
   }
 
   @override
@@ -71,7 +71,7 @@ class _YYTextDemoState extends State<YYTextDemo> {
       },
       onLongPressEnd: (d) {
         print("长安结束");
-        _mRecorder.closeRecorder();
+        // _mRecorder.closeRecorder();
       },
       child: Container(
         color: Colors.blue,

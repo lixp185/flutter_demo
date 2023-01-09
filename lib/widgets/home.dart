@@ -162,8 +162,8 @@ class _HomeWidgetState extends State<HomeWidget>
     homeList.add(_getWidget(
         HomeBean("端午粽子", "lib/widgets/scroll_navigation.dart", ZongZiKePu())));
 
-    homeList.add(_getWidget(
-        HomeBean("语音识别", "lib/widgets/yy_text_demo.dart", YYTextDemo())));
+    // homeList.add(_getWidget(
+    //     HomeBean("语音识别", "lib/widgets/yy_text_demo.dart", YYTextDemo())));
     // loadImageInAssets('images/duanwu.webp')?.then((value) {
     //   setState(() {
     //     homeList.add(_getWidget(

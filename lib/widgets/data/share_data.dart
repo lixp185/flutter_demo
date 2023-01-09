@@ -12,7 +12,7 @@ class ShareDataWidget extends InheritedWidget {
 
   // 依赖数据不调用didChangeDependencies()方法
   static InheritedWidget? of2(BuildContext? context) {
-    return context?.getElementForInheritedWidgetOfExactType<ShareDataWidget>()?.widget;
+    return context?.getElementForInheritedWidgetOfExactType<ShareDataWidget>()?.widget as InheritedWidget;
   }
 
   @override
