@@ -18,7 +18,7 @@ class _InheritedWidgetDemoState extends State<InheritedWidgetDemo>
   int data = 0;
 
   List<String> tabs = ["TAB1", "TAB2", "TAB3", "TAB4", "TAB5", "TAB6"];
-  late TabController _tabController =
+  late final TabController _tabController =
       TabController(length: tabs.length, vsync: this); //tab 控制器
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _InheritedWidgetDemoState extends State<InheritedWidgetDemo>
           children: [
             TabBar(
               isScrollable: true,
-              indicator: MyTabIndicator(
+              indicator: const MyTabIndicator(
                   borderSide: BorderSide(
                     width: 4,
                     color: Colors.redAccent,
@@ -51,7 +51,7 @@ class _InheritedWidgetDemoState extends State<InheritedWidgetDemo>
             Expanded(
               child: TabBarView(
                 controller: _tabController,
-                children: tabs.map((value) => TextWidget()).toList(),
+                children: tabs.map((value) => const TextWidget()).toList(),
               ),
             ),
             FloatingActionButton(
@@ -60,7 +60,7 @@ class _InheritedWidgetDemoState extends State<InheritedWidgetDemo>
                     data++;
                   });
                 },
-                child: Icon(Icons.add))
+                child: const Icon(Icons.add))
           ],
         ),
 
@@ -86,9 +86,9 @@ class _TextWidgetState extends State<TextWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print("test${CountData.of(context)?.data}");
-
-    print("子节点 build 方法触发");
+    // print("test${CountData.of(context)?.data}");
+    //
+    // print("子节点 build 方法触发");
     return Container(
       color: Colors.yellow,
       alignment: Alignment.center,
@@ -99,7 +99,7 @@ class _TextWidgetState extends State<TextWidget> {
 
   @override
   void didChangeDependencies() {
-    print("子节点 didChangeDependencies 方法触发");
+    // print("子节点 didChangeDependencies 方法触发");
     super.didChangeDependencies();
   }
 }

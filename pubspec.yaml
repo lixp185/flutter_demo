@@ -46,9 +46,9 @@ dependencies:
 
 #  sound_stream: ^0.3.0
   # 音频播放器
-  audioplayers: ^0.20.1
+  audioplayers: ^2.0.0
   # 录制音频
-#  flutter_sound: ^9.2.13
+  # flutter_sound: ^9.2.13
   permission_handler: ^10.2.0
 
   # 状态管理

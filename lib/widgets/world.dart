@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class World extends StatefulWidget {
+  const World({super.key});
+
   @override
   _WorldState createState() => _WorldState();
 }
@@ -22,7 +24,7 @@ class _WorldState extends State<World> with SingleTickerProviderStateMixin {
         pController.update();
       });
 
-    Future.delayed(Duration(milliseconds: 1000),(){
+    Future.delayed(const Duration(milliseconds: 1000),(){
       _controller.repeat();
     });
   }

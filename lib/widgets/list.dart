@@ -72,56 +72,21 @@ class ListViewState extends State<ListViewWidgetDemo> {
 
   @override
   Widget build(BuildContext context) {
-    // return ListView.separated(
-    //     controller: _scrollController,
-    //     shrinkWrap: true,
-    //     scrollDirection: Axis.vertical,
-    //     itemCount: lis.length,
-    //     separatorBuilder: (context,index){
-    //       return Divider();
-    //     },
-    //     itemBuilder: (context, index) {
-    //       print("index$index");
-    //
-    //       return _listWidget(lis[index]);
-    //     });
+    return ListView.separated(
+        controller: _scrollController,
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        itemCount: lis.length,
+        separatorBuilder: (context,index){
+          return Divider();
+        },
+        itemBuilder: (context, index) {
+          print("index$index");
 
-    return   SafeArea(
-        top: false,
-        bottom: false,
-        child: Builder(builder: (c){
-          return
-            CustomScrollView(
+          return _listWidget(lis[index]);
+        });
 
-              slivers: [
-                SliverList(delegate:SliverChildBuilderDelegate((context,index){
-                  return Container(child: Text("data$index"),padding:
-                  EdgeInsetsDirectional.all(20),);
-                },
-                    childCount: 6),),
-                SliverFixedExtentList(
-                    delegate: SliverChildBuilderDelegate(
-                            (BuildContext context, int index) {
-                          return Container(
-                              child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: 10,
-                                  itemBuilder: (context, index) {
-                                    return  Container(child: Text("data$index"),padding:
-                                    EdgeInsetsDirectional.all(20),);
-                                  }));
-                        }, childCount: 1),
-                    itemExtent: 80.0),
 
-                SliverList(delegate:SliverChildBuilderDelegate((context,index){
-                  return Container(child: Text("data$index"),padding:
-                  EdgeInsetsDirectional.all(20),);
-                },
-                    childCount: 30),)
-
-              ],
-            );
-        },));
 
   }
 
@@ -160,7 +125,7 @@ class ListViewState extends State<ListViewWidgetDemo> {
         break;
       case 2:
         widget = Container(
-            padding: EdgeInsetsDirectional.only(
+            padding: const EdgeInsetsDirectional.only(
                 start: 20, end: 20, top: 30, bottom: 30),
             height: bannerHeight,
             key: _globalKey,
@@ -169,7 +134,7 @@ class ListViewState extends State<ListViewWidgetDemo> {
               transform: Matrix4.identity()
                 ..setEntry(3, 2, 0.002)
                 ..rotateX(0)
-                ..rotateZ(pi / 2)
+                // ..rotateZ(pi / 2)
                 ..rotateY(angle),
               child: Image.asset(
                 "images/img.png",

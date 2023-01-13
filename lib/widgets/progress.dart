@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ProgressWidgetDemo extends StatefulWidget {
+  const ProgressWidgetDemo({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return ProgressState();

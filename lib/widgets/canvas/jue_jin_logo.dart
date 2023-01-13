@@ -11,19 +11,17 @@ class JueJinLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double m = 0.7;// 折线线宽相对菱形边长倍数
-    double n = 1.5;// 折线之间线宽相对菱形边长倍数
+    double m = 0.7; // 折线线宽相对菱形边长倍数
+    double n = 1.5; // 折线之间线宽相对菱形边长倍数
     var a = (2 * cos(angle) + m * 0.5 / sin(angle) + 3);
     double side = height / (a + m * 0.5 / sin(pi - angle * 2) / sin(angle));
     double paintWidth = m * side;
-    double h2 = side * cos(angle) +
-        side * n +
-        (paintWidth / 2 / sin(angle) + side * n);
+    double h2 =
+        side * cos(angle) + side * n + (paintWidth / 2 / sin(angle) + side * n);
     Point right = PointUtil.toTwoPoint(Point(side * sin(angle), 0),
         Point(0, -side * cos(angle)), Point(h2 * tan(angle), 0), Point(0, h2));
     double width = (right.x.toDouble() +
-            paintWidth / 2 / sin(pi - angle * 2) * sin(angle)) *
-        2;
+            paintWidth / 2 / sin(pi - angle * 2) * sin(angle)) * 2;
 
     return CustomPaint(
       size: Size(width, height),
@@ -49,7 +47,7 @@ class _JueJinLogoPaint extends CustomPainter {
       ..strokeJoin = StrokeJoin.miter
       // ..shader = ui.Gradient.linear(
       // Offset.zero, Offset(0, 100), [Colors.blue, Colors.yellow]);
-      ..color = Color(0xff1E80FF).withOpacity(0.7);
+      ..color = Color(0xff1E80FF);
 
     canvas.save();
 

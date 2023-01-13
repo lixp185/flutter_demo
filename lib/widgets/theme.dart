@@ -3,6 +3,8 @@ import 'package:flutter_demo/models/app_theme.dart';
 import 'package:flutter_demo/utils/status.dart';
 
 class ThemeWidgetDemo extends StatefulWidget {
+  const ThemeWidgetDemo({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _ThemeWidgetState();

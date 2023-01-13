@@ -54,8 +54,9 @@ class BaseWidgetState extends State<BaseStatefulWidget> {
       centerTitle: true,
       actions: [
         IconButton(
-            icon: Icon(Icons.code),
+            icon: const Icon(Icons.code),
             onPressed: () {
+
               if (widget.onClick == null) {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return CodePage(widget.codePath);

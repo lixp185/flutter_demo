@@ -12,16 +12,22 @@ import 'package:flutter_demo/widgets/canvas/oval_loading.dart';
 import 'package:flutter_demo/widgets/canvas/touch_controller.dart';
 import 'package:flutter_demo/widgets/canvas/xin_sui.dart';
 import 'package:flutter_demo/widgets/canvas_demo.dart';
-import 'package:flutter_demo/widgets/flex_demo.dart';
 import 'package:flutter_demo/widgets/hero_demo.dart';
 import 'package:flutter_demo/widgets/paint_demo.dart';
-import 'package:flutter_demo/widgets/polygonal.dart';
+import 'package:flutter_demo/widgets/polygonal_demo.dart';
 import 'package:flutter_demo/widgets/scroll_navigation.dart';
 import 'package:flutter_demo/widgets/tab_bar_demo.dart';
 import 'package:flutter_demo/widgets/zan.dart';
-import 'package:flutter_demo/widgets/zong_zI_ke_pu.dart';
 import 'dart:ui' as ui;
 import 'package:image/image.dart' as image;
+
+import '../widgets/autocomplete_demo.dart';
+import '../widgets/canvas/fan_book.dart';
+import '../widgets/canvas/joystick.dart';
+import '../widgets/canvas/loading.dart';
+import '../widgets/clip_widget.dart';
+import '../widgets/logo.dart';
+import '../widgets/world.dart';
 
 class ExampleWidget extends StatefulWidget {
   const ExampleWidget({Key? key}) : super(key: key);
@@ -32,7 +38,7 @@ class ExampleWidget extends StatefulWidget {
 
 class _ExampleWidgetState extends State<ExampleWidget>
     with AutomaticKeepAliveClientMixin {
-  var _list = [];
+  final _list = [];
 
   Future<ui.Image>? loadImageInAssets(String assetsName) async {
     return decodeImageFromList(
@@ -51,7 +57,7 @@ class _ExampleWidgetState extends State<ExampleWidget>
     super.initState();
 
     _list.add(_getWidget(
-        HomeBean("多边形多角星", "lib/widgets/hero_demo.dart", FlexDemo())));
+        HomeBean("多边形多角星", "lib/widgets/hero_demo.dart", const PolygonalDemo())));
 
     _list.add(_getWidget(
         HomeBean("围棋棋盘", "lib/widgets/canvas_demo.dart", CanvasDemo())));
@@ -72,32 +78,46 @@ class _ExampleWidgetState extends State<ExampleWidget>
     _list.add(_getWidget(
         HomeBean("日期组件", "lib/widgets/calendar.dart", CalendarDemo())));
     _list.add(_getWidget(
-        HomeBean("Hero动画", "lib/widgets/hero_demo.dart", HeroDemo())));
+        HomeBean("Hero动画", "lib/widgets/hero_demo.dart", const HeroDemo())));
     _list.add(_getWidget(
-        HomeBean("TabBar", "lib/widgets/hero_demo.dart", TabBarDemo())));
+        HomeBean("TabBar", "lib/widgets/hero_demo.dart", const TabBarDemo())));
     _list.add(
-        _getWidget(HomeBean("水波纹", "lib/widgets/hero_demo.dart", BwDemo())));
+        _getWidget(HomeBean("水波纹", "lib/widgets/hero_demo.dart", const BwDemo())));
     _list.add(_getWidget(
-        HomeBean("牛顿摆", "lib/widgets/hero_demo.dart", OvalLoading())));
+        HomeBean("牛顿摆", "lib/widgets/hero_demo.dart", const OvalLoading())));
     _list.add(
-        _getWidget(HomeBean("心碎的感觉", "lib/widgets/hero_demo.dart", XinSui())));
+        _getWidget(HomeBean("心碎的感觉", "lib/widgets/hero_demo.dart", const XinSui())));
     _list.add(_getWidget(
-        HomeBean("手势解锁", "lib/widgets/hero_demo.dart", GesturesUnlock())));
+        HomeBean("手势解锁", "lib/widgets/hero_demo.dart", const GesturesUnlock())));
     _list.add(_getWidget(HomeBean(
-        "吃豆人loading", "lib/widgets/paint2_demo.dart", Animated2Demo())));
+        "吃豆人loading", "lib/widgets/paint2_demo.dart", const Animated2Demo())));
     _list.add(
-        _getWidget(HomeBean("点赞", "lib/widgets/paint2_demo.dart", ZanDemo())));
+        _getWidget(HomeBean("点赞", "lib/widgets/paint2_demo.dart", const ZanDemo())));
     _list.add(_getWidget(HomeBean(
-        "自定义导航条", "lib/widgets/scroll_navigation.dart", ScrollNavigation())));
+        "自定义导航条", "lib/widgets/scroll_navigation.dart", const ScrollNavigation())));
+    // _list.add(_getWidget(
+    //     HomeBean("HomeBean端午粽子", "lib/widgets/scroll_navigation.dart", ZongZiKePu())));
+    _list
+        .add(_getWidget(HomeBean("粒子运动", "lib/widgets/world.dart", const World())));
     _list.add(_getWidget(
-        HomeBean("端午粽子", "lib/widgets/scroll_navigation.dart", ZongZiKePu())));
+        HomeBean("掘金logo", "lib/widgets/logo_demo.dart", const LogoDemo())));
+    _list.add(_getWidget(
+        HomeBean("loadingDemo", "lib/widgets/loading.dart", const LoadingDemo())));
+    _list.add(_getWidget(
+        HomeBean("联想词填充", "lib/widgets/loading.dart", const AutocompleteDemo())));
 
+    _list.add(_getWidget(
+        HomeBean("移动demo", "lib/widgets/move_demo.dart", const JoyStick())));
+    _list.add(_getWidget(
+        HomeBean("裁剪", "lib/widgets/clip_widget.dart", const ClipWidget())));
+    _list.add(
+        _getWidget(HomeBean("翻书demo", "lib/widgets/fan_book.dart", const FanBook())));
     var touchController = TouchController();
     loadImageInAssets('images/img_2.png')?.then((value) {
       setState(() {
         _list.add(_getWidget(
             HomeBean(
-                "贝塞尔",
+                "贝塞尔练习",
                 "lib/widgets/scroll_navigation.dart",
                 Dolphin(
                   touchController: touchController,
@@ -113,16 +133,16 @@ class _ExampleWidgetState extends State<ExampleWidget>
   Widget build(BuildContext context) {
     super.build(context);
     return Container(
-        margin: EdgeInsets.only(left: 0, right: 0),
+        margin: const EdgeInsets.only(left: 0, right: 0),
         child: CustomScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           slivers: [
             SliverToWidget(_getWidget(HomeBean("示例demo", "", null, type: 1))),
             SliverGrid(
               delegate: SliverChildBuilderDelegate((context, index) {
                 return _list[index];
               }, childCount: _list.length),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisSpacing: 5, // 左右间距
                   childAspectRatio: 1,
                   crossAxisCount: 3,
@@ -139,7 +159,7 @@ class _ExampleWidgetState extends State<ExampleWidget>
   Widget _getWidget(HomeBean homeBean, {VoidCallback? onRightClick}) {
     if (homeBean.type == null) {
       return Container(
-          padding: EdgeInsets.all(2),
+          padding: const EdgeInsets.all(2),
           width: double.infinity,
           child: ElevatedButton(
             child: Text(homeBean.title),
@@ -155,15 +175,15 @@ class _ExampleWidgetState extends State<ExampleWidget>
           ));
     } else if (homeBean.type == 1) {
       return Container(
-        margin: EdgeInsets.only(top: 10, bottom: 10),
+        margin: const EdgeInsets.only(top: 10, bottom: 10),
         alignment: Alignment.center,
         child: Text(
           """${homeBean.title} ${String.fromCharCodes(Runes("\u2665"))}""",
-          style: TextStyle(fontSize: 14),
+          style: const TextStyle(fontSize: 14),
         ),
       );
     } else {
-      return Text("xxx");
+      return const Text("xxx");
     }
   }
 

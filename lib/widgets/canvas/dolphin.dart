@@ -5,7 +5,7 @@ import 'package:flutter_demo/widgets/canvas/touch_controller.dart';
 import '../coordinate.dart';
 import 'dart:ui' as ui;
 
-/// 小海豚
+/// 小海豚 贝塞尔练习
 class Dolphin extends StatefulWidget {
   final TouchController touchController;
   final ui.Image image;
@@ -111,7 +111,7 @@ class _DolphinPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..isAntiAlias = true;
 
-    canvas.drawImage(image, Offset(-image.width / 2, -image.height / 2), paint);
+    // canvas.drawImage(image, Offset(-image.width / 2, -image.height / 2), paint);
 
     // 如果点小于4个 那么就只绘制点
     if (pos != null && pos!.length >= 4) {

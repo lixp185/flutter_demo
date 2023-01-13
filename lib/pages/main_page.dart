@@ -24,10 +24,10 @@ class _MainPageState extends State<MainPage> {
 
   //底部导航数据
   final _bottomNavigationList = [
-    BottomNavigationBarItem(icon: Icon(Icons.home), label: "基础组件"),
-    BottomNavigationBarItem(icon: Icon(Icons.functions_rounded), label: "功能组件"),
-    BottomNavigationBarItem(icon: Icon(Icons.view_comfortable_outlined), label: "示例demo"),
-    BottomNavigationBarItem(icon: Icon(Icons.build), label: "工具"),
+    const BottomNavigationBarItem(icon: Icon(Icons.home), label: "基础组件"),
+    const BottomNavigationBarItem(icon: Icon(Icons.functions_rounded), label: "功能组件"),
+    const BottomNavigationBarItem(icon: Icon(Icons.view_comfortable_outlined), label: "示例demo"),
+    const BottomNavigationBarItem(icon: Icon(Icons.build), label: "工具"),
   ];
 
   @override
@@ -35,10 +35,10 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     _pages = [
       // ListViewWidgetDemo(),
-      HomeWidget(),
-      FunctionWidget(),
-      ExampleWidget(),
-      UtilWidget(),
+      const HomeWidget(),
+      const FunctionWidget(),
+      const ExampleWidget(),
+      const UtilWidget(),
     ];
     _pageController = PageController();
 
@@ -63,7 +63,7 @@ class _MainPageState extends State<MainPage> {
               });
             },
             // 禁止滑动
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               return _pages[index];
             },
@@ -103,14 +103,14 @@ class _MainPageState extends State<MainPage> {
   void _chaneTheme() {
     if (Status.value<AppTheme>(context).isDark) {
       Fluttertoast.showToast(msg: "深色模式不支持修改主题", gravity: ToastGravity.CENTER);
-      return null;
+      return;
     }
     // 弹窗更改UI
     showDialog(
         context: context,
         builder: (context) {
           return SimpleDialog(
-            title: Text(
+            title: const Text(
               "更改主题",
               textAlign: TextAlign.center,
             ),
@@ -126,7 +126,7 @@ class _MainPageState extends State<MainPage> {
     for (var i in AppTheme.materialColors) {
       list.add(InkWell(
         child: Container(
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           width: double.infinity,
           height: 30,
           color: i,
@@ -143,14 +143,14 @@ class _MainPageState extends State<MainPage> {
 
   AppBar myAppBar() {
     return AppBar(
-      title: Text("Flutter Demo"),
+      title: const Text("Flutter Demo"),
       centerTitle: true,
       elevation: 1,
-      leading: Icon(Icons.arrow_back),
+      // leading: const Icon(Icons.arrow_back),
       automaticallyImplyLeading: true,
       actions: [
         IconButton(
-            icon: Icon(Icons.wb_sunny),
+            icon: const Icon(Icons.wb_sunny),
             tooltip: "search", //辅助显示
             onPressed: () {
               // 设置主题
@@ -161,8 +161,8 @@ class _MainPageState extends State<MainPage> {
               }
             }),
         Container(
-            margin: EdgeInsets.only(left: 0),
-            child: IconButton(icon: Icon(Icons.style), onPressed: _chaneTheme))
+            margin: const EdgeInsets.only(left: 0),
+            child: IconButton(icon: const Icon(Icons.style), onPressed: _chaneTheme))
       ],
     );
   }

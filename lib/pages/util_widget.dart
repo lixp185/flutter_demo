@@ -10,6 +10,8 @@ import '../widgets/util_page/num_demo.dart';
 
 /// 工具、其他组件
 class UtilWidget extends StatefulWidget {
+  const UtilWidget({super.key});
+
   @override
   _UtilWidgetState createState() => _UtilWidgetState();
 }

@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_demo/common/syntax_highlighter.dart';
 
 class CodePage extends StatefulWidget {
-  final demoFilePath;
+  final String demoFilePath;
 
-  CodePage(this.demoFilePath);
+  const CodePage(this.demoFilePath, {super.key});
 
   @override
   _CodePageState createState() => _CodePageState();
@@ -16,9 +16,13 @@ class _CodePageState extends State<CodePage> {
   var style = SyntaxHighlighterStyle.darkThemeStyle();
 
   @override
+  void initState() {
+    super.initState();
+  }
+  @override
   void didChangeDependencies() {
     getExampleCode(
-            context, '${widget.demoFilePath}', DefaultAssetBundle.of(context))
+            context, widget.demoFilePath, DefaultAssetBundle.of(context))
         .then<void>((String? code) {
       if (mounted) {
         setState(() {
@@ -89,7 +93,7 @@ Future<void> _parseExampleCode(
     code = await bundle.loadString(filePath);
   } catch (err) {
     Navigator.of(context).pop();
-    // print("xxx$err");
+    print("xxxerr$err");
   }
   _code = code;
   // print("xxx$_code");

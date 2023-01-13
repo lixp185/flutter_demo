@@ -52,7 +52,7 @@ class _ZongZiKePuState extends State<ZongZiKePu> with TickerProviderStateMixin {
       "一直要到晋朝,粽子才成为端午的应节食品。粽子应该算得上是中国历史上迄今为止文化积淀最深厚的传统食品了。";
 
   void _playAudio(File file) async {
-    var i = await audioPlayer.play(file.path, isLocal: true);
+    var i = await audioPlayer.play(DeviceFileSource(file.path,));
 
     // audioPlayer.getDuration().then((value) {
     //   print("时长：$value");
@@ -121,7 +121,7 @@ class _ZongZiKePuState extends State<ZongZiKePu> with TickerProviderStateMixin {
                   bottom: 40,
                   child: ElevatedButton(
                       onPressed: () {
-                        if (audioPlayer.state == PlayerState.PLAYING) {
+                        if (audioPlayer.state == PlayerState.playing) {
                           ToastUtil.show("正在播放中");
                           return;
                         }

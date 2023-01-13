@@ -5,6 +5,8 @@ import 'provider.dart';
 
 /// UI层
 class PNumPage extends StatelessWidget {
+  const PNumPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
