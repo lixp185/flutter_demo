@@ -12,7 +12,7 @@ class GesturesUnlock extends StatefulWidget {
 }
 
 class _GesturesUnlockState extends State<GesturesUnlock>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin<GesturesUnlock> {
   UnlockController _unlockController = UnlockController();
   List<PassWord> centerOffset = <PassWord>[];
   double size = 300;
@@ -32,6 +32,7 @@ class _GesturesUnlockState extends State<GesturesUnlock>
 
   @override
   void dispose() {
+    _animationController.removeListener(() {});
     _animationController.dispose();
     super.dispose();
   }
@@ -143,8 +144,9 @@ class _GesturesUnlockState extends State<GesturesUnlock>
   ///手指按下触发
   void judgeZone(Offset src) {
     /// 循环所有的点
+
+    var srcTranslate = src.translate(-size / 2, -size / 2);
     for (int i = 0; i < centerOffset.length; i++) {
-      var srcTranslate = src.translate(-size / 2, -size / 2);
       // 判断手指按的位置是否在点的区域
       if (judgeCircleArea(srcTranslate, centerOffset[i].offset, 30)) {
         // 有点 判断是否已添加过

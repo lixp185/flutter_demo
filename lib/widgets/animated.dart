@@ -251,7 +251,7 @@ class RotationTransitionLogo extends StatelessWidget {
   final Animation<double> animation;
   final Widget child;
 
-  RotationTransitionLogo({required this.animation, required this.child});
+  const RotationTransitionLogo({super.key, required this.animation, required this.child});
 
   @override
   Widget build(BuildContext context) {

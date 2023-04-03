@@ -121,7 +121,6 @@ class JoyStickPainter extends CustomPainter {
     var thta = ata + pi;
     print("angle ${(180 / pi * ata).toInt()}");
 
-
     // print("angle $thta");
     // print("angle $ata");
     /// 半径长度

@@ -32,7 +32,7 @@ class PolygonalDemo extends StatelessWidget {
                 isFill: true,
               ),
               Polygonal(
-                count: 7,
+                count: 6,
                 size: 80,
                 bigR: 20,
                 smallR: 10,
@@ -83,7 +83,7 @@ class PolygonalDemo extends StatelessWidget {
               isFill: true,
             ),
             Polygonal(
-              count: 7,
+              count: 6,
               size: 80,
               bigR: 20,
               smallR: 10,

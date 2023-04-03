@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'package:flutter/scheduler.dart';
+
 class NumDemo extends StatefulWidget {
   const NumDemo({Key? key}) : super(key: key);
 
@@ -10,32 +12,37 @@ class NumDemo extends StatefulWidget {
 
 class _NumDemoState extends State<NumDemo> {
   List<String> result = [];
+  late Ticker _ticker;
 
   @override
   void initState() {
     super.initState();
-    var a = -11;
-    var b = 3;
-
-    setState(() {
-      result.add((a % b).toString());
-      result.add((a ~/ b).toString());
-      result.add(1.2.round().toString());
-      result.add("${(3 / 2).floor().toString()}");
-      result.add("${asin(1)}");
-      result.add("${num.tryParse("123www")}");
+    _ticker = Ticker((elapsed) {
+      print('elapsed --- $elapsed');
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return Text(result[index]);
-        },
-        itemCount: result.length,
+    return GestureDetector(
+      onTap: () {
+        if (_ticker.isTicking) {
+          _ticker.stop();
+        } else {
+          _ticker.start();
+        }
+      },
+      child: Container(
+        width: 100,
+        height: 100,
+        color: Colors.blue,
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _ticker.dispose();
+    super.dispose();
   }
 }

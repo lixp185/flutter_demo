@@ -5,10 +5,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'example_widget.dart';
 import 'fucation_widget.dart';
 import 'home.dart';
-import '../widgets/list.dart';
 import 'util_widget.dart';
 
 class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -25,8 +26,10 @@ class _MainPageState extends State<MainPage> {
   //底部导航数据
   final _bottomNavigationList = [
     const BottomNavigationBarItem(icon: Icon(Icons.home), label: "基础组件"),
-    const BottomNavigationBarItem(icon: Icon(Icons.functions_rounded), label: "功能组件"),
-    const BottomNavigationBarItem(icon: Icon(Icons.view_comfortable_outlined), label: "示例demo"),
+    const BottomNavigationBarItem(
+        icon: Icon(Icons.functions_rounded), label: "功能组件"),
+    const BottomNavigationBarItem(
+        icon: Icon(Icons.view_comfortable_outlined), label: "示例demo"),
     const BottomNavigationBarItem(icon: Icon(Icons.build), label: "工具"),
   ];
 
@@ -162,9 +165,9 @@ class _MainPageState extends State<MainPage> {
             }),
         Container(
             margin: const EdgeInsets.only(left: 0),
-            child: IconButton(icon: const Icon(Icons.style), onPressed: _chaneTheme))
+            child: IconButton(
+                icon: const Icon(Icons.style), onPressed: _chaneTheme))
       ],
     );
   }
-
 }

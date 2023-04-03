@@ -7,7 +7,7 @@ import 'package:flutter_demo/utils/toast_util.dart';
 import '../coordinate.dart';
 
 // 翻页效果demo
-class FanBook extends StatefulWidget   {
+class FanBook extends StatefulWidget {
   const FanBook({Key? key}) : super(key: key);
 
   @override
@@ -15,11 +15,11 @@ class FanBook extends StatefulWidget   {
 }
 
 class _FanBookState extends State<FanBook> with TickerProviderStateMixin {
-  Size size = Size(300.0, 500.0);
+  Size size = const Size(300.0, 500.0);
 
-  Point<double> currentA = Point(0, 0);
-  late AnimationController _controller = AnimationController(
-      vsync: this, duration: Duration(milliseconds: 800))
+  Point<double> currentA = const Point(0, 0);
+  late final AnimationController _controller = AnimationController(
+      vsync: this, duration: const Duration(milliseconds: 800))
     ..addListener(() {
       if (isNext) {
         /// 翻页
@@ -47,7 +47,7 @@ class _FanBookState extends State<FanBook> with TickerProviderStateMixin {
       }
       if (status == AnimationStatus.dismissed) {
         //起点停止
-        print("起点停止");
+        // print("起点停止");
       }
     });
 
@@ -55,7 +55,7 @@ class _FanBookState extends State<FanBook> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     // build完毕初始化首页
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _p.value = PaperPoint(Point(size.width, size.height), size);
     });
   }
@@ -68,8 +68,8 @@ class _FanBookState extends State<FanBook> with TickerProviderStateMixin {
 
   bool isNext = true; // 是否翻页到下一页
   // 控制点类
-  ValueNotifier<PaperPoint> _p =
-      ValueNotifier(PaperPoint(Point(0, 0), Size(0, 0)));
+  final ValueNotifier<PaperPoint> _p =
+      ValueNotifier(PaperPoint(const Point(0, 0), const Size(0, 0)));
 
   // 定义数据
   List<String> dataList = [
@@ -93,7 +93,7 @@ class _FanBookState extends State<FanBook> with TickerProviderStateMixin {
             child: Stack(
               children: [
                 currentIndex == dataList.length - 1
-                    ? SizedBox()
+                    ? const SizedBox()
                     // 下一页
                     : ClipPath(
                         child: Container(
@@ -103,7 +103,7 @@ class _FanBookState extends State<FanBook> with TickerProviderStateMixin {
                           height: size.height,
                           child: Text(
                             dataList[currentIndex + 1],
-                            style: TextStyle(fontSize: 20),
+                            style: const TextStyle(fontSize: 20),
                           ),
                         ),
                       ),
@@ -116,7 +116,7 @@ class _FanBookState extends State<FanBook> with TickerProviderStateMixin {
                     color: Colors.blue,
                     child: Text(
                       dataList[currentIndex],
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ),
                   ),
                   clipper: CurrentPaperClipPath(_p),
@@ -182,7 +182,7 @@ class _FanBookState extends State<FanBook> with TickerProviderStateMixin {
                 from: 0,
               );
             },
-            child: Text("上一页"))
+            child: const Text("上一页"))
       ],
     );
   }
@@ -422,7 +422,6 @@ class _BookPainter extends CustomPainter {
                     [Colors.black26, Colors.transparent]));
 
           // canvas.drawLine(o1, o2, paint);
-
         }
       }
     } else {

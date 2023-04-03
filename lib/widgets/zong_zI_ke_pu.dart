@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:audioplayers/audioplayers.dart';
+// import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_demo/utils/toast_util.dart';
@@ -34,7 +34,7 @@ class _ZongZiKePuState extends State<ZongZiKePu> with TickerProviderStateMixin {
       parent: _controller2, curve: Curves.easeIn); // 动画运行的速度轨迹 速度的变化
 
   // 播放音频
-  AudioPlayer audioPlayer = AudioPlayer();
+  // AudioPlayer audioPlayer = AudioPlayer();
 
   late final ui.Image image;
   bool isOk = false;
@@ -52,7 +52,7 @@ class _ZongZiKePuState extends State<ZongZiKePu> with TickerProviderStateMixin {
       "一直要到晋朝,粽子才成为端午的应节食品。粽子应该算得上是中国历史上迄今为止文化积淀最深厚的传统食品了。";
 
   void _playAudio(File file) async {
-    var i = await audioPlayer.play(DeviceFileSource(file.path,));
+    // var i = await audioPlayer.play(DeviceFileSource(file.path,));
 
     // audioPlayer.getDuration().then((value) {
     //   print("时长：$value");
@@ -85,7 +85,7 @@ class _ZongZiKePuState extends State<ZongZiKePu> with TickerProviderStateMixin {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     _controller.dispose();
     _controller2.dispose();
-    audioPlayer..stop();
+    // audioPlayer..stop();
     super.dispose();
   }
 
@@ -121,10 +121,10 @@ class _ZongZiKePuState extends State<ZongZiKePu> with TickerProviderStateMixin {
                   bottom: 40,
                   child: ElevatedButton(
                       onPressed: () {
-                        if (audioPlayer.state == PlayerState.playing) {
-                          ToastUtil.show("正在播放中");
-                          return;
-                        }
+                        // if (audioPlayer.state == PlayerState.playing) {
+                          // ToastUtil.show("正在播放中");
+                          // return;
+                        // }
                         _getLocalFile().then((file) {
                           // 启动动画 正向执行
                           _controller.repeat(reverse: true);

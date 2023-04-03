@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 /// 数据共享
 class CountData extends InheritedWidget {
 
-  final Widget child;
+  final Widget c;
 
   final int data; // 共享数据
 
   const CountData({
     Key? key,
-    required this.child,
+    required this.c,
     required this.data,
-  }) : super(key: key, child: child);
+  }) : super(key: key, child: c);
 
   /// 定义一个静态方法 获取数据
   static CountData? of(BuildContext context) {

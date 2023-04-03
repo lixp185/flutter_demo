@@ -17,15 +17,18 @@ import 'package:flutter_demo/widgets/paint_demo.dart';
 import 'package:flutter_demo/widgets/polygonal_demo.dart';
 import 'package:flutter_demo/widgets/scroll_navigation.dart';
 import 'package:flutter_demo/widgets/tab_bar_demo.dart';
+import 'package:flutter_demo/widgets/xlf_logo.dart';
 import 'package:flutter_demo/widgets/zan.dart';
 import 'dart:ui' as ui;
 import 'package:image/image.dart' as image;
 
 import '../widgets/autocomplete_demo.dart';
+import '../widgets/bili_bar.dart';
 import '../widgets/canvas/fan_book.dart';
 import '../widgets/canvas/joystick.dart';
 import '../widgets/canvas/loading.dart';
 import '../widgets/clip_widget.dart';
+import '../widgets/gesture_detector_demo.dart';
 import '../widgets/logo.dart';
 import '../widgets/world.dart';
 
@@ -56,8 +59,21 @@ class _ExampleWidgetState extends State<ExampleWidget>
   void initState() {
     super.initState();
 
+    _list.add(_getWidget(HomeBean(
+        "XlfLogo",
+        "lib/widgets/xlf_logo.dart",
+        const XlfLogoLoading(
+          radius: 30,
+        ))));
+    _list.add(_getWidget(HomeBean(
+        "手势相关",
+        "lib/widgets/gesture_detector_demo.dart",
+        const GestureDetectorDemo2())));
     _list.add(_getWidget(
-        HomeBean("多边形多角星", "lib/widgets/hero_demo.dart", const PolygonalDemo())));
+        HomeBean("BiliBar", "lib/widgets/bili_bar.dart", const BiLiBar())));
+
+    _list.add(_getWidget(HomeBean(
+        "多边形多角星", "lib/widgets/hero_demo.dart", const PolygonalDemo())));
 
     _list.add(_getWidget(
         HomeBean("围棋棋盘", "lib/widgets/canvas_demo.dart", CanvasDemo())));
@@ -81,37 +97,37 @@ class _ExampleWidgetState extends State<ExampleWidget>
         HomeBean("Hero动画", "lib/widgets/hero_demo.dart", const HeroDemo())));
     _list.add(_getWidget(
         HomeBean("TabBar", "lib/widgets/hero_demo.dart", const TabBarDemo())));
-    _list.add(
-        _getWidget(HomeBean("水波纹", "lib/widgets/hero_demo.dart", const BwDemo())));
+    _list.add(_getWidget(
+        HomeBean("水波纹", "lib/widgets/hero_demo.dart", const BwDemo())));
     _list.add(_getWidget(
         HomeBean("牛顿摆", "lib/widgets/hero_demo.dart", const OvalLoading())));
-    _list.add(
-        _getWidget(HomeBean("心碎的感觉", "lib/widgets/hero_demo.dart", const XinSui())));
     _list.add(_getWidget(
-        HomeBean("手势解锁", "lib/widgets/hero_demo.dart", const GesturesUnlock())));
+        HomeBean("心碎的感觉", "lib/widgets/hero_demo.dart", const XinSui())));
+    _list.add(_getWidget(HomeBean(
+        "手势解锁", "lib/widgets/hero_demo.dart", const GesturesUnlock())));
     _list.add(_getWidget(HomeBean(
         "吃豆人loading", "lib/widgets/paint2_demo.dart", const Animated2Demo())));
-    _list.add(
-        _getWidget(HomeBean("点赞", "lib/widgets/paint2_demo.dart", const ZanDemo())));
-    _list.add(_getWidget(HomeBean(
-        "自定义导航条", "lib/widgets/scroll_navigation.dart", const ScrollNavigation())));
+    _list.add(_getWidget(
+        HomeBean("点赞", "lib/widgets/paint2_demo.dart", const ZanDemo())));
+    _list.add(_getWidget(HomeBean("自定义导航条",
+        "lib/widgets/scroll_navigation.dart", const ScrollNavigation())));
     // _list.add(_getWidget(
     //     HomeBean("HomeBean端午粽子", "lib/widgets/scroll_navigation.dart", ZongZiKePu())));
-    _list
-        .add(_getWidget(HomeBean("粒子运动", "lib/widgets/world.dart", const World())));
+    _list.add(
+        _getWidget(HomeBean("粒子运动", "lib/widgets/world.dart", const World())));
     _list.add(_getWidget(
         HomeBean("掘金logo", "lib/widgets/logo_demo.dart", const LogoDemo())));
-    _list.add(_getWidget(
-        HomeBean("loadingDemo", "lib/widgets/loading.dart", const LoadingDemo())));
-    _list.add(_getWidget(
-        HomeBean("联想词填充", "lib/widgets/loading.dart", const AutocompleteDemo())));
+    _list.add(_getWidget(HomeBean(
+        "loadingDemo", "lib/widgets/loading.dart", const LoadingDemo())));
+    _list.add(_getWidget(HomeBean(
+        "联想词填充", "lib/widgets/loading.dart", const AutocompleteDemo())));
 
     _list.add(_getWidget(
         HomeBean("移动demo", "lib/widgets/move_demo.dart", const JoyStick())));
     _list.add(_getWidget(
         HomeBean("裁剪", "lib/widgets/clip_widget.dart", const ClipWidget())));
-    _list.add(
-        _getWidget(HomeBean("翻书demo", "lib/widgets/fan_book.dart", const FanBook())));
+    _list.add(_getWidget(
+        HomeBean("翻书demo", "lib/widgets/fan_book.dart", const FanBook())));
     var touchController = TouchController();
     loadImageInAssets('images/img_2.png')?.then((value) {
       setState(() {
@@ -205,3 +221,5 @@ class _ExampleWidgetState extends State<ExampleWidget>
             }));
   }
 }
+
+

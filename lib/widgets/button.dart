@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ButtonWidgetDemo extends StatefulWidget {
+  const ButtonWidgetDemo({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _ButtonState();
@@ -8,7 +10,7 @@ class ButtonWidgetDemo extends StatefulWidget {
 }
 
 class _ButtonState extends State<ButtonWidgetDemo> {
-  var isZan;
+  bool isZan = false;
 
   @override
   void initState() {
@@ -19,35 +21,38 @@ class _ButtonState extends State<ButtonWidgetDemo> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       child: Column(
         children: [
-          Text("3个button 属性用法完全一致（ButtonStyle）"),
+          const Text("3个button 属性用法完全一致（ButtonStyle）"),
           TextButton(
             onPressed: () {},
-            child: Text("TextButton"),
+            child: const Text("TextButton"),
             style: ButtonStyle(
                 padding: MaterialStateProperty.all(
-                    EdgeInsets.only(top: 0, bottom: 0, left: 0, right: 0)),
-                minimumSize: MaterialStateProperty.all(Size(0, 0)) // 按钮本身最小尺寸
+                    const EdgeInsets.only(top: 0, bottom: 0, left: 0, right: 0)),
+                minimumSize: MaterialStateProperty.all(const Size(0, 0)) // 按钮本身最小尺寸
                 ),
           ),
-          OutlinedButton(onPressed: () {}, child: Text("OutlinedButton")),
+          OutlinedButton(onPressed: () {}, child: const Text("OutlinedButton")),
           ElevatedButton(
-              onPressed: () {},
-              child: Text(
+              onPressed: () {
+                setState(() {
+                });
+              },
+              child: const Text(
                 "ElevatedButton",
               )),
           ElevatedButton(
               style: ButtonStyle(
                   padding: MaterialStateProperty.all(
-                      EdgeInsets.only(top: 0, bottom: 0, left: 0, right: 0)),
-                  minimumSize: MaterialStateProperty.all(Size(0, 0)) // 按钮本身最小尺寸
+                      const EdgeInsets.only(top: 0, bottom: 0, left: 0, right: 0)),
+                  minimumSize: MaterialStateProperty.all(const Size(0, 0)) // 按钮本身最小尺寸
                   ),
               onPressed: () {
 
               },
-              child: Text(
+              child: const Text(
                 "ElevatedButton去边距",
                 style: TextStyle(
                   fontSize: 20,
@@ -57,21 +62,21 @@ class _ButtonState extends State<ButtonWidgetDemo> {
               style: ButtonStyle(
                   foregroundColor: MaterialStateProperty.all(Colors.white),
                   backgroundColor: MaterialStateProperty.all(Colors.blue),
-                  shape: MaterialStateProperty.all(ContinuousRectangleBorder(
+                  shape: MaterialStateProperty.all(const ContinuousRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)))),
                   elevation: MaterialStateProperty.all(1)),
               onPressed: () {},
-              child: Text(
+              child: const Text(
                 "ElevatedButton去圆角",
               )),
           ElevatedButton(
               style: ButtonStyle(
                   foregroundColor: MaterialStateProperty.all(Colors.white),
                   backgroundColor: MaterialStateProperty.all(Colors.blue),
-                  shape: MaterialStateProperty.all(StadiumBorder()),
+                  shape: MaterialStateProperty.all(const StadiumBorder()),
                   elevation: MaterialStateProperty.all(1)),
               onPressed: () {},
-              child: Text(
+              child: const Text(
                 "椭圆按钮",
               )),
           ElevatedButton(
@@ -80,15 +85,15 @@ class _ButtonState extends State<ButtonWidgetDemo> {
                 overlayColor: MaterialStateProperty.all(Colors.white10), //点击效果
               ),
               onPressed: () {},
-              child: Text(
+              child: const Text(
                 "ElevatedButton阴影",
               )),
           ElevatedButton(
-            style: ButtonStyle(),
+            style: const ButtonStyle(),
             onPressed: () {},
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              children: [
+              children: const [
                 Icon(Icons.info),
                 Text(
                   "带图标button",
@@ -109,7 +114,8 @@ class _ButtonState extends State<ButtonWidgetDemo> {
                     isZan = true;
                   }
                 });
-              })
+              }),
+
         ],
       ),
     );

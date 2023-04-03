@@ -15,28 +15,26 @@ class _NotificationDemoState extends State<NotificationDemo> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: NotificationListener<MyNotificationData>(
-          onNotification: (res) {
-            print("res:$res");
-            setState(() {
-              num = res.data;
-            });
-            return true;
-          },
-          child: Stack(
-            children: [
-              Center(
-                child: Text("接受到数据$num"),
-              ),
-              Positioned(
-                child: BtWidget(),
-                bottom: 20,
-                right: 20,
-              )
-            ],
-          )),
-    );
+    return NotificationListener<MyNotificationData>(
+        onNotification: (res) {
+          setState(() {
+            num = res.data;
+          });
+          // true 不想上传递 false 向上传递
+          return true;
+        },
+        child: Stack(
+          children: [
+            Center(
+              child: Text("接受到数据$num"),
+            ),
+            const Positioned(
+              child: BtWidget(),
+              bottom: 20,
+              right: 20,
+            )
+          ],
+        ));
   }
 }
 
@@ -55,6 +53,8 @@ class BtWidget extends StatefulWidget {
 
 class _BtWidgetState extends State<BtWidget> {
   int num = 0;
+
+
 
   @override
   Widget build(BuildContext context) {

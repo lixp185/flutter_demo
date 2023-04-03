@@ -9,10 +9,14 @@ class PNumPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (BuildContext context) => PNumProvider(),
-      builder: (context, child) => _buildPage(context),
-    );
+    // return ChangeNotifierProvider(
+    //   create: (BuildContext context) => PNumProvider(),
+    //   builder: (context, child) => _buildPage(context),
+    // );
+
+    return ChangeNotifierProvider(create: (context)=>PNumProvider(),builder: (context,child){
+      return _buildPage(context);
+    },);
   }
 
   Widget _buildPage(BuildContext context) {
@@ -20,6 +24,9 @@ class PNumPage extends StatelessWidget {
     // final state = providerer.state;
     return Stack(
       children: [
+        // Consumer<PNumProvider>(builder: (c,p,child){
+        //   return const Text("p.state.num");
+        // }),
         Consumer<PNumProvider>(
           builder: (context, provider, child) {
             return Center(child: Text("点击了${provider.state.num}次"));

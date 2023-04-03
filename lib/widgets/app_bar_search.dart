@@ -196,7 +196,7 @@ class _AppBarSearchState extends State<AppBarSearch> {
                 //装饰
                 decoration: InputDecoration(
                   prefixIcon: Container(
-                    padding: EdgeInsetsDirectional.only(start: 5, end: 5),
+                    padding: EdgeInsetsDirectional.only(start: 5, end: 5,),
                     child: Icon(
                       Icons.search_rounded,
                       size: 16,
@@ -224,7 +224,7 @@ class _AppBarSearchState extends State<AppBarSearch> {
                   // isDense: true,
                   isCollapsed: true,
                   contentPadding: EdgeInsetsDirectional.only(
-                      end: 15, ),
+                      end: 15, top: 10,bottom: 10),
 
                   hintText: widget.hintText ?? '请输入关键字',
                   hintStyle:

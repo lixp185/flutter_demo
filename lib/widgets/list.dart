@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class ListViewWidgetDemo extends StatefulWidget {
+  const ListViewWidgetDemo({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return ListViewState();
@@ -12,11 +14,11 @@ class ListViewWidgetDemo extends StatefulWidget {
 class ListViewState extends State<ListViewWidgetDemo> {
   List<NewsListBean> lis = <NewsListBean>[];
 
-  late ScrollController _scrollController = ScrollController();
+  late final ScrollController _scrollController = ScrollController();
   String imageUrl =
       "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60";
 
-  GlobalKey _globalKey = GlobalKey();
+  final GlobalKey _globalKey = GlobalKey();
 
   double angle = 0;
   double bannerHeight = 200;
@@ -72,6 +74,10 @@ class ListViewState extends State<ListViewWidgetDemo> {
 
   @override
   Widget build(BuildContext context) {
+
+    ListView.custom(childrenDelegate: SliverChildBuilderDelegate((context, index) {
+      return Text('data');
+    },childCount: 10));
     return ListView.separated(
         controller: _scrollController,
         shrinkWrap: true,
@@ -85,7 +91,6 @@ class ListViewState extends State<ListViewWidgetDemo> {
 
           return _listWidget(lis[index]);
         });
-
 
 
   }
@@ -132,7 +137,7 @@ class ListViewState extends State<ListViewWidgetDemo> {
             child: Transform(
               alignment: Alignment.center, //相对于坐标系原点的对齐方式
               transform: Matrix4.identity()
-                ..setEntry(3, 2, 0.002)
+                ..setEntry(3, 2, 0.001)
                 ..rotateX(0)
                 // ..rotateZ(pi / 2)
                 ..rotateY(angle),

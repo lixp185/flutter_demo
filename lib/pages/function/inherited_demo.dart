@@ -23,8 +23,7 @@ class _InheritedWidgetDemoState extends State<InheritedWidgetDemo>
   @override
   Widget build(BuildContext context) {
     return CountData(
-
-        child: Column(
+        c: Column(
           children: [
             TabBar(
               isScrollable: true,
@@ -63,7 +62,6 @@ class _InheritedWidgetDemoState extends State<InheritedWidgetDemo>
                 child: const Icon(Icons.add))
           ],
         ),
-
         data: data);
   }
 }

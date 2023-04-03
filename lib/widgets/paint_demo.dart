@@ -17,8 +17,8 @@ class PaintDemo extends StatefulWidget {
 }
 
 class _PaintDemoState extends State<PaintDemo> {
-  ValueNotifier<Offset> _offsetCenter = ValueNotifier(Offset.zero);
-  ValueNotifier<Offset> _offset = ValueNotifier(Offset.zero);
+  final ValueNotifier<Offset> _offsetCenter = ValueNotifier(Offset.zero);
+  final ValueNotifier<Offset> _offset = ValueNotifier(Offset.zero);
 
   late Size size;
   late double bgR = 40; // 底圆半径
@@ -141,7 +141,7 @@ class PaperPainter extends CustomPainter {
     // _drawDot(canvas, size);
     // _drawCir(canvas, size);
     // drawLine(canvas, size);
-    _drawPoint(canvas, size);
+    // _drawPoint(canvas, size);
     /// 绘制矩形
     // _drawRect(canvas, size);
     // _drawDRRect(canvas, size);
@@ -314,7 +314,7 @@ class PaperPainter extends CustomPainter {
   }
 
   void _drawPoint(Canvas canvas, Size size) {
-    final List<Offset> points = [
+    final List<Offset> points =  [
       Offset(-120, -20),
       Offset(-80, -80),
       Offset(-40, -40),
@@ -1129,30 +1129,34 @@ class PaperPainter extends CustomPainter {
   }
 
   void _drawLt(Canvas canvas, Size size) {
+
+
+
+    Paint p1 = Paint()..style = PaintingStyle.stroke..strokeWidth = 1;
+    Paint p2 = Paint()..style = PaintingStyle.fill..color = Colors.white;
+    Paint p3 = Paint()..style = PaintingStyle.fill..color = Colors.black;
+    Paint p4 = Paint()..style = PaintingStyle.fill..color = Colors.white;
+    Paint p5 = Paint()..style = PaintingStyle.fill..color = Colors.black;
+
     Path path = Path();
+    path.addOval(Rect.fromCenter(center: Offset.zero, width: 200, height: 200));
+    // canvas.drawPath(path, p1);
 
-    path.lineTo(-40, 120);
-    path.moveTo(0, 0);
-    path.lineTo(40, 120);
 
-    path.quadraticBezierTo(0, 140, -40, 120);
+    Path path4 = Path();
+    path4.addRect(Rect.fromCenter(center: Offset(50,0), width: 100, height: 200));
 
-    canvas.rotate(pi);
+    Path path5 = Path();
+    path5.addRect(Rect.fromCenter(center: Offset(-50,0), width: 100, height: 200));
+    canvas.drawPath(Path.combine(PathOperation.intersect, path, path4), p4);
+    canvas.drawPath(Path.combine(PathOperation.intersect, path, path5), p5);
+    Path path2 = Path();
+    path2.addOval(Rect.fromCenter(center: Offset(0,50), width: 100, height: 100));
+    canvas.drawPath(path2, p2);
+    Path path3 = Path();
+    path3.addOval(Rect.fromCenter(center: Offset(0,-50), width: 100, height: 100));
+    canvas.drawPath(path3, p3);
 
-    canvas.drawPath(
-        path,
-        _paint
-          ..style = PaintingStyle.fill
-          ..color = Colors.black
-          ..shader = ui.Gradient.radial(
-              Offset(-40, 120), 140, [Colors.white, Colors.black87]));
-
-    // canvas.drawArc(
-    //     Rect.fromCenter(center: Offset(0, 60), width: 80, height: 120),
-    //     0,
-    //     pi,
-    //     false,
-    //     _paint);
   }
 }
 

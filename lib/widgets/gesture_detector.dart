@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class GestureDetectorDemo extends StatefulWidget {
+  const GestureDetectorDemo({super.key});
+
   @override
   _GestureDetectorDemoState createState() => _GestureDetectorDemoState();
 }

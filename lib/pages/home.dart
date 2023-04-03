@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/models/home_bean.dart';
 import 'package:flutter_demo/utils/sliver_to_widget.dart';
-import 'package:flutter_demo/widgets/autocomplete_demo.dart';
-import 'package:flutter_demo/widgets/canvas/loading.dart';
-import 'package:flutter_demo/widgets/world.dart';
+import 'package:flutter_demo/widgets/my_custom_single_child_layout.dart';
+import 'package:flutter_demo/widgets/nested_scrollview_demo.dart';
 import 'package:flutter_demo/widgets/table_demo.dart';
 
+import '../widgets/overflow_demo.dart';
+import '../widgets/PageViewDemo.dart';
 import '../widgets/align.dart';
 import '../widgets/animated.dart';
 import '../widgets/baseful_widget.dart';
 import '../widgets/button.dart';
-import '../widgets/canvas/fan_book.dart';
-import '../widgets/canvas/joystick.dart';
 import '../widgets/check.dart';
-import '../widgets/clip_widget.dart';
 import '../widgets/container.dart';
 import '../widgets/decorated_box.dart';
 import '../widgets/dialog.dart';
@@ -22,7 +20,7 @@ import '../widgets/gesture_detector.dart';
 import '../widgets/icon.dart';
 import '../widgets/list.dart';
 import '../widgets/listener.dart';
-import '../widgets/logo.dart';
+import '../widgets/menu.dart';
 import '../widgets/padding.dart';
 import '../widgets/progress.dart';
 import '../widgets/size_box.dart';
@@ -55,14 +53,16 @@ class _HomeWidgetState extends State<HomeWidget >
 
   @override
   void initState() {
-
-
+    homeList.add(_getWidget(
+        HomeBean("菜单系列组件", "lib/widgets/menu.dart", const MenuDemo())));
+    homeList.add(_getWidget(
+        HomeBean("自定义布局", "lib/widgets/my_custom_single_child_layout.dart", const MyCustomSingleChildLayout())));
     homeList.add(_getWidget(
         HomeBean("主题(状态)", "lib/widgets/theme.dart", const ThemeWidgetDemo())));
     homeList.add(_getWidget(
         HomeBean("文本(Text)", "lib/widgets/text.dart", TextWidgetDemo())));
     homeList.add(_getWidget(
-        HomeBean("按钮(Button)", "lib/widgets/button.dart", ButtonWidgetDemo())));
+        HomeBean("按钮(Button)", "lib/widgets/button.dart", const ButtonWidgetDemo())));
     homeList.add(_getWidget(
         HomeBean("布局demo", "lib/widgets/hero_demo.dart", const FlexDemo())));
     homeList.add(_getWidget(
@@ -70,13 +70,17 @@ class _HomeWidgetState extends State<HomeWidget >
     homeList.add(_getWidget(HomeBean(
         "单选复选框(CheckBox)", "lib/widgets/check.dart", CheckBoxWidgetDemo())));
     homeList.add(_getWidget(HomeBean("输入框表单(TextField)",
-        "lib/widgets/text_field.dart", TextFieldWidgetDemo())));
+        "lib/widgets/text_field.dart", const TextFieldWidgetDemo())));
     homeList.add(_getWidget(HomeBean(
         "进度条(progress)", "lib/widgets/progress.dart", const ProgressWidgetDemo())));
     homeList.add(_getWidget(
         HomeBean("弹窗(dialog)", "lib/widgets/dialog.dart", DialogWidgetDemo())));
     homeList.add(_getWidget(HomeBean(
         "列表(ListView)", "lib/widgets/list.dart", ListViewWidgetDemo())));
+    homeList.add(_getWidget(HomeBean(
+        "列表(NestedScrollView)", "lib/widgets/nested_scrollview_demo.dart", const NestedScrollViewDemo())));
+    homeList.add(_getWidget(HomeBean(
+        "pageView(PageView)", "lib/widgets/page_view_demo.dart", const PageViewDemo())));
     homeList.add(_getWidget(
         HomeBean("表格组件demo", "lib/widgets/table_demo.dart", const TableDemo())));
     homeList.add(_getWidget(
@@ -85,6 +89,8 @@ class _HomeWidgetState extends State<HomeWidget >
         HomeBean("帧布局(Stack)", "lib/widgets/stack.dart", const StackWidgetDemo())));
     homeList.add(_getWidget(
         HomeBean("相对位置控制(Align)", "lib/widgets/align.dart", AlignDemo())));
+    homeList.add(_getWidget(
+        HomeBean("溢出(Overflow)", "lib/widgets/overflow_demo.dart", const OverflowDemo())));
     homeList.add(_getWidget(
         HomeBean("边距控制(Padding)", "lib/widgets/padding.dart", PaddingDemo())));
     homeList.add(_getWidget(

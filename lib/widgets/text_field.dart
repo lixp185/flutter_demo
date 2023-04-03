@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-
 class TextFieldWidgetDemo extends StatefulWidget {
+  const TextFieldWidgetDemo({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _TextFieldState();
@@ -9,8 +10,7 @@ class TextFieldWidgetDemo extends StatefulWidget {
 }
 
 class _TextFieldState extends State<TextFieldWidgetDemo> {
-  GlobalKey _formKey = new GlobalKey<FormState>();
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
@@ -29,12 +29,23 @@ class _TextFieldState extends State<TextFieldWidgetDemo> {
     });
   }
 
+  /// Returns true if the given String is a valid email address.
+  bool isValidEmail(String text) {
+    return RegExp(
+      r'(?<name>[a-zA-Z0-9]+)'
+      r'@'
+      r'(?<domain>[a-zA-Z0-9]+)'
+      r'.'
+      r'(?<topLevelDomain>[a-zA-Z0-9]+)',
+    ).hasMatch(text);
+  }
+
+
   @override
   Widget build(BuildContext context) {
-
     return SingleChildScrollView(
       child: Container(
-        margin: EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -45,26 +56,38 @@ class _TextFieldState extends State<TextFieldWidgetDemo> {
               onChanged: (text) {
                 print("onChanged:$text");
               },
+              contextMenuBuilder: (c, s) {
+                final TextEditingValue value = s.textEditingValue;
+                final List<ContextMenuButtonItem> buttonItems =
+                    s.contextMenuButtonItems;
+                String textInside = value.selection.textInside(value.text);
+                if (isValidEmail(textInside)) {
+                  buttonItems.add(ContextMenuButtonItem(
+                      onPressed: () {}, label: 'send email'));
+                }
+
+                return AdaptiveTextSelectionToolbar.buttonItems(
+                    buttonItems: buttonItems, anchors: s.contextMenuAnchors);
+              },
               decoration: InputDecoration(
                   labelText: "关键字",
                   hintText: "请输入内容",
                   suffixIcon: InkWell(
-                    child: Icon(Icons.close),
+                    child: const Icon(Icons.close),
                     onTap: () {
                       _controller.clear();
                     },
                   ),
                   // icon: Icon(Icons.add),
-                  hintStyle: TextStyle(color: Colors.grey)),
+                  hintStyle: const TextStyle(color: Colors.grey)),
             ),
-            ElevatedButton(onPressed: () {}, child: Text("搜索")),
+            ElevatedButton(onPressed: () {}, child: const Text("搜索")),
+
           ],
         ),
       ),
     );
   }
-
-
 }
 
 ///const TextField({

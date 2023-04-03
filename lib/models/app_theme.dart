@@ -114,48 +114,23 @@ class AppTheme extends ChangeNotifier {
         splashColor: Colors.transparent,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         highlightColor: Colors.transparent,
+        useMaterial3: false,
+        // colorSchemeSeed: _mThemeColor2,
         //去除点击tabbar的过度效果
         brightness: isDark ? Brightness.dark : Brightness.light,
         //亮度，明亮模式
-        primarySwatch: isDark ? Colors.blueGrey : _mThemeColor2,
-        buttonColor: isDark ? Colors.blueGrey : _mThemeColor2,
+        colorSchemeSeed: isDark ? Colors.blueGrey : _mThemeColor2,
+
         // primaryColor: Colors.red,
         //主要决定导航和底部bottombar颜色
         // accentColor: Colors.blue,
         //button和switch等颜色
         textTheme: TextTheme(
-          bodyText1: TextStyle(
-              fontSize: normalFontSize,
-              color: isDark
-                  ? darkThemeTextColor
-                  : lightThemeTextColor), // material默认
 
-//        可以通过Theme.of(context).textTheme.bodyText2获取
-//        bodyText2:
-//        headline1:
-//        headline2:
         ),
-        // elevatedButtonTheme: ElevatedButtonThemeData(
-        //     style: ButtonStyle(
-        //         backgroundColor: MaterialStateProperty.all(Colors.red),
-        //         foregroundColor: MaterialStateProperty.all(Colors.white))),
+    
         cardTheme: CardTheme(color: cardColorLight, elevation: 20));
   }
 
-  static ThemeData getDarkTheme() {
-    return ThemeData(
-        splashColor: Colors.transparent,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        highlightColor: Colors.transparent,
-        //去除点击tabbar的过度效果
-        brightness: Brightness.dark,
-        //亮度，暗黑模式（）
-        primarySwatch: Colors.blueGrey,
-        // primaryColor: Colors.blueGrey,//主要决定导航和底部bottombar颜色
-        // accentColor: Colors.blue,//button和switch等颜色
-        textTheme: TextTheme(
-            bodyText1:
-                TextStyle(fontSize: normalFontSize, color: darkThemeTextColor)),
-        cardTheme: CardTheme(color: cardColorDark, elevation: 20));
-  }
+
 }
